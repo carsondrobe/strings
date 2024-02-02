@@ -1,3 +1,1 @@
 # Strings
-
-test 2
