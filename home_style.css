@@ -15,3 +15,7 @@ h1 {
     margin-bottom: .5em;
     margin-top: -.2em;
 }
+
+.dropdown #filter-dropdown {
+    margin-bottom: 1em;
+}
