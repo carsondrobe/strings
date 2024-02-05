@@ -1,0 +1,35 @@
+#nav-bar-search {
+    width: 380px !important;
+}
+
+nav {
+    margin-bottom: 1.5em;
+}
+
+.dropdown #filter-dropdown {
+    margin-bottom: 1em;
+}
+
+.register_container {
+    display: flex;
+    justify-content: center;
+    margin: 3em 0em;
+    padding: 3em;
+    background-color: #d7f3f3;
+}
+
+.register_container .register_legend {
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+form .register_container div {
+    margin: 1em 2em;
+}
+
+form .register_container .form-group .btn {
+    margin-top: 0.5em;
+}
+
