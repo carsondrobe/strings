@@ -1,0 +1,35 @@
+#nav-bar-search {
+    width: 380px !important;
+}
+
+nav {
+    margin-bottom: 1.5em;
+}
+
+.dropdown #filter-dropdown {
+    margin-bottom: 1em;
+}
+
+.login_container {
+    display: flex;
+    justify-content: center;
+    margin: 3em 0em;
+    padding: 3em;
+    background-color: #d7f3f3;
+}
+
+.login_container .login_legend {
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+form .login_container div {
+    margin: 1em 2em;
+}
+
+form .login_container .form-group .btn {
+    margin-bottom: 2em;
+}
+
