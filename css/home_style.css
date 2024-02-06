@@ -11,3 +11,7 @@ h1 {
 .dropdown #filter-dropdown {
     margin-bottom: 1em;
 }
+
+body {
+    padding-top: 75px;
+}
