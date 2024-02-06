@@ -10,6 +10,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
 
 </head>
 
@@ -134,13 +135,16 @@
             const randomCount = Math.floor(Math.random() * 101);
             return `
                 <div class="row justify-content-center">
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">${post.title}</h4>
-                                <p class="card-text">${post.content}</p>
                                 <p class="card-text"><strong>Posted by:✏️</strong> ${post.author} | <strong>Published on:</strong> ${post.date}</p>
-                                <a href="#" class="btn btn-outline-secondary">Read More</a>
+                                <h4 class="card-title">${post.title}</h4>
+                                <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
+                                <p class="card-text">${post.content}</p>
+                                
+                                
+                                <a href="view_post.html" class="btn btn-outline-secondary">Read More</a>
                                 <div class="d-flex justify-content-end mt-3">
                                     <button type="button" class="btn btn-outline-success me-2">+ (${randomCount})</button>
                                 <button type="button" class="btn btn-outline-danger">-</button>
