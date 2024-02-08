@@ -59,7 +59,7 @@
                 </ul>
 
                 <!-- Search Bar -->
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
                     <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍"
                         aria-label="Search" id="nav-bar-search">
                 </form>
@@ -159,23 +159,6 @@
         </div>
     </div>
 
-
-
-    <div class="container">
-        <div class="row justify-content-start">
-            <p>
-                Find Posts:
-            </p>
-            <div class="col-4">
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search for Posts by Title"
-                        aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
 
 
@@ -359,6 +342,17 @@
         function backToTop() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <!-- When a post is searched for -->
+    <script>
+        function goToSearchResults() {
+            var searchTerm = document.getElementById('nav-bar-search').value;
+            if (searchTerm.trim() !== '') {
+                window.location.href = 'search_results.html?query=' + encodeURIComponent(searchTerm);
+            }
+            return false; // Prevents the form from submitting in the traditional way
         }
     </script>
 

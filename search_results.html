@@ -58,7 +58,7 @@
                 </ul>
 
                 <!-- Search Bar -->
-                <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
+                <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍"
                         aria-label="Search" id="nav-bar-search">
                 </form>
@@ -123,7 +123,7 @@
         </div>
     </nav>
 
-    <h1>Welcome to Strings</h1>
+    <h1>Results for "Search Query"</h1>
 
     <!-- Filter Button -->
     <div class="container">
@@ -303,18 +303,6 @@
         function backToTop() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
-        }
-    </script>
-
-
-    <!-- When a post is searched for -->
-    <script>
-        function goToSearchResults() {
-            var searchTerm = document.getElementById('nav-bar-search').value;
-            if (searchTerm.trim() !== '') {
-                window.location.href = 'search_results.html?query=' + encodeURIComponent(searchTerm);
-            }
-            return false; // Prevents the form from submitting in the traditional way
         }
     </script>
 
