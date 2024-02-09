@@ -39,3 +39,14 @@ body {
     color: #000;
     /* Set the color for the link */
 }
+
+.card {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 1px 1px 5px grey;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: translateY(-3px) translateX(3px);
+    box-shadow: 1px 1px 15px black;
+}
