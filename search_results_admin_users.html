@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strings Admin Home</title>
+    <title>Strings Admin Search</title>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
-
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="css/create_post.css">
@@ -21,7 +20,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand" href="#">strings admin</a>
+            <a class="navbar-brand" href="home_admin.html">strings admin</a>
             <!-- Create a Post Button -->
             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal"
                 data-bs-target="#createPostModal">Create Post ✏️ </a>
@@ -59,7 +58,7 @@
                 </ul>
 
                 <!-- Search Bar -->
-                <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
+                <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍"
                         aria-label="Search" id="nav-bar-search">
                 </form>
@@ -124,149 +123,39 @@
         </div>
     </nav>
 
-    <h1>Welcome to Strings for Admin</h1>
+    <h1>Results for "Search Query"</h1>
 
-
-    <!-- Search Users -->
-    <div class="container">
-        <div class="row justify-content-start">
-            <p>
-                Find Users:
-            </p>
-            <div class="col-4">
-                <div class="input-group" style="margin-bottom: 1em;">
-                    <input type="search" class="form-control rounded" placeholder="Search for Username"
-                        aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
-                </div>
-            </div>
-
-            <!-- User List with Delete Button -->
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ✏️ User 1
-                    <button type="button" class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ✏️ User 2
-                    <button type="button" class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ✏️ User 3
-                    <button type="button" class="btn btn-danger" onclick="deleteUser(3)">Delete</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-
-
-    <!-- Filter Button -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
-                <div class="dropdown" id="filter-dropdown">
-                    <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button"
-                        data-bs-toggle="dropdown">
-                        Filter<i class="bi bi-filter"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Trending</a></li>
-                        <li><a class="dropdown-item" href="#">Recent</a></li>
-                        <li><a class="dropdown-item" href="#">Highest Voted</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Post Feed -->
-    <div class="container" id="postContainer">
-        <!-- Posts will be dynamically generated here -->
-    </div>
-
-    <!-- Post Generation Script -->
-    <script>
-
-        const posts = [
-            {
-                title: "Exciting News in Tech World",
-                content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                author: "TechEnthusiast",
-                date: "February 5, 2024"
-            },
-            {
-                title: "New Breakthrough in Medicine",
-                content: "A groundbreaking discovery in the medical field promises to revolutionize the way we approach healthcare. Researchers have found a new treatment method that shows promising results in early trials.",
-                author: "MedicalInnovator",
-                date: "February 10, 2024"
-            },
-            {
-                title: "Space Exploration Milestone",
-                content: "In a historic achievement, astronauts have successfully landed on Mars, marking a significant milestone in human space exploration. The mission aims to uncover the mysteries of the Red Planet and pave the way for future interplanetary travel.",
-                author: "SpaceExplorer",
-                date: "February 15, 2024"
-            },
-            {
-                title: "Environmental Conservation Initiative",
-                content: "A new global initiative is underway to address climate change and promote environmental conservation. World leaders have come together to implement policies aimed at reducing carbon emissions and preserving biodiversity.",
-                author: "GreenActivist",
-                date: "February 20, 2024"
-            },
-            {
-                title: "Artificial Intelligence Advancements",
-                content: "Recent advancements in artificial intelligence have led to the development of highly sophisticated algorithms capable of solving complex problems. Experts predict that AI will play a crucial role in shaping the future of various industries.",
-                author: "AIEnthusiast",
-                date: "February 25, 2024"
-            },
-            // Add more post objects as needed
-        ];
-
-
-        // Function to generate HTML for a post
-        function generatePostHTML(post) {
-            const randomCount = Math.floor(Math.random() * 101);
-            return `
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text"><strong>Posted by:✏️</strong> ${post.author} | <strong>Published on:</strong> ${post.date}</p>
-                        <a href="view_post_admin.html" class="post-link"> <!-- Anchor tag for the entire post -->
-                            <h4 class="card-title">${post.title}</h4>
-                            <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
-                            <p class="card-text">${post.content}</p>
-                        </a>
-
-                        
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="btn btn-outline-success me-2">+ (${randomCount})</button>
-                            <button type="button" class="btn btn-outline-danger">-</button>
-                        </div>
-                        <button type="button" class="btn btn-outline-danger" onclick="deletePost('${post.title}')">Delete</button>
+        <!-- Search Users -->
+        <div class="container">
+            <div class="row justify-content-start">
+                <p>
+                    Find Users:
+                </p>
+                <div class="col-4">
+                    <div class="input-group" style="margin-bottom: 1em;">
+                        <input type="search" class="form-control rounded" placeholder="Search for Username"
+                            aria-label="Search" aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
                     </div>
                 </div>
+    
+                <!-- User List with Delete Button -->
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ✏️ User 1
+                        <button type="button" class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ✏️ User 2
+                        <button type="button" class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ✏️ User 3
+                        <button type="button" class="btn btn-danger" onclick="deleteUser(3)">Delete</button>
+                    </li>
+                </ul>
             </div>
         </div>
-    `;
-        }
-
-
-        // Function to append posts to the post container
-        function appendPosts() {
-            const postContainer = document.getElementById('postContainer');
-            posts.forEach(post => {
-                const postHTML = generatePostHTML(post);
-                postContainer.innerHTML += postHTML;
-            });
-        }
-
-        // Call the function to append posts when the page loads
-        window.addEventListener('load', appendPosts);
-    </script>
-
-
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -342,17 +231,6 @@
         function backToTop() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
-        }
-    </script>
-
-    <!-- When a post is searched for -->
-    <script>
-        function goToSearchResults() {
-            var searchTerm = document.getElementById('nav-bar-search').value;
-            if (searchTerm.trim() !== '') {
-                window.location.href = 'search_results.html?query=' + encodeURIComponent(searchTerm);
-            }
-            return false; // Prevents the form from submitting in the traditional way
         }
     </script>
 
