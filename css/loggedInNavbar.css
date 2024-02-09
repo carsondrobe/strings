@@ -1,0 +1,19 @@
+#nav-bar-search {
+    width: 380px !important;
+}
+
+nav {
+    margin-bottom: 1.5em;
+
+}
+#nav-profileimg{
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    object-fit: cover;
+    
+}
