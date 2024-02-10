@@ -126,7 +126,33 @@
         <div class="row justify-content-center">
             <!-- Profile Picture Column -->
             <div class="col-md-4">
-                <img src="img/admin-profile.jpeg" class="img-fluid rounded-circle" alt="Profile Picture">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
+                    <img src="img/admin-profile.jpeg" class="img-fluid rounded-circle" alt="Profile Picture">
+                </button>
+            </div>
+
+            <!-- Change profile pic -->
+            <div class="modal fade" id="uploadProfilePicModal" tabindex="-1" aria-labelledby="uploadProfilePicModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadProfilePicModalLabel">Upload New Profile Picture</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="profilePicInput" class="form-label">Select image</label>
+                                    <input class="form-control" type="file" id="profilePicInput" accept="image/*">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+                </div>
             </div>
     
             <!-- Account Information Form Column -->
