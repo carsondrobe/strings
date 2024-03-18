@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strings Home</title>
     <!-- BOOTSTRAP -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
@@ -23,10 +22,8 @@
             <!-- Logo -->
             <a class="navbar-brand" href="home.html">strings</a>
             <!-- Create a Post Button -->
-            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal"
-                data-bs-target="#createPostModal">Create Post ✏️ </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#createPostModal">Create Post ✏️ </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
@@ -37,8 +34,7 @@
                     </li>
                     <!-- Trending Tab -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Trending
                         </a>
                         <!-- Trending Content -->
@@ -60,16 +56,13 @@
 
                 <!-- Search Bar -->
                 <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
-                    <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍"
-                        aria-label="Search" id="nav-bar-search">
+                    <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search">
                 </form>
 
 
                 <!-- Notifications -->
                 <div class="dropdown ms-auto">
-                    <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
+                    <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
                         <span style="margin-right: 5px;">📬</span> Notifications
                         <span class="badge bg-danger" style="margin-left: 5px;">5</span>
                     </button>
@@ -131,8 +124,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
                 <div class="dropdown" id="filter-dropdown">
-                    <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button"
-                        data-bs-toggle="dropdown">
+                    <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
                         Filter<i class="bi bi-filter"></i>
                     </button>
                     <ul class="dropdown-menu">
@@ -152,9 +144,7 @@
 
     <!-- Post Generation Script -->
     <script>
-
-        const posts = [
-            {
+        const posts = [{
                 title: "Exciting News in Tech World",
                 content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 author: "TechEnthusiast",
@@ -231,9 +221,7 @@
 
 
     <!-- BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
 
     <!-- Create Post Modal -->
@@ -248,8 +236,7 @@
                         <div class="form-group row">
                             <label for="postTitle" class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="postTitle" name="postTitle"
-                                    placeholder="Enter post title...">
+                                <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Enter post title...">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -260,8 +247,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="postDescription">Description</label>
-                            <textarea class="form-control" id="postDescription" name="postDescription" rows="5"
-                                placeholder="Enter post description..."></textarea>
+                            <textarea class="form-control" id="postDescription" name="postDescription" rows="5" placeholder="Enter post description..."></textarea>
                         </div>
                     </form>
                 </div>
@@ -284,7 +270,7 @@
         let mybutton = document.getElementById("btn-back-to-top");
 
         // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () {
+        window.onscroll = function() {
             scrollFunction();
         };
 
