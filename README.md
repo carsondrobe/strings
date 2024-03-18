@@ -5,10 +5,14 @@ Strings is an open discussion platform aiming to allow users to engage in immers
 
 ## Tips
 
-Testing on your end
-git clone the repository into your htdocs folder
-access the application at: localhost/strings/
+### Testing on your end
 
-Interacting with DB:
-Need to start MySQL DB in XAMPP
-Use the strings.sql file in our GitHub repo for the DB schema stuff... Should work (You can open it in VS Code and copy and paste the CREATE TABLE code separately)
+1. git clone the repository into your htdocs folder
+
+2. access the application at: localhost/strings/
+
+### Interacting with DB:
+
+1. Need to start MySQL DB in XAMPP
+
+2. Use the strings.sql file in our GitHub repo for the DB schema stuff... Should work (You can open it in VS Code and copy and paste the CREATE TABLE code separately)
