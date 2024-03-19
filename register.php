@@ -1,3 +1,50 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $conn = mysqli_connect("localhost", "root", "", "strings");
+
+    if ($conn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+
+    // Check for unique User
+    $unique_user = "SELECT * FROM User WHERE username = '$username' or email = '$email'";
+    $result = mysqli_query($conn, $unique_user);
+
+    if (mysqli_num_rows($result) > 0) {
+        echo "<script> alert('Username or Email already exists!') </script>";
+        exit();
+    }
+
+    $dob = $_POST['dob'];
+    $password = $_POST['password'];
+
+    // TODO: Add profile picture upload
+    $profilePicture = null;
+
+    $sql = "INSERT INTO User (username, password, email, dob) VALUES ('$username', '$password', '$email', '$dob')";
+
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        // Send them to the login page
+        header("Location: login.html");
+        exit();
+    } else {
+        echo "Registration failed.";
+    }
+
+    mysqli_close($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +108,7 @@
     </nav>
 
 
-    <form action="registration.php" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="register_container">
             <fieldset>
                 <legend class="register_legend">Register</legend>
@@ -93,11 +140,13 @@
                     <input type="password" class="form-control" id="retypePassword1" placeholder="Retype password" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Register!</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Register!</button>
                 </div>
             </fieldset>
     </form>
     </div>
+
+
 </body>
 
 </html>
