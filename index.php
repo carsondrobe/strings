@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strings Home T</title>
+    <title>Strings Home A</title>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
@@ -208,11 +208,10 @@
 session_start();
 include 'config.php';
 try {
+    $query = "SELECT * FROM Discussions";
+    $result = $conn->query($query);
 
-    $sql = "SELECT * FROM Discussions";
-    $result = $pdo->query($sql);
-
-    while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    while($row = $result->fetch_assoc()) {
         $imageData = base64_encode($row['discussion_picture']);
         echo '
         <div class="row justify-content-center">
@@ -237,9 +236,9 @@ try {
         ';
     }
 
-    $pdo = null;
+    // $conn->close();
     
-} catch(PDOException $e) {
+} catch(Exception $e) {
     die($e->getMessage());
 }
 ?>

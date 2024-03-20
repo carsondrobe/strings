@@ -1,10 +1,14 @@
 <?php
+// Path: config.php
+//Server Configuration
+$host_name = "localhost";
+$db_user = "90172180";
+$db_pass = "90172180";
+$db_name = "db_90172180";
 
-$connString = "mysql:host=localhost;dbname=90172180";
-$user = "90172180";
-$pass = "90172180";
+$conn = mysqli_connect("localhost", "90172180", "90172180", "db_90172180");
 
-$pdo = new PDO($connString, $user, $pass);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 ?>
