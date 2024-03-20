@@ -27,7 +27,7 @@ include 'config.php';
 try {
     if(isset($_GET['discussionID'])) {
         $postId = $_GET['discussionID'];
-        $query = "SELECT * FROM Discussions WHERE discussionID = $postId";
+        $query = "SELECT * FROM Discussions WHERE discussionID = " . $postId;
         $result = $conn->query($query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
