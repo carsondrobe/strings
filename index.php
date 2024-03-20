@@ -1,5 +1,3 @@
-<?php session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -206,6 +204,30 @@
             return false; // Prevents the form from submitting in the traditional way
         }
     </script>
+
+<?php 
+    session_start();
+    try {
+        $connString = "mysql:host=localhost;dbname=db_43227198";
+        $user = "43227198";
+        $pass = "43227198";
+
+        $pdo = new PDO($connString, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "select * from User";
+        $result = $pdo->query($sql);
+
+        while($row = $result->fetch()) {
+            echo $row['username'] . " - " . $row['email'];
+        }
+
+        $pdo = null;
+        
+    } catch(PDOException $e) {
+        die($e->getMessage());
+    }
+?>
 
 </body>
 

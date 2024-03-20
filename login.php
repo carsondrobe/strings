@@ -6,6 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
+    } else {
+        echo "Connected successfully."
     }
 
     $username = $_POST['username'];
