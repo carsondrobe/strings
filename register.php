@@ -5,12 +5,8 @@ ini_set('display_errors', 1);
 session_start();
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 
+include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "90172180", "90172180", "db_90172180");
-
-    if ($conn === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
 
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
