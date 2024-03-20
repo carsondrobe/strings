@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="exampleInputPassword1" name="password" aria-describedby="forgotPasswordMsg" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Login</button>
                     <br>
                     <small id="registerMsg" class="form-text text-muted">Don't have an account? Don't miss out on the discussion! Register <a href="register.php">here</a>!</small>
                 </div>
