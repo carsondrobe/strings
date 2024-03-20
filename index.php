@@ -77,53 +77,8 @@
             // Add more post objects as needed
         ];
 
-        // PHP Code to get discussions from database
-        <?php 
-            session_start();
-            try {
-                $connString = "mysql:host=localhost;dbname=db_43227198";
-                $user = "43227198";
-                $pass = "43227198";
-
-                $pdo = new PDO($connString, $user, $pass);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                $sql = "select * from Discussions";
-                $result = $pdo->query($sql);
-
-                while($row = $result->fetch()) {
-                    echo '
-                    <div class="row justify-content-center">
-                    <div class="col-6">
-                        <div class="card">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Posted by:✏️</strong> '.$row['username'].' | <strong>Published on:</strong> '.$row['time_posted'].'</p>
-                                    <a href="view_post.html" class="post-link"> <!-- Anchor tag for the entire post -->
-                                        <h4 class="card-title">'.$row['title'].'</h4>
-                                        <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
-                                        <p class="card-text">'.$row['content'].'</p>
-                                    </a>
-                                    
-                                    <div class="d-flex justify-content-end mt-3">
-                                        <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
-                                        <button type="button" class="btn btn-outline-danger">-</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    ';
-                }
-
-                $pdo = null;
-                
-            } catch(PDOException $e) {
-                die($e->getMessage());
-            }
-        ?>
-
-        // Function to generate HTML for a post
-        function generatePostHTML(post) {
+               // Function to generate HTML for a post
+               function generatePostHTML(post) {
             const randomCount = Math.floor(Math.random() * 101);
             return `
         <div class="row justify-content-center">
@@ -248,6 +203,75 @@
             return false; // Prevents the form from submitting in the traditional way
         }
     </script>
+
+<!-- PHP Code to get discussions from database -->
+<?php 
+    session_start();
+    try {
+        $connString = "mysql:host=localhost;dbname=db_43227198";
+        $user = "43227198";
+        $pass = "43227198";
+
+        $pdo = new PDO($connString, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "select * from Discussions";
+        $result = $pdo->query($sql);
+
+        while($row = $result->fetch()) {
+            echo '
+            <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Posted by:✏️</strong> '.$row['username'].' | <strong>Published on:</strong> '.$row['time_posted'].'</p>
+                            <a href="view_post.html" class="post-link"> <!-- Anchor tag for the entire post -->
+                                <h4 class="card-title">'.$row['title'].'</h4>
+                                <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
+                                <p class="card-text">'.$row['content'].'</p>
+                            </a>
+                            
+                            <div class="d-flex justify-content-end mt-3">
+                                <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
+                                <button type="button" class="btn btn-outline-danger">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+        }
+
+        $pdo = null;
+        
+    } catch(PDOException $e) {
+        die($e->getMessage());
+    }
+?>
+
+<?php 
+    session_start();
+    try {
+        $connString = "mysql:host=localhost;dbname=db_43227198";
+        $user = "43227198";
+        $pass = "43227198";
+
+        $pdo = new PDO($connString, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "select * from User";
+        $result = $pdo->query($sql);
+
+        while($row = $result->fetch()) {
+            echo $row['username'] . " - " . $row['email'];
+        }
+
+        $pdo = null;
+
+    } catch(PDOException $e) {
+        die($e->getMessage());
+    }
+?>
 
 </body>
 
