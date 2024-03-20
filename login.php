@@ -1,12 +1,8 @@
 <?php
 // Path: login.php
 session_start();
+include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "strings");
-
-    if ($conn === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
 
     $username = $_POST['username'];
     $password = $_POST['password'];
