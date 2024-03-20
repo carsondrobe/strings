@@ -43,15 +43,12 @@ body {
 .card {
     transition: all 0.3s ease-in-out;
     box-shadow: 1px 1px 5px grey;
+    width: 70%;
+    height: 70%;
 }
 
 .card:hover {
     cursor: pointer;
     transform: translateY(-3px) translateX(3px);
     box-shadow: 1px 1px 15px black;
-}
-
-#discussion-image {
-    width: 50%;
-    height: 50%;
 }
