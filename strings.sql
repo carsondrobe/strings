@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2024 at 12:52 AM
+-- Generation Time: Mar 20, 2024 at 08:42 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,7 +32,7 @@ CREATE TABLE `User` (
   `username` varchar(25) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `profile_picture` varchar(255) DEFAULT NULL,
+  `profile_picture` blob DEFAULT NULL,
   `dob` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -42,8 +42,9 @@ CREATE TABLE `User` (
 
 INSERT INTO `User` (`userID`, `username`, `password`, `email`, `profile_picture`, `dob`) VALUES
 (1, 'testuser', 'testuser123', 'testuser@test.com', NULL, '2003-03-15'),
-(5, 'testing', 'abc', 'test@tester.com', NULL, '2024-02-29'),
-(7, 'testerREAL', 'abc', 'tes12t@tester.com', NULL, '2024-03-01');
+(14, 'testerrrr', 'abc', 'testing@testing.com', NULL, '2024-02-29'),
+(17, 'testinggg', 'abc', 'teajshdla@gmail.com', NULL, '2024-02-26'),
+(18, 'testingggkajshda', 'abc', 'teajshdlasdads@gmail.com', NULL, '2024-02-26');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +66,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
