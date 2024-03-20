@@ -2,7 +2,7 @@
 // Path: login.php
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "strings");
+    $conn = mysqli_connect("localhost", "43227198", "43227198", "db_43227198");
 
     if ($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
