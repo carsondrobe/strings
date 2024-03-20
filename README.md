@@ -15,4 +15,8 @@ Strings is an open discussion platform aiming to allow users to engage in immers
 
 1. Need to start MySQL DB in XAMPP
 
-2. Use the strings.sql file in our GitHub repo for the DB schema stuff... Should work (You can open it in VS Code and copy and paste the CREATE TABLE code separately)
+2. Go to config.php and comment/uncomment DB info for Server or Personal DB (we are using my student num for server 90172180)
+
+3. Server: https://cosc360.ok.ubc.ca/phpmyadmin   Personal: http://localhost/phpmyadmin
+
+4. Use the strings.sql file in our GitHub repo for the DB schema stuff...
