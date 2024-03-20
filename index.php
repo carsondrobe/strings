@@ -218,9 +218,9 @@ try {
         <div class="col-6">
             <div class="card">
                     <div class="card-body">
-                        <p class="card-text"><strong>Posted by:✏️</strong> | <strong>Published on:</strong> </p>
+                        <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
                         <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
-                            <h4 class="card-title">'.($row['title']).'</h4>
+                            <h4 class="card-title"></h4>
                             <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
                             <p class="card-text">'.($row['content']).'</p>
                         </a>
