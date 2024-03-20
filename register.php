@@ -6,7 +6,7 @@ session_start();
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "90172180", "902172180", "db_90172180");
+    $conn = mysqli_connect("localhost", "90172180", "90172180", "db_90172180");
 
     if ($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
