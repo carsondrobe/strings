@@ -219,7 +219,7 @@ try {
             <div class="card">
                     <div class="card-body">
                         <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
-                        <a href="view_post.php?'.$row['discussionID'].'" class="post-link">
+                        <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
                         <h4 class="card-title">'.($row['title']).'</h4>
                             <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image">
                             <p class="card-text">'.($row['content']).'</p>
