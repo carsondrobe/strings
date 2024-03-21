@@ -39,7 +39,7 @@ try {
                             <button type="button" class="btn btn-outline-success me-2">+</button>
                             <button type="button" class="btn btn-outline-danger">-</button>
                         </div>
-                        <div class="col" id="headtext">'.($row['title']).'</div>
+                        <div class="col-6 " id="headtext">'.($row['title']).'</div>
                         <div class="col text-end white-text">
                             <a href="index.php" class="btn-close white-button">&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         </div>
