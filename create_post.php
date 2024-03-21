@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        echo "Post created successfully!";
+        header("Location: index.php");
     } else {
         echo "Error: " . $stmt->error;
     }
