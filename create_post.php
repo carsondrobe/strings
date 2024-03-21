@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
         $image = file_get_contents($_FILES['postImage']['tmp_name']);
+    }
 
     // Create prepared statement and bind parameters
     $stmt = $conn->prepare("INSERT INTO Discussions (username, title, content, discussion_picture, time_posted, category, upvotes, downvotes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
