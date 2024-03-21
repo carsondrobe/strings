@@ -231,7 +231,7 @@
                             </a>
                             <hr>
                             <div class="d-flex justify-content-between">
-                                <p class="card-text" style="font-weight: bold; font-style: italic; float: left;">'.$row['category'].'</p>
+                                <p class="card-text" id="discussion-category">'.$row['category'].'</p>
                                 <div>
                                     <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
                                     <button type="button" class="btn btn-outline-danger">- ('.$row['downvotes'].')</button>
