@@ -230,10 +230,12 @@
                                 <p class="card-text">'.$contentPeek.'</p>
                             </a>
                             <hr>
-                            <div class="d-flex justify-content-end mt-3">
-                                <p class="card-text" style="float: left;">'.($row['category']).'</p>
-                                <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
-                                <button type="button" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text" style="font-weight: bold; font-style: italic; float: left;">'.$row['category'].'</p>
+                                <div>
+                                    <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
+                                    <button type="button" class="btn btn-outline-danger">- ('.$row['downvotes'].')</button>
+                                </div>
                             </div>
                         </div>
                     </div>
