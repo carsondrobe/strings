@@ -41,7 +41,7 @@ try {
                         </div>
                         <div class="col-6 " id="headtext">'.($row['title']).'</div>
                         <div class="col text-center white-text">
-                            <a href="index.php" class="class="btn-close white-button">Close</a>
+                            <a href="index.php" class="btn-close white-button">Close</a>
                         </div>
                     </div>
                 </div>
