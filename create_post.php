@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time_posted = date('Y-m-d');
     $upvotes = 0;
     $downvotes = 0;
+
     // Check if content is over limit
     if (strlen($content) > 5000) {
         $_SESSION['error_message'] = "Your post content exceeds the maximum allowed length of 5000 characters. Please shorten your post.";
@@ -18,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Get image
+    $image = NULL;
     // If image upload
     if (isset($_FILES['postImage']) && $_FILES['postImage']['error'] == 0) {
         // Check if file is over limit
@@ -27,15 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
         $image = file_get_contents($_FILES['postImage']['tmp_name']);
-        $discussion_picture = base64_encode($image);
 
-    // If no image uploaded
-    } else {
-        $discussion_picture = '';
-    }
     // Create prepared statement and bind parameters
     $stmt = $conn->prepare("INSERT INTO Discussions (username, title, content, discussion_picture, time_posted, category, upvotes, downvotes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssii", $username, $title, $content, $discussion_picture, $time_posted, $category, $upvotes, $downvotes);
+    $stmt->bind_param("ssssssii", $username, $title, $content, $image, $time_posted, $category, $upvotes, $downvotes);
 
     // Execute prepared statement
     if ($stmt->execute()) {
