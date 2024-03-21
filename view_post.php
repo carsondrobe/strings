@@ -63,8 +63,8 @@ try {
                                     <p class="card-text">
                                         3 Comments
                                     </p>';
-                                    if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-                                        echo '
+            if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                echo '
                                             <div class="card mb-3">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Create a Comment</h5>
@@ -78,12 +78,14 @@ try {
                                                     </form>
                                                 </div>
                                             </div>
-                                        ';
-                                    }
-                                    echo '
+                ';
+            }
+            echo '
                                 </div>
                             </div>
-                            <hr>
+                            <br>
+            ';
+            
                             <div class="card" id="first-comment">
                                 <div class="card-body">
                                     <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
@@ -108,17 +110,18 @@ try {
                                         integer feugiat.</p>
                                 </div>
                             </div>
+            echo '
                         </div>
                     </div>
                 </div>
-    ';
+            ';
 
+        } else {
+            echo "No post found with the provided discussionID.";
+        }
     } else {
-        echo "No post found with the provided discussionID.";
+        echo "Could not find a discussionID.";
     }
-} else {
-    echo "Could not find a discussionID.";
-}
 // $conn->close();
 } catch(Exception $e) {
     die($e->getMessage());
