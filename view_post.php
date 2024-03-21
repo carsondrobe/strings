@@ -85,7 +85,6 @@
                                         echo '
                                     </div>
                                 </div>
-                                <hr>
                                 <div class="card" id="first-comment">
                                     <div class="card-body">
                                         <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
@@ -114,7 +113,6 @@
                         </div>
                     </div>
         ';
-
         } else {
             echo "No post found with the provided discussionID.";
         }
