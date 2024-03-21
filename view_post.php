@@ -91,11 +91,11 @@
                 if ($num_comments > 0) {
                     if($num_comments == 1) {
                         echo '
-                                            <p class="card-text">'.$num_comments.' Comments</p>
+                                            <p class="card-text">1 Comment</p>
                         ';
                     } else {
                         echo '
-                                            <p class="card-text">1 Comment</p>
+                                            <p class="card-text">'.$num_comments.' Comments</p>
                         ';
                     }
                     while ($comment = $result2->fetch_assoc()) {
