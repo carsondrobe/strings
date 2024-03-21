@@ -89,16 +89,16 @@
                 $result2 = $conn->query($query2);
                 $num_comments = $result2->num_rows;
                 if ($num_comments > 0) {
+                    if($num_comments == 1) {
+                        echo '
+                                            <p class="card-text">'.$num_comments.' Comments</p>
+                        ';
+                    } else {
+                        echo '
+                                            <p class="card-text">1 Comment</p>
+                        ';
+                    }
                     while ($comment = $result2->fetch_assoc()) {
-                        if($num_comments == 1) {
-                            echo '
-                                                <p class="card-text">'.$num_comments.' Comments</p>
-                            ';
-                        } else {
-                            echo '
-                                                <p class="card-text">1 Comment</p>
-                            ';
-                        }
                         echo '
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
@@ -117,19 +117,20 @@
                                                 </div>
                             ';
                     }
+                } else {
+                    echo '<p class="card-text">No one has commented yet, be the first!</p>';
                 }
                 echo '
                             </div>
                         </div>
                     </div>
                 ';
-
             } else {
-                echo '<p class="card-text">No one has commented yet, be the first!</p>';
+                echo "Could not find any posts with this discussionID.";
             }
-        } else {
+        } else {   
             echo "Could not find a discussionID.";
-        }
+    }
     // $conn->close();
     } catch(Exception $e) {
         die($e->getMessage());
