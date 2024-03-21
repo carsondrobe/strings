@@ -1,12 +1,10 @@
-<?php session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strings Home</title>
+    <title>Strings Home A</title>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
@@ -40,12 +38,12 @@
     </div>
 
     <!-- Post Feed -->
-    <div class="container" id="postContainer">
+    <!-- <div class="container" id="postContainer"> -->
         <!-- Posts will be dynamically generated here -->
-    </div>
+    <!-- </div> -->
 
     <!-- Post Generation Script -->
-    <script>
+    <!-- <script>
         const posts = [{
                 title: "Exciting News in Tech World",
                 content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -79,9 +77,8 @@
             // Add more post objects as needed
         ];
 
-
-        // Function to generate HTML for a post
-        function generatePostHTML(post) {
+               // Function to generate HTML for a post
+               function generatePostHTML(post) {
             const randomCount = Math.floor(Math.random() * 101);
             return `
         <div class="row justify-content-center">
@@ -89,7 +86,7 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text"><strong>Posted by:✏️</strong> ${post.author} | <strong>Published on:</strong> ${post.date}</p>
-                        <a href="view_post.html" class="post-link"> <!-- Anchor tag for the entire post -->
+                        <a href="view_post.html" class="post-link">
                             <h4 class="card-title">${post.title}</h4>
                             <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
                             <p class="card-text">${post.content}</p>
@@ -118,7 +115,7 @@
 
         // Call the function to append posts when the page loads
         window.addEventListener('load', appendPosts);
-    </script>
+    </script> -->
 
 
 
@@ -206,6 +203,52 @@
             return false; // Prevents the form from submitting in the traditional way
         }
     </script>
+
+<!-- Posts will be dynamically generated here -->
+<div class="container" id="postContainer">
+    <!-- PHP script for displaying a post on the home page -->
+    <?php 
+    session_start();
+    include 'config.php';
+    try {
+        $query = "SELECT * FROM Discussions";
+        $result = $conn->query($query);
+        while($row = $result->fetch_assoc()) {
+            $imageData = base64_encode($row['discussion_picture']);
+            $contentPeek = substr($row['content'], 0, 100);
+            $contentPeek .= '...';
+            echo '
+            <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
+                            <hr>
+                            <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
+                                <h4 class="card-title">'.($row['title']).'</h4>
+                                <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
+                                <p class="card-text">'.$contentPeek.'</p>
+                            </a>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text" style="font-weight: bold; font-style: italic; float: left;">'.$row['category'].'</p>
+                                <div>
+                                    <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
+                                    <button type="button" class="btn btn-outline-danger">- ('.$row['downvotes'].')</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+        }
+        // $conn->close();
+    } catch(Exception $e) {
+        die($e->getMessage());
+    }
+    ?>
+</div>
 
 </body>
 

@@ -50,3 +50,14 @@ body {
     transform: translateY(-3px) translateX(3px);
     box-shadow: 1px 1px 15px black;
 }
+
+#discussion-image {
+    margin: 1em 0em;
+}
+
+#discussion-category {
+    font-size: 2em;
+    font-weight: bold; 
+    font-style: italic; 
+    float: left;
+}
