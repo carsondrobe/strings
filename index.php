@@ -49,7 +49,13 @@
                     <h5 class="modal-title" id="createPostModalTitle">Start a discussion!</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="">
+                    <form method="post" action="create_post.php" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label for="postCategory" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter post category">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="postTitle" class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
