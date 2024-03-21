@@ -59,6 +59,7 @@
                                             <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
                                             <button type="button" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
                                         </div>
+                                        <br>
                 ';
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
                     echo '
@@ -89,7 +90,7 @@
                 if ($result2->num_rows > 0) {
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
-                                                <p class="card-text">'.$result2->num_rows.'</p>
+                                                <p class="card-text">'.$result2->num_rows.' Comments</p>
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
@@ -115,7 +116,7 @@
                 ';
 
             } else {
-                echo "No post found with the provided discussionID.";
+                echo '<p class="card-text">No one has commented yet, be the first!</p>';
             }
         } else {
             echo "Could not find a discussionID.";
