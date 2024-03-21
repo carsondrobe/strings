@@ -68,7 +68,7 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title">Create a Comment</h5>
                                                         <form method="post" action="create_comment.php">
-                                                            <input type="hidden" name="discussionID" value='.$discussionId.'); ?>">
+                                                            <input type="hidden" name="discussionID" value='.$discussionId.')">
                                                             <div class="mb-3">
                                                                 <textarea class="form-control" id="commentContent" rows="3" required></textarea>
                                                             </div>
