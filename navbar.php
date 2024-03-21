@@ -10,7 +10,7 @@ session_start();
         <a class="navbar-brand" href="index.php">strings</a>
         <!-- Check if user logged in with PHP -->
         <?php
-        if($_SESSION['logged_in'] = true) {
+        if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
             // Display create a post button
             echo '
             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#createPostModal">Create Post ✏️ </a>
@@ -110,6 +110,20 @@ session_start();
                                         <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
                                     </li>
                                 </ul>';
+                    } else {
+                        echo '<a class="nav-link" href="login.php">Login</a>';
+                    }
+                    ?>
+                    <?php
+                    if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                        echo '<ul class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php" style="margin-left: 10px;">Logout</a>
+                                </li>
+                            </ul>';
                     } else {
                         echo '<a class="nav-link" href="login.php">Login</a>';
                     }
