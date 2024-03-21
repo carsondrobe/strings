@@ -37,88 +37,6 @@
         </div>
     </div>
 
-    <!-- Post Feed -->
-    <!-- <div class="container" id="postContainer"> -->
-        <!-- Posts will be dynamically generated here -->
-    <!-- </div> -->
-
-    <!-- Post Generation Script -->
-    <!-- <script>
-        const posts = [{
-                title: "Exciting News in Tech World",
-                content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                author: "TechEnthusiast",
-                date: "February 5, 2024"
-            },
-            {
-                title: "New Breakthrough in Medicine",
-                content: "A groundbreaking discovery in the medical field promises to revolutionize the way we approach healthcare. Researchers have found a new treatment method that shows promising results in early trials.",
-                author: "MedicalInnovator",
-                date: "February 10, 2024"
-            },
-            {
-                title: "Space Exploration Milestone",
-                content: "In a historic achievement, astronauts have successfully landed on Mars, marking a significant milestone in human space exploration. The mission aims to uncover the mysteries of the Red Planet and pave the way for future interplanetary travel.",
-                author: "SpaceExplorer",
-                date: "February 15, 2024"
-            },
-            {
-                title: "Environmental Conservation Initiative",
-                content: "A new global initiative is underway to address climate change and promote environmental conservation. World leaders have come together to implement policies aimed at reducing carbon emissions and preserving biodiversity.",
-                author: "GreenActivist",
-                date: "February 20, 2024"
-            },
-            {
-                title: "Artificial Intelligence Advancements",
-                content: "Recent advancements in artificial intelligence have led to the development of highly sophisticated algorithms capable of solving complex problems. Experts predict that AI will play a crucial role in shaping the future of various industries.",
-                author: "AIEnthusiast",
-                date: "February 25, 2024"
-            },
-            // Add more post objects as needed
-        ];
-
-               // Function to generate HTML for a post
-               function generatePostHTML(post) {
-            const randomCount = Math.floor(Math.random() * 101);
-            return `
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text"><strong>Posted by:✏️</strong> ${post.author} | <strong>Published on:</strong> ${post.date}</p>
-                        <a href="view_post.html" class="post-link">
-                            <h4 class="card-title">${post.title}</h4>
-                            <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
-                            <p class="card-text">${post.content}</p>
-                        </a>
-                        
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="btn btn-outline-success me-2">+ (${randomCount})</button>
-                            <button type="button" class="btn btn-outline-danger">-</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-        }
-
-
-        // Function to append posts to the post container
-        function appendPosts() {
-            const postContainer = document.getElementById('postContainer');
-            posts.forEach(post => {
-                const postHTML = generatePostHTML(post);
-                postContainer.innerHTML += postHTML;
-            });
-        }
-
-        // Call the function to append posts when the page loads
-        window.addEventListener('load', appendPosts);
-    </script> -->
-
-
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
@@ -249,7 +167,5 @@
     }
     ?>
 </div>
-
 </body>
-
 </html>

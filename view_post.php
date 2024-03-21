@@ -65,20 +65,25 @@ try {
                                     </div>
                                     <p class="card-text">
                                         3 Comments
-                                    </p>
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Create a Comment</h5>
-                                            <form>
-                                                <div class="mb-3">
-                                                    <textarea class="form-control" id="commentContent" rows="3" required></textarea>
+                                    </p>';
+                                    if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                                        echo '
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Create a Comment</h5>
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <textarea class="form-control" id="commentContent" rows="3" required></textarea>
+                                                        </div>
+                                                        <button class="btn btn-outline-info" type="submit">
+                                                            Submit
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                                <button class="btn btn-outline-info" type="submit">
-                                                    Submit
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                            </div>
+                                        ';
+                                    }
+                                    echo '
                                 </div>
                             </div>
                             <hr>
