@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result) {
         // Send them to the index home page
         $_SESSION['logged_in'] = true;
+        $_SESSION['username'] = $username;
         header("Location: index.php");
         exit();
     } else {

@@ -12,7 +12,7 @@ $db_name = "db_90172180";
 // $db_pass = "";
 // $db_name = "strings";
 
-$conn = mysqli_connect("$host_name", "$db_user", "$db_pass", "$db_name");
+$conn = mysqli_connect("localhost", "90172180", "90172180", "db_90172180");
 
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
