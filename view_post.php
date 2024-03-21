@@ -59,9 +59,7 @@
                                             <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
                                             <button type="button" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
                                         </div>
-                                        <p class="card-text">
-                                            3 Comments
-                                        </p>';
+                ';
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
                     echo '
                                                 <div class="card mb-3">
@@ -91,6 +89,7 @@
                 if ($result2->num_rows > 0) {
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
+                                                <p class="card-text">'.$result2->num_rows.'</p>
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
