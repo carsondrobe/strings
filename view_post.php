@@ -87,10 +87,19 @@
                 // Dynamically generate comments here
                 $query2 = "SELECT * FROM Comments WHERE discussionID = " . $discussionId;
                 $result2 = $conn->query($query2);
-                if ($result2->num_rows > 0) {
+                $num_comments = $result2->num_rows;
+                if ($num_comments > 0) {
                     while ($comment = $result2->fetch_assoc()) {
+                        if($num_comments == 1) {
+                            echo '
+                                                <p class="card-text">'.$num_comments.' Comments</p>
+                            ';
+                        } else {
+                            echo '
+                                                <p class="card-text">1 Comment</p>
+                            ';
+                        }
                         echo '
-                                                <p class="card-text">'.$result2->num_rows.' Comments</p>
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
