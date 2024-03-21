@@ -85,31 +85,30 @@ try {
                             </div>
                             <br>
             ';
-            
-                            <div class="card" id="first-comment">
-                                <div class="card-body">
-                                    <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
-                                    <p class="card-text">This is the best news ever!</p>
-                                </div>
-                            </div>
-                            <div class="card" id="second-comment">
-                                <div class="card-body">
-                                    <p class="card-text">✏️ AndroidNerd | 1 day ago</p>
-                                    <p class="card-text">I diagree you fool.</p>
-                                </div>
-                            </div>
-                            <div class="card" id="first-comment">
-                                <div class="card-body">
-                                    <p class="card-text">✏️ UselessJoe | 1 day ago</p>
-                                    <p class="card-text">I am so confused! Iaculis at erat pellentesque adipiscing commodo elit at
-                                        imperdiet dui. Semper
-                                        feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Odio ut sem nulla pharetra diam
-                                        sit amet nisl suscipit. Neque viverra justo nec ultrices dui sapien eget mi proin. Dignissim
-                                        enim sit amet venenatis urna cursus eget nunc scelerisque. Tortor consequat id porta nibh
-                                        venenatis. Interdum varius sit amet mattis vulputate enim nulla. Adipiscing at in tellus
-                                        integer feugiat.</p>
-                                </div>
-                            </div>
+                            // <div class="card" id="first-comment">
+                            //     <div class="card-body">
+                            //         <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
+                            //         <p class="card-text">This is the best news ever!</p>
+                            //     </div>
+                            // </div>
+                            // <div class="card" id="second-comment">
+                            //     <div class="card-body">
+                            //         <p class="card-text">✏️ AndroidNerd | 1 day ago</p>
+                            //         <p class="card-text">I diagree you fool.</p>
+                            //     </div>
+                            // </div>
+                            // <div class="card" id="first-comment">
+                            //     <div class="card-body">
+                            //         <p class="card-text">✏️ UselessJoe | 1 day ago</p>
+                            //         <p class="card-text">I am so confused! Iaculis at erat pellentesque adipiscing commodo elit at
+                            //             imperdiet dui. Semper
+                            //             feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Odio ut sem nulla pharetra diam
+                            //             sit amet nisl suscipit. Neque viverra justo nec ultrices dui sapien eget mi proin. Dignissim
+                            //             enim sit amet venenatis urna cursus eget nunc scelerisque. Tortor consequat id porta nibh
+                            //             venenatis. Interdum varius sit amet mattis vulputate enim nulla. Adipiscing at in tellus
+                            //             integer feugiat.</p>
+                            //     </div>
+                            // </div>
             echo '
                         </div>
                     </div>
