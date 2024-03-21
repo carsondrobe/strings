@@ -1,3 +1,29 @@
+<?php 
+session_start();
+include 'navbar.php'; 
+include 'config.php';
+
+
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$user_query = "SELECT * FROM User WHERE userID = '$user_id'";
+$result = mysqli_query($conn, $user_query);
+
+if (!$result) {
+    echo "Error: " . mysqli_error($conn);
+    exit();
+}
+
+$row = mysqli_fetch_assoc($result);
+
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +40,6 @@
 </head>
 
 <body>
-
     <?php include 'navbar.php'; ?>
 
     <div class="container mt-5 account-main">
@@ -22,7 +47,7 @@
             <!-- Profile Picture Column -->
             <div class="col-md-4">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
-                    <img src="img/goatprofile.jpeg" class="img-fluid rounded-circle" alt="Profile Picture">
+                    <img src="uploads/<?php echo $row['profile_picture']; ?>" class="img-fluid rounded-circle" alt="Profile Picture">
                 </button>
             </div>
 
@@ -35,7 +60,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form form method="POST" action="uploadpfp.php" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="profilePicInput" class="form-label">Select image</label>
                                     <input class="form-control" type="file" id="profilePicInput" accept="image/*">
@@ -44,7 +69,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Upload</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
                         </div>
                     </div>
                 </div>
@@ -56,20 +81,20 @@
                 <form>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="TechEnthusiast">
+                        <input type="text" class="form-control" id="username" value="<?php echo $row['username']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="MJordan23@gmail.com">
+                        <input type="email" class="form-control" id="email" value="<?php echo $row['email']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="Date of Birth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="DOB" value="1963-02-17">
+                        <input type="date" class="form-control" id="DOB" value="<?php echo $row['dob']; ?>">
 
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="***********">
+                        <input type="password" class="form-control" id="password" value="<?php echo $row['password']; ?>">
                     </div>
                     <button type="submit" class="btn btn-primary">Update Information</button>
                 </form>

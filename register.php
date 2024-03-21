@@ -5,8 +5,6 @@ ini_set('display_errors', 1);
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 
 include 'config.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
     } else {
@@ -60,10 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        // TODO: Add profile picture upload
-        $profilePicture = null;
+        // Profile Picture handling
+        $profilePicture = mysqli_real_escape_string($conn, $profilePicture);
 
-        $sql = "INSERT INTO User (username, password, email, dob) VALUES ('$username', '$password', '$email', '$dob')";
+        $sql = "INSERT INTO User (username, password, email, dob, profile_picture) VALUES ('$username', '$password', '$email', '$dob', '$profilePicture')";
 
         $result = mysqli_query($conn, $sql);
 
@@ -87,7 +85,6 @@ function test_input($data)
     return $data;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
