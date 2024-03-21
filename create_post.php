@@ -39,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "Post created successfully!";
+        header("Location: index.php");
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
