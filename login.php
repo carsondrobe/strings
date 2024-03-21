@@ -1,14 +1,8 @@
 <?php
 // Path: login.php
 session_start();
+include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "43227198", "43227198", "db_43227198");
-
-    if ($conn === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    } else {
-        echo "Connected successfully."
-    }
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -67,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="exampleInputPassword1" name="password" aria-describedby="forgotPasswordMsg" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Login</button>
                     <br>
                     <small id="registerMsg" class="form-text text-muted">Don't have an account? Don't miss out on the discussion! Register <a href="register.php">here</a>!</small>
                 </div>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+<link href="css/navbar.css" rel="stylesheet">
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
