@@ -41,9 +41,7 @@ try {
                         </div>
                         <div class="col-6 " id="headtext">'.($row['title']).'</div>
                         <div class="col text-center white-text">
-                            <button type="button" class="btn-close white-button" aria-label="Close"
-                                onclick="window.location.href="index.php"></button>
-                            Close
+                            <a href="index.php" class="class="btn-close white-button">Close</a>
                         </div>
                     </div>
                 </div>
