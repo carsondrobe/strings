@@ -70,7 +70,7 @@
                                                         <form method="post" action="create_comment.php">
                                                             <input type="hidden" name="discussionID" value='.$discussionId.')">
                                                             <div class="mb-3">
-                                                                <textarea class="form-control" id="commentContent" rows="3" required></textarea>
+                                                            <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
                                                             </div>
                                                             <button class="btn btn-outline-info" type="submit">
                                                                 Comment
