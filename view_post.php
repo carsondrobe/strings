@@ -24,6 +24,7 @@
     try {
         if(isset($_GET['discussionID'])) {
             $discussionId = $_GET['discussionID'];
+            $_SESSION['discussionID'] = $discussionId;
             $query = "SELECT * FROM Discussions WHERE discussionID = " . $discussionId;
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
@@ -66,7 +67,7 @@
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Create a Comment</h5>
-                                                        <form>
+                                                        <form method="post" action="create_comment.php">
                                                             <div class="mb-3">
                                                                 <textarea class="form-control" id="commentContent" rows="3" required></textarea>
                                                             </div>
@@ -89,43 +90,24 @@
                 if ($result2->num_rows > 0) {
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
-                            <div class="card" id="comment">
-                                <div class="card-body">
-                                    <p class="card-text">Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</p>';
+                                                <div class="card" id="comment">
+                                                    <div class="card-body">
+                                                        <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>'
+                                    ;
                                     
-                        if ($comment['replyingTo'] != NULL) {
-                            echo '<p class="card-text">Responding To: ' . $comment['replyingTo'] . '</p>';
-                        }
+                        // if ($comment['replyingTo'] != NULL) {
+                        //     echo '
+                        //                                 <p class="card-text">Responding To: ' . $comment['replyingTo'] . '</p>
+                        //     ';
+                        // }
                         
-                        echo '<p class="card-text">' . $comment['content'] . '</p>
-                                </div>
-                            </div>';
+                        echo '
+                                                        <p class="card-text">' . $comment['content'] . '</p>
+                                                    </div>
+                                                </div>
+                            ';
                     }
                 }
-                                // <div class="card" id="first-comment">
-                                //     <div class="card-body">
-                                //         <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
-                                //         <p class="card-text">This is the best news ever!</p>
-                                //     </div>
-                                // </div>
-                                // <div class="card" id="second-comment">
-                                //     <div class="card-body">
-                                //         <p class="card-text">✏️ AndroidNerd | 1 day ago</p>
-                                //         <p class="card-text">I diagree you fool.</p>
-                                //     </div>
-                                // </div>
-                                // <div class="card" id="first-comment">
-                                //     <div class="card-body">
-                                //         <p class="card-text">✏️ UselessJoe | 1 day ago</p>
-                                //         <p class="card-text">I am so confused! Iaculis at erat pellentesque adipiscing commodo elit at
-                                //             imperdiet dui. Semper
-                                //             feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Odio ut sem nulla pharetra diam
-                                //             sit amet nisl suscipit. Neque viverra justo nec ultrices dui sapien eget mi proin. Dignissim
-                                //             enim sit amet venenatis urna cursus eget nunc scelerisque. Tortor consequat id porta nibh
-                                //             venenatis. Interdum varius sit amet mattis vulputate enim nulla. Adipiscing at in tellus
-                                //             integer feugiat.</p>
-                                //     </div>
-                                // </div>
                 echo '
                             </div>
                         </div>
