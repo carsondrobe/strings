@@ -106,17 +106,6 @@ session_start();
                     <?php
                     if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
                         echo '<ul class="navbar-nav ms-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
-                                    </li>
-                                </ul>';
-                    } else {
-                        echo '<a class="nav-link" href="login.php">Login</a>';
-                    }
-                    ?>
-                    <?php
-                    if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-                        echo '<ul class="navbar-nav ms-auto">
                                 <li class="nav-item">
                                     <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
                                 </li>
