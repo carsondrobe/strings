@@ -3,9 +3,7 @@ session_start();
 include 'navbar.php'; 
 include 'config.php';
 
-
 if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-
     header("Location: login.php");
     exit();
 }
@@ -77,30 +75,31 @@ mysqli_close($conn);
 
             <!-- Account Information Form Column -->
             <div class="col-md-8">
-                <h2>My Account</h2>
-                <form>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" value="<?php echo $row['username']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" value="<?php echo $row['email']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Date of Birth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="DOB" value="<?php echo $row['dob']; ?>">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" value="<?php echo $row['password']; ?>">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Information</button>
-                </form>
-            </div>
+            <h2>My Account</h2>
+            <form id="updateForm" method="POST" action="update_info.php">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?php echo $row['username']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="DOB" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="DOB" name="DOB" value="<?php echo $row['dob']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="<?php echo $row['password']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">New Password (leave blank to keep the same)</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Information</button>
+            </form>
         </div>
-    </div>
 
     <div class="container">
         <div class="row justify-content-start">
@@ -120,12 +119,11 @@ mysqli_close($conn);
         </div>
     </div>
 
-
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 

@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 
 include 'config.php';
@@ -75,7 +72,7 @@ include 'config.php';
     }
 
     mysqli_close($conn);
-}
+
 
 function test_input($data)
 {
@@ -122,8 +119,7 @@ function test_input($data)
                     <label for="inputEmail1">Email</label>
                     <input type="email" class="form-control" id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                     <span class="error"><?php echo $emailErr; ?></span>
-                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us
-                        :)</small>
+                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us:</small>
                 </div>
                 <div class="form-group">
                     <label for="inputDOB1">Date of Birth</label>
