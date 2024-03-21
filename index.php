@@ -38,12 +38,12 @@
     </div>
 
     <!-- Post Feed -->
-    <div class="container" id="postContainer">
+    <!-- <div class="container" id="postContainer"> -->
         <!-- Posts will be dynamically generated here -->
-    </div>
+    <!-- </div> -->
 
     <!-- Post Generation Script -->
-    <script>
+    <!-- <script>
         const posts = [{
                 title: "Exciting News in Tech World",
                 content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -86,7 +86,7 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text"><strong>Posted by:✏️</strong> ${post.author} | <strong>Published on:</strong> ${post.date}</p>
-                        <a href="view_post.html" class="post-link"> <!-- Anchor tag for the entire post -->
+                        <a href="view_post.html" class="post-link">
                             <h4 class="card-title">${post.title}</h4>
                             <img src="img/test_image.jpeg" class="card-img-top" alt="Test Image">
                             <p class="card-text">${post.content}</p>
@@ -115,7 +115,7 @@
 
         // Call the function to append posts when the page loads
         window.addEventListener('load', appendPosts);
-    </script>
+    </script> -->
 
 
 
@@ -204,8 +204,8 @@
         }
     </script>
 
+<!-- Posts will be dynamically generated here -->
 <div class="container" id="postContainer">
-    <!-- Posts will be dynamically generated here -->
     <!-- PHP script for displaying a post on the home page -->
     <?php 
     session_start();
@@ -215,16 +215,20 @@
         $result = $conn->query($query);
         while($row = $result->fetch_assoc()) {
             $imageData = base64_encode($row['discussion_picture']);
+            $contentPeek = substr($row['content'], 0, 100);
+            $contentPeek .= '...';
             echo '
             <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
+                            <p class="card-text">'.($row['category']).'</p>
+                            <hr>
                             <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
                                 <h4 class="card-title">'.($row['title']).'</h4>
                                 <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
-                                <p class="card-text">'.($row['content']).'</p>
+                                <p class="card-text">'.$contentPeek.'</p>
                             </a>
                             <div class="d-flex justify-content-end mt-3">
                                 <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
