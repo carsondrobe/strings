@@ -68,11 +68,12 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title">Create a Comment</h5>
                                                         <form method="post" action="create_comment.php">
+                                                            <input type="hidden" name="discussionID" value='.$discussionId.'); ?>">
                                                             <div class="mb-3">
                                                                 <textarea class="form-control" id="commentContent" rows="3" required></textarea>
                                                             </div>
                                                             <button class="btn btn-outline-info" type="submit">
-                                                                Submit
+                                                                Comment
                                                             </button>
                                                         </form>
                                                     </div>
@@ -92,8 +93,8 @@
                         echo '
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
-                                                        <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>'
-                                    ;
+                                                        <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
+                            ';
                                     
                         // if ($comment['replyingTo'] != NULL) {
                         //     echo '
