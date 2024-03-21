@@ -223,14 +223,15 @@
                 <div class="card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
-                            <p class="card-text">'.($row['category']).'</p>
                             <hr>
                             <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
                                 <h4 class="card-title">'.($row['title']).'</h4>
                                 <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
                                 <p class="card-text">'.$contentPeek.'</p>
                             </a>
+                            <hr>
                             <div class="d-flex justify-content-end mt-3">
+                                <p class="card-text" style="float: left;">'.($row['category']).'</p>
                                 <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
                                 <button type="button" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
                             </div>
