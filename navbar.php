@@ -105,7 +105,7 @@ session_start();
                 <?php
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
                     echo '<li class="nav-item">
-                            <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
+                            <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%; margin-right: 10px;"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php" style="margin-left: 10px;">Logout</a>
