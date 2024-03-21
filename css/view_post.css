@@ -19,14 +19,8 @@
     color: lightgray;
 }
 
-#first-comment {
-    margin-left: 3em;
-    margin-bottom: .25em;
-}
-
-#second-comment {
-    margin-left: 6em;
-    margin-bottom: .25em;
+#comment {
+    margin: 0.25em 1em;
 }
 
 #btn-back-to-top {

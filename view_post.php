@@ -25,8 +25,8 @@ session_start();
 include 'config.php';
 try {
     if(isset($_GET['discussionID'])) {
-        $postId = $_GET['discussionID'];
-        $query = "SELECT * FROM Discussions WHERE discussionID = " . $postId;
+        $discussionId = $_GET['discussionID'];
+        $query = "SELECT * FROM Discussions WHERE discussionID = " . $discussionId;
         $result = $conn->query($query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -85,6 +85,32 @@ try {
                             </div>
                             <br>
             ';
+            // Dynamically generate comments here
+            $query2 = "SELECT * FROM Comments WHERE discussionID = " . $discussionId;
+            $result2 = $conn->query($query2);
+            if($result2->num_rows > 0) {
+                $comment = $result2->fetch_assoc();
+                if ($comment['replyingTo'] == NULL) {
+                    $reply = false;
+                } else (
+                    $replyingTo = $comment['replyingTo'];
+                )
+                echo '
+                            <div class="card" id="comment">
+                                <div class="card-body">
+                                    <p class="card-text">Written By: '.$comment['username'].' | '.$comment['timePosted'].'</p>
+                ';
+                if($reply != false) {
+                    echo '
+                                    <p class="card-text">Responding To: '.$comment['replyingTo'].'</p>
+                    ';
+                }
+                echo '
+                                    <p class="card-text">'.$comment['content'].'</p>
+                                </div>
+                            </div>
+                ';
+            }
                             // <div class="card" id="first-comment">
                             //     <div class="card-body">
                             //         <p class="card-text">✏️ iPhoneGuy | 1 day ago</p>
