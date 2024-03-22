@@ -1,35 +1,34 @@
 <?php
+// Path: login.php
 session_start();
 include 'config.php';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $username = mysqli_real_escape_string($conn, $username);
-    $password = mysqli_real_escape_string($conn, $password);
-
-
-    $user_query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $user_query);
+    // Check if the user exists
+    $user = "SELECT * FROM User WHERE username = '$username' and password = '$password'";
+    $result = mysqli_query($conn, $user);
 
     if (mysqli_num_rows($result) != 1) {
-
-        echo "<script> alert('Account not found. Please check your username and password.') </script>";
-        header("Location: login.php");
+        echo "<script> alert('Username or Password is Incorrect') </script>";
         exit();
     }
 
+    if ($result) {
+        // Send them to the index home page
+        $_SESSION['logged_in'] = true;
+        $_SESSION['username'] = $username;
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "Registration failed.";
+    }
 
-    $row = mysqli_fetch_assoc($result);
-    $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = $row['userID']; 
-
-    header("Location: index.php");
-    exit();
+    mysqli_close($conn);
 }
 
-mysqli_close($conn);
 ?>
 
 
