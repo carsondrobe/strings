@@ -1,13 +1,15 @@
 <?php
 session_start();
 
-function buildQueryStringTopic($topic)
-{
-    $queryParams = array(
-        'query' => $_GET['query'],
-        'topic' => $topic
-    );
-    return http_build_query($queryParams);
+if (!function_exists('buildQueryStringTopic')) {
+    function buildQueryStringTopic($topic)
+    {
+        $queryParams = array(
+            'query' => $_GET['query'],
+            'topic' => $topic
+        );
+        return http_build_query($queryParams);
+    }
 }
 
 require 'config.php'; // Include your database connection configuration file
