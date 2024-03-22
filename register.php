@@ -35,6 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dobErr = "Date of Birth is required";
     } else {
         $dob = test_input($_POST['dob']);
+        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob)) {
+            $dobErr = "Invalid Date Format. Please use YYYY-MM-DD";
+        }elseif ($dob>=date("Y-m-d")){
+            $dobErr = "Date of Birth must be in the past";
+        }
 
     }
 
@@ -42,6 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST['password']);
+        if ($password != $_POST['retype-pass']){
+            $retypePasswordErr = "Passwords do not match";
+        }
 
     }
 
@@ -62,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
         if ($result->num_rows == 0) {
             $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
