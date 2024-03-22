@@ -6,28 +6,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Sanitize user inputs to prevent SQL injection
     $username = mysqli_real_escape_string($conn, $username);
     $password = mysqli_real_escape_string($conn, $password);
 
-    // Check if the user exists
+
     $user_query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $user_query);
 
     if (mysqli_num_rows($result) != 1) {
-        // Account not found, display error message
+
         echo "<script> alert('Account not found. Please check your username and password.') </script>";
+        header("Location: login.php");
         exit();
     }
 
-    // Fetch user information
+
     $row = mysqli_fetch_assoc($result);
-
-    // Set session variables
     $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = $row['userID']; // Set the session user id here
+    $_SESSION['user_id'] = $row['userID']; 
 
-    // Redirect to account.php after successful login
     header("Location: index.php");
     exit();
 }
