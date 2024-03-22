@@ -123,12 +123,16 @@
                             echo '
                                                             <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right;">Edit</button>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
-                                                                <form method="post" action="edit_comment.php">
-                                                                    <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
-                                                                    <textarea class="form-control" name="updatedContent" rows="3">'.($comment['content']).'</textarea>
-                                                                    <button type="submit" class="btn btn-success btn-sm">Save</button>
-                                                                    <button type="button" onclick="cancelEdit('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
-                                                                </form>
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <form method="post" action="edit_comment.php">
+                                                                            <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
+                                                                            <textarea class="form-control" name="updatedContent" rows="3">'.($comment['content']).'</textarea>
+                                                                            <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                                                            <button type="button" onclick="cancelEdit('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <form method="post"  action="delete_comment.php" style="text-align: right;">
                                                                 <input type="hidden" name="commentID" value='.$comment['commentID'].'>
