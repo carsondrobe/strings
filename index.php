@@ -126,7 +126,7 @@
             $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
         }
         if ($topic != null) {
-            $query .= " OR category = '$topic'";
+            $query .= " AND category = '$topic'";
         }
         if ($filter == 'highest') {
             $query .= " ORDER BY upvotes DESC";
