@@ -90,7 +90,7 @@
                                 </a>
                                 <form method="post" action="delete_discussion.php">
                                     <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
+                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
                                 </form>';
                     }
                 }
@@ -138,7 +138,8 @@
                                                             </div>
                         ';
                         if($_SESSION['username'] == $comment['username']) {
-                            echo '          <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
+                            echo '      <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value='.$comment['commentID'].'>
                                             <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
@@ -185,14 +186,14 @@
         function editPost() {
             document.getElementById('post-edit-form').style.display = 'block';
             document.getElementById('post-display').style.display = 'none';
-            document.getElementById('edit-comment-btn').style.display = "none";
-            document.getElementById('delete-comment-btn').style.display = "none";
+            document.getElementById('edit-post-btn').style.display = "none";
+            document.getElementById('delete-post-btn').style.display = "none";
         }
         function cancelEditPost() {
             document.getElementById('post-edit-form').style.display = 'none';
             document.getElementById('post-display').style.display = 'block';
-            document.getElementById('edit-comment-btn').style.display = "block";
-            document.getElementById('delete-comment-btn').style.display = "block";
+            document.getElementById('edit-post-btn').style.display = "block";
+            document.getElementById('delete-post-btn').style.display = "block";
         }
         function openEditModal(discussionID, title, content, category) {
             document.getElementById('editDiscussionID').value = discussionID;
