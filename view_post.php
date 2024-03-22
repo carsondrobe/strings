@@ -52,7 +52,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text"><strong>Posted by: ✏️ </strong>'.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).' | <i><strong>'.($row['category']).'</strong></i></p>
+                                        <p class="card-text"><strong>✏️ Posted by: </strong>'.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).' | <i><strong>'.($row['category']).'</strong></i></p>
                                         <h4 class="card-title">'.($row['title']).'</h4>
                                         <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
@@ -85,10 +85,11 @@
                     ';
                     // Display button to delete post if user is author of post
                     if ($_SESSION['username'] == $row['username']) {
-                        echo '<form method="post" action="delete_discussion.php">
-                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
-                              </form>';
+                        echo '  <button onclick="editPost()" class="btn btn-outline-info">Edit Post</button>
+                                <form method="post" action="delete_discussion.php">
+                                    <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
+                                </form>';
                     }
                 }
                 echo '
@@ -117,7 +118,7 @@
                         echo '
                                                 <div class="card" id="comment-'.$comment['commentID'].'">
                                                     <div class="card-body">
-                                                        <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
+                                                        <p class="card-text"><strong>✏️ Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-'.$comment['commentID'].'" style="display:block;">
                                                             <p class="card-text">'.$comment['content'].'</p>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
@@ -135,10 +136,10 @@
                         ';
                         if($_SESSION['username'] == $comment['username']) {
                             echo '
-                                                            <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right;">Edit</button>
+                                                            <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right; display: inline;" id="edit-comment-btn">Edit Comment</button>
                                                             <form method="post"  action="delete_comment.php" style="text-align: right;">
                                                                 <input type="hidden" name="commentID" value='.$comment['commentID'].'>
-                                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm" style="text-align: left; display: inline;" id="delete-comment-btn"onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                                             </form>
                             ';
                         }
@@ -172,9 +173,13 @@
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
+            document.getElementById('edit-comment-btn').style.display = "none";
+            document.getElementById('delete-comment-btn').style.display = "none";
         }
         function cancelEdit(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "none";
+            document.getElementById('edit-comment-btn').style.display = "block";
+            document.getElementById('delete-comment-btn').style.display = "none";
         }
     </script>
     <!-- BOOTSTRAP -->
