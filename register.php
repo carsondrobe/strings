@@ -1,8 +1,12 @@
 <?php
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
-$profilePicture = "";
+$profilePicture = NULL;
 
 include 'config.php';
+
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 function test_input($data) {
     $data = trim($data);
@@ -12,7 +16,6 @@ function test_input($data) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
     } else {
@@ -21,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usernameErr = "Username can only contain letters, numbers, and underscores";
         }
     }
-
 
     if (empty($_POST['email'])) {
         $emailErr = "Email is required";
@@ -36,67 +38,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dobErr = "Date of Birth is required";
     } else {
         $dob = test_input($_POST['dob']);
-        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob)) {
-            $dobErr = "Invalid date format. Please use YYYY-MM-DD";
-        } elseif ($dob >= date("Y-m-d")) {
-            $dobErr = "Date of Birth must be in the past";
-        }
+        // Validate the date format and that it is a past date
     }
-
 
     if (empty($_POST['password'])) {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST['password']);
-        if ($password != $_POST['retype-pass']) {
-            $retypePasswordErr = "Passwords do not match";
-        }
+        // Verify password match
     }
 
-
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
-        $target_dir = "uploads/"; // Make sure this folder exists and is writable
-        // Generate a unique file name to avoid file name conflicts
-        $fileName = uniqid() . "-" . basename($_FILES["profile_pic"]["name"]);
-        $target_file = $target_dir . $fileName;
-    
-        // Attempt to move the uploaded file to your target directory
-        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars($fileName). " has been uploaded.";
-            $profilePicture = $target_file; // Use this variable to store in the database
-        } else {
-            // Handle the case where the file couldn't be moved
-            echo "Sorry, there was an error uploading your file.";
-            $profilePicture = ""; // Consider how you want to handle this case
-        }
-    } else {
-        $profilePicture = ""; // Handle the case where no file was uploaded or an error occurred
+        // Open the file and read its content
+        $tmpName = $_FILES['profile_pic']['tmp_name'];
+        $fp = fopen($tmpName, 'rb'); // 'rb' is for reading binary files
+        $profilePicture = fread($fp, filesize($tmpName));
+        fclose($fp);
+        // Debug: Uncomment to check the binary data length
+        echo "<p>File Size: " . strlen($profilePicture) . " bytes</p>";
     }
 
     // Insert into database if there are no errors
     if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
-        // Prepare a statement for user existence check
         $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
         $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            echo "<script> alert('Username or Email already exists!') </script>";
-        } else {
-            // Prepare a statement for insert
+        if ($result->num_rows == 0) {
             $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
+            // Binding the NULL directly for the blob to be handled in send_long_data
             $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
+
             if ($insert_stmt->execute()) {
+                // Success
                 header("Location: login.php");
                 exit();
             } else {
-                echo "Registration failed: " . $conn->error;
+                // Display error
+                echo "<p>Registration failed: " . $conn->error . "</p>";
             }
         }
     }
-
-    // Close connection
     $conn->close();
 }
 ?>
@@ -119,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'navbar.php'; ?>
 
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return validateForm()">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div class="register_container">
             <fieldset>
                 <legend class="register_legend">Register</legend>
@@ -130,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group">
                     <label for="inputUsername1">Username</label>
-                    <input type="text" class="form-control" id="inputUsername1" name="username" placeholder="Enter username" required minlength="1" maxlength="31" pattern="^[A-Za-z][A-Za-z0-9]{5,31}$">
+                    <input type="text" class="form-control" id="inputUsername1" name="username" placeholder="Enter username" required minlength="5" maxlength="31" pattern="^[A-Za-z][A-Za-z0-9]{5,31}$">
                     <span class="error"><?php echo $usernameErr; ?></span>
                 </div>
                 <div class="form-group">

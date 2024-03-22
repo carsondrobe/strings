@@ -45,7 +45,7 @@ mysqli_close($conn);
             <!-- Profile Picture Column -->
             <div class="col-md-4">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
-                    <img src="uploads/<?php echo $row['profile_picture']; ?>" class="img-fluid rounded-circle" alt="Profile Picture">
+                <img src="handlepfp.php?user_id=<?php echo urlencode($user_id); ?>" class="img-fluid rounded-circle" alt="Profile Picture">
                 </button>
             </div>
 
