@@ -58,16 +58,14 @@ mysqli_close($conn);
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form form method="POST" action="uploadpfp.php" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="profilePicInput" class="form-label">Select image</label>
-                                    <input class="form-control" type="file" id="profilePicInput" accept="image/*">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form id="updateProfilePicForm" method="POST" action="updatepfp.php" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="profilePicInput" class="form-label">Select New Profile Picture</label>
+                                <input type="file" class="form-control" id="profilePicInput" name="profilePicInput" accept="image/*">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                            </div>
                             <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
                         </div>
                     </div>
                 </div>
