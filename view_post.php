@@ -52,8 +52,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text"><strong>Posted by: ✏️ </strong>'.($row['username']).' | <strong>Published on:</strong>  | <i><strong>'.($row['category']).'</strong></i>
-                                        '.($row['time_posted']).'</p>
+                                        <p class="card-text"><strong>Posted by: ✏️ </strong>'.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).' | <i><strong>'.($row['category']).'</strong></i></p>
                                         <h4 class="card-title">'.($row['title']).'</h4>
                                         <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
