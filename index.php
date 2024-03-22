@@ -124,17 +124,16 @@
         }
         if ($filter == 'highest') {
             $query .= " ORDER BY upvotes DESC";
+        } else if ($filter == 'recent') {
+            $query .= " ORDER BY time_posted DESC";
         }
         try {
             $result = $conn->query($query);
             if ($result->num_rows == 0) {
                 echo '<h1 style="text-align:center;">No results found</h1>';
             } else {
-                $queryParams = array(
-                    'query' => $_GET['query'],
-                    'filter' => 'highest'
-                );
-                $queryString = http_build_query($queryParams);
+                $queryStringHighest = buildQueryString('highest');
+                $queryStringRecent = buildQueryString('recent');
 
                 echo '<!-- Filter Button -->
                 <div class="container">
@@ -145,9 +144,8 @@
                                     Filter<i class="bi bi-filter"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Trending</a></li>
-                                    <li><a class="dropdown-item" href="#">Recent</a></li>
-                                    <li><a class="dropdown-item" href="?' . $queryString . '">Highest Voted</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringRecent . '">Recent</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringHighest . '">Highest Voted</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -188,6 +186,14 @@
             // $conn->close();
         } catch (Exception $e) {
             die($e->getMessage());
+        }
+        function buildQueryString($filter)
+        {
+            $queryParams = array(
+                'query' => $_GET['query'],
+                'filter' => $filter
+            );
+            return http_build_query($queryParams);
         }
 
         ?>
