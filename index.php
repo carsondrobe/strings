@@ -130,6 +130,12 @@
             if ($result->num_rows == 0) {
                 echo '<h1 style="text-align:center;">No results found</h1>';
             } else {
+                $queryParams = array(
+                    'query' => $_GET['query'],
+                    'filter' => 'highest'
+                );
+                $queryString = http_build_query($queryParams);
+
                 echo '<!-- Filter Button -->
                 <div class="container">
                     <div class="row justify-content-center">
@@ -141,7 +147,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Trending</a></li>
                                     <li><a class="dropdown-item" href="#">Recent</a></li>
-                                    <li><a class="dropdown-item" href="?filter=highest">Highest Voted</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryString . '">Highest Voted</a></li>
                                 </ul>
                             </div>
                         </div>
