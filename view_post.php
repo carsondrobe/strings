@@ -95,8 +95,11 @@
                                 <br>
                 ';
                 // Dynamically generate comments here
-                $query2 = "SELECT * FROM Comments WHERE discussionID = " . $discussionId;
-                $result2 = $conn->query($query2);
+                $query2 = "SELECT * FROM Comments WHERE discussionID = ?";
+                $stmt2 = $conn->prepare($query2);
+                $stmt2->bind_param("i", $discussionId);
+                $stmt2->execute();
+                $result2 = $stmt2->get_result();
                 $num_comments = $result2->num_rows;
                 if ($num_comments > 0) {
                     if($num_comments == 1) {
@@ -110,24 +113,31 @@
                     }
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
-                                                <div class="card" id="comment">
+                                                <div class="card" id="comment-'.$comment['commentID'].'">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
-                                                        <p class="card-text">' . $comment['content'] . '</p>
+                                                        <div id="comment-content-'.$comment['commentID'].'">
+                                                            <p class="card-text">'.$comment['content'].'</p>
                         ';
                         if($_SESSION['username'] == $comment['username']) {
                             echo '
-                                                        <form method="post" action="edit_comment.php" style="text-align: right;">
-                                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
-                                                            <button type="submit" class="btn btn-danger btn-sm";">Edit</button>
-                                                        </form>
-                                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
-                                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
-                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete</button>
-                                                        </form>
+                                                            <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right;">Edit</button>
+                                                            <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
+                                                                <form method="post" action="edit_comment.php">
+                                                                    <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
+                                                                    <textarea class="form-control" name="updatedContent" rows="3">'.($comment['content']).'</textarea>
+                                                                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                                                    <button type="button" onclick="cancelEdit('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
+                                                                </form>
+                                                            </div>
+                                                            <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                                                <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete</button>
+                                                            </form>
                             ';
                         }
                         echo '
+                                                        </div>
                                                     </div>
                                                 </div>
                             ';
@@ -152,6 +162,17 @@
         die($e->getMessage());
     }
     ?>
+    <!-- JavaScript functions for editing comments -->
+    <script>
+        function editComment(commentID) {
+            document.getElementById('comment-content-' + commentID).style.display = 'none';
+            document.getElementById('edit-form-' + commentID).style.display = 'block';
+        }
+        function cancelEdit(commentID) {
+            document.getElementById('comment-content-' + commentID).style.display = 'block';
+            document.getElementById('edit-form-' + commentID).style.display = 'none';
+        }
+        </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
