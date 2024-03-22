@@ -61,6 +61,7 @@ function buildQueryStringTopic($topic)
                 <?php
                 // Query to get notifications
                 $query = "SELECT * FROM Notifications WHERE notified_userID = 2";
+                var_dump($query);
                 $result = mysqli_query($conn, $query);
                 var_dump($result);
                 $count = mysqli_num_rows($result);
