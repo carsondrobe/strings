@@ -118,48 +118,45 @@
     </script>
 
 
-    <!-- When a post is searched for -->
-    <script>
-        function goToSearchResults() {
-            var searchTerm = document.getElementById('nav-bar-search').value;
-            if (searchTerm.trim() !== '') {
-                window.location.href = 'search_results.html?query=' + encodeURIComponent(searchTerm);
-            }
-            return false; // Prevents the form from submitting in the traditional way
+    <!-- Posts will be dynamically generated here -->
+    <div class="container" id="postContainer">
+        <!-- PHP script for displaying a post on the home page -->
+        <?php
+        session_start();
+        include 'config.php';
+        if ($_GET['query'] == null) {
+            $query = "SELECT * FROM Discussions";
+        } else {
+            $search = $_GET['query'];
+            $search = htmlspecialchars($search);
+            $search = mysqli_real_escape_string($conn, $search);
+            $query = "SELECT * FROM discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
         }
-    </script>
+        try {
 
-<!-- Posts will be dynamically generated here -->
-<div class="container" id="postContainer">
-    <!-- PHP script for displaying a post on the home page -->
-    <?php 
-    session_start();
-    include 'config.php';
-    try {
-        $query = "SELECT * FROM Discussions";
-        $result = $conn->query($query);
-        while($row = $result->fetch_assoc()) {
-            $imageData = base64_encode($row['discussion_picture']);
-            $contentPeek = substr($row['content'], 0, 100);
-            $contentPeek .= '...';
-            echo '
+            $result = $conn->query($query);
+            while ($row = $result->fetch_assoc()) {
+                $imageData = base64_encode($row['discussion_picture']);
+                $contentPeek = substr($row['content'], 0, 100);
+                $contentPeek .= '...';
+                echo '
             <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
+                            <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
                             <hr>
-                            <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
-                                <h4 class="card-title">'.($row['title']).'</h4>
-                                <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
-                                <p class="card-text">'.$contentPeek.'</p>
+                            <a href="view_post.php?discussionID=' . $row['discussionID'] . '" class="post-link">                        
+                                <h4 class="card-title">' . ($row['title']) . '</h4>
+                                <img src="data:image/jpeg;base64,' . $imageData . '" class="card-img-top" alt="Discussion Image" id="discussion-image">
+                                <p class="card-text">' . $contentPeek . '</p>
                             </a>
                             <hr>
                             <div class="d-flex justify-content-between">
-                                <p class="card-text" id="discussion-category">'.$row['category'].'</p>
+                                <p class="card-text" id="discussion-category">' . $row['category'] . '</p>
                                 <div>
-                                    <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
-                                    <button type="button" class="btn btn-outline-danger">- ('.$row['downvotes'].')</button>
+                                    <button type="button" class="btn btn-outline-success me-2">+ (' . $row['upvotes'] . ')</button>
+                                    <button type="button" class="btn btn-outline-danger">- (' . $row['downvotes'] . ')</button>
                                 </div>
                             </div>
                         </div>
@@ -167,12 +164,14 @@
                 </div>
             </div>
             ';
+            }
+            // $conn->close();
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
-        // $conn->close();
-    } catch(Exception $e) {
-        die($e->getMessage());
-    }
-    ?>
-</div>
+
+        ?>
+    </div>
 </body>
+
 </html>

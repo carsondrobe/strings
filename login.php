@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit();
     } else {
-        echo "<script> alert('Username or Password is Incorrect') </script>";;
+        echo "<script> alert('Username or Password is Incorrect') </script>";
     }
 
     mysqli_close($conn);

@@ -44,8 +44,9 @@ session_start();
                 </li>
             </ul>
             <!-- Search Bar -->
-            <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
-                <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search">
+            <form class="d-flex" role="search" method="get" action="index.php">
+                <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search" name="query">
+                <input type="submit" value="Search" />
             </form>
             <!-- Notifications -->
             <?php if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) : ?>
