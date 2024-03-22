@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         // Update Notifications
         // First, get the userID for the given username
-        $stmt = $conn->prepare("SELECT userID FROM Users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
         }
