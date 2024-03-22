@@ -4,9 +4,6 @@ $profilePicture = NULL;
 
 include 'config.php';
 
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 function test_input($data) {
     $data = trim($data);
@@ -38,27 +35,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dobErr = "Date of Birth is required";
     } else {
         $dob = test_input($_POST['dob']);
-        // Validate the date format and that it is a past date
+
     }
 
     if (empty($_POST['password'])) {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST['password']);
-        // Verify password match
+
     }
 
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
-        // Open the file and read its content
+  
         $tmpName = $_FILES['profile_pic']['tmp_name'];
-        $fp = fopen($tmpName, 'rb'); // 'rb' is for reading binary files
+        $fp = fopen($tmpName, 'rb'); 
         $profilePicture = fread($fp, filesize($tmpName));
         fclose($fp);
-        // Debug: Uncomment to check the binary data length
+
         echo "<p>File Size: " . strlen($profilePicture) . " bytes</p>";
     }
 
-    // Insert into database if there are no errors
+
     if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
         $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
         $stmt->bind_param("ss", $username, $email);
@@ -67,15 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows == 0) {
             $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
-            // Binding the NULL directly for the blob to be handled in send_long_data
             $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
 
             if ($insert_stmt->execute()) {
-                // Success
+
                 header("Location: login.php");
                 exit();
             } else {
-                // Display error
+
                 echo "<p>Registration failed: " . $conn->error . "</p>";
             }
         }
