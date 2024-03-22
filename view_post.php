@@ -166,11 +166,11 @@
     <script>
         function editComment(commentID) {
             console.log('<?php echo $comment["content"]; ?>');
-            document.getElementById('comment-content-' + commentID).style.display = 'none';
+            document.getElementById('comment-' + commentID).style.display = 'none';
             document.getElementById('edit-form-' + commentID).style.display = 'block';
         }
         function cancelEdit(commentID) {
-            document.getElementById('comment-content-' + commentID).style.display = 'block';
+            document.getElementById('comment-' + commentID).style.display = 'block';
             document.getElementById('edit-form-' + commentID).style.display = 'none';
         }
     </script>
