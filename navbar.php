@@ -45,7 +45,7 @@ function buildQueryStringTopic($topic)
                         <?php
                         echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('world') . '">🌍 World News</a></li>';
                         echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('sports') . '">⚽ Sports</a></li>';
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('health') . '">💊 Health</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('science') . '">💊 Science</a></li>';
                         echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('business') . '">💼 Business</a></li>';
                         ?>
                         <li>
