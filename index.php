@@ -126,6 +126,8 @@
             $query .= " ORDER BY upvotes DESC";
         } else if ($filter == 'recent') {
             $query .= " ORDER BY time_posted DESC";
+        } else if ($filter == 'oldest') {
+            $query .= " ORDER BY time_posted ASC";
         }
         try {
             $result = $conn->query($query);
@@ -134,6 +136,7 @@
             } else {
                 $queryStringHighest = buildQueryString('highest');
                 $queryStringRecent = buildQueryString('recent');
+                $queryStringOldest = buildQueryString('oldest');
 
                 echo '<!-- Filter Button -->
                 <div class="container">
@@ -144,8 +147,10 @@
                                     Filter<i class="bi bi-filter"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="?' . $queryStringRecent . '">Recent</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringRecent . '">Newest</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringOldest . '">Oldest</a></li>
                                     <li><a class="dropdown-item" href="?' . $queryStringHighest . '">Highest Voted</a></li>
+                                    
                                 </ul>
                             </div>
                         </div>
