@@ -1,12 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 
 include 'config.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
     } else {
@@ -60,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        // TODO: Add profile picture upload
-        $profilePicture = null;
+        // Profile Picture handling
+        $profilePicture = mysqli_real_escape_string($conn, $profilePicture);
 
-        $sql = "INSERT INTO User (username, password, email, dob) VALUES ('$username', '$password', '$email', '$dob')";
+        $sql = "INSERT INTO User (username, password, email, dob, profile_picture) VALUES ('$username', '$password', '$email', '$dob', '$profilePicture')";
 
         $result = mysqli_query($conn, $sql);
 
@@ -77,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     mysqli_close($conn);
-}
+
 
 function test_input($data)
 {
@@ -87,7 +82,6 @@ function test_input($data)
     return $data;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,8 +119,7 @@ function test_input($data)
                     <label for="inputEmail1">Email</label>
                     <input type="email" class="form-control" id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                     <span class="error"><?php echo $emailErr; ?></span>
-                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us
-                        :)</small>
+                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us:</small>
                 </div>
                 <div class="form-group">
                     <label for="inputDOB1">Date of Birth</label>
