@@ -28,14 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute prepared statement
     if ($stmt->execute()) {
         // Update Notifications
-        $commentId = $conn->insert_id;
-        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, (SELECT userID FROM Discussions WHERE username = ?), 'comment')");
-
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error);
+        // First, get the userID for the given username
+        $stmt = $conn->prepare("SELECT userID FROM Discussions WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $notified_userID = $row['userID'];
+        } else {
+            die("No user found with username: $username");
         }
 
-        $stmt->bind_param("iiis", $discussionId, $commentId, $user_id, $username);
+        // Then, insert the notification
+        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
+        $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
         $stmt->execute();
 
 
