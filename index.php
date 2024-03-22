@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strings Home B</title>
+    <title>Strings Home</title>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
@@ -124,7 +124,7 @@
         try {
             $result = $conn->query($query);
             if ($result->num_rows == 0) {
-                echo '<h1>No results found</h1>';
+                echo '<h1 style="text-align:center;">No results found</h1>';
             } else {
                 echo '<!-- Filter Button -->
                 <div class="container">
