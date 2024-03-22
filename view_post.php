@@ -172,7 +172,7 @@
             document.getElementById('edit-form-' + commentID).style.display = "block";
         }
         function cancelEdit(commentID) {
-            document.getElementById('edit-form-' + commentID).style = "none";
+            document.getElementById('edit-form-' + commentID).style.display = "none";
         }
     </script>
     <!-- BOOTSTRAP -->
