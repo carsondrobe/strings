@@ -1,7 +1,18 @@
 <?php
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
+$profilePicture = "";
 
 include 'config.php';
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
     } else {
@@ -10,6 +21,7 @@ include 'config.php';
             $usernameErr = "Username can only contain letters, numbers, and underscores";
         }
     }
+
 
     if (empty($_POST['email'])) {
         $emailErr = "Email is required";
@@ -23,18 +35,14 @@ include 'config.php';
     if (empty($_POST['dob'])) {
         $dobErr = "Date of Birth is required";
     } else {
-        // Validate the format of the date
         $dob = test_input($_POST['dob']);
-        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob) == 0) {
+        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob)) {
             $dobErr = "Invalid date format. Please use YYYY-MM-DD";
-        } else {
-            // Check if the date is in the past (not future DOB)
-            $currentDate = date("Y-m-d");
-            if ($dob >= $currentDate) {
-                $dobErr = "Date of Birth must be in the past";
-            }
+        } elseif ($dob >= date("Y-m-d")) {
+            $dobErr = "Date of Birth must be in the past";
         }
     }
+
 
     if (empty($_POST['password'])) {
         $passwordErr = "Password is required";
@@ -45,41 +53,51 @@ include 'config.php';
         }
     }
 
-    if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
-        // Check for unique User
-        $unique_user = "SELECT * FROM User WHERE username = '$username' or email = '$email'";
-        $result = mysqli_query($conn, $unique_user);
 
-        if (mysqli_num_rows($result) > 0) {
-            echo "<script> alert('Username or Email already exists!') </script>";
-            exit();
-        }
-
-        // Profile Picture handling
-        $profilePicture = mysqli_real_escape_string($conn, $profilePicture);
-
-        $sql = "INSERT INTO User (username, password, email, dob, profile_picture) VALUES ('$username', '$password', '$email', '$dob', '$profilePicture')";
-
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            // Send them to the login page
-            header("Location: login.php");
-            exit();
+    if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
+        $target_dir = "uploads/"; // Make sure this folder exists and is writable
+        // Generate a unique file name to avoid file name conflicts
+        $fileName = uniqid() . "-" . basename($_FILES["profile_pic"]["name"]);
+        $target_file = $target_dir . $fileName;
+    
+        // Attempt to move the uploaded file to your target directory
+        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars($fileName). " has been uploaded.";
+            $profilePicture = $target_file; // Use this variable to store in the database
         } else {
-            echo "Registration failed.";
+            // Handle the case where the file couldn't be moved
+            echo "Sorry, there was an error uploading your file.";
+            $profilePicture = ""; // Consider how you want to handle this case
+        }
+    } else {
+        $profilePicture = ""; // Handle the case where no file was uploaded or an error occurred
+    }
+
+    // Insert into database if there are no errors
+    if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
+        // Prepare a statement for user existence check
+        $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            echo "<script> alert('Username or Email already exists!') </script>";
+        } else {
+            // Prepare a statement for insert
+            $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
+            $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
+            if ($insert_stmt->execute()) {
+                header("Location: login.php");
+                exit();
+            } else {
+                echo "Registration failed: " . $conn->error;
+            }
         }
     }
 
-    mysqli_close($conn);
-
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+    // Close connection
+    $conn->close();
 }
 ?>
 <!DOCTYPE html>
@@ -112,7 +130,7 @@ function test_input($data)
 
                 <div class="form-group">
                     <label for="inputUsername1">Username</label>
-                    <input type="text" class="form-control" id="inputUsername1" name="username" placeholder="Enter username" required minlength="5" maxlength="31" pattern="^[A-Za-z][A-Za-z0-9]{5,31}$">
+                    <input type="text" class="form-control" id="inputUsername1" name="username" placeholder="Enter username" required minlength="1" maxlength="31" pattern="^[A-Za-z][A-Za-z0-9]{5,31}$">
                     <span class="error"><?php echo $usernameErr; ?></span>
                 </div>
                 <div class="form-group">

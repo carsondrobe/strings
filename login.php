@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 session_start();
 require 'config.php';
 
@@ -8,32 +6,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Sanitize user inputs to prevent SQL injection
     $username = mysqli_real_escape_string($conn, $username);
     $password = mysqli_real_escape_string($conn, $password);
 
-    // Check if the user exists
+
     $user_query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $user_query);
 
     if (mysqli_num_rows($result) != 1) {
-        // Account not found, display error message
-        echo "<script> alert('Account not found. Please check your username and password.') </script>";
+        $_SESSION['error'] = 'Account not found. Please check your username and password.';
+        header("Location: login.php");
         exit();
     }
 
-    // Fetch user information
+ 
     $row = mysqli_fetch_assoc($result);
 
-    // Set session variables
+   
     $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = $row['userID']; // Set the session user id here
+    $_SESSION['user_id'] = $row['userID']; 
 
-    // Redirect to account.php after successful login
+
     header("Location: index.php");
     exit();
 }
 
+// Close the database connection at the end of your script
 mysqli_close($conn);
 ?>
 
@@ -59,6 +57,14 @@ mysqli_close($conn);
         <div class="login_container">
             <fieldset>
                 <legend class="login_legend">Login</legend>
+                
+                <!-- Display error message if login fails -->
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label for="exampleInputEmail1">Username</label>
                     <input type="text" class="form-control" id="exampleInputUsername1" name="username" placeholder="Enter username" required>
