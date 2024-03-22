@@ -115,6 +115,7 @@
         include 'config.php';
         $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
         $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
+        echo var_dump($topic);
 
         if ($_GET['query'] == null) {
             $query = "SELECT * FROM Discussions";
