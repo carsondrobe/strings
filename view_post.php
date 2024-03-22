@@ -165,6 +165,7 @@
     <!-- JavaScript functions for editing comments -->
     <script>
         function editComment(commentID) {
+            console.log('<?php echo $comment["content"]; ?>');
             document.getElementById('comment-content-' + commentID).style.display = 'none';
             document.getElementById('edit-form-' + commentID).style.display = 'block';
         }
@@ -172,7 +173,7 @@
             document.getElementById('comment-content-' + commentID).style.display = 'block';
             document.getElementById('edit-form-' + commentID).style.display = 'none';
         }
-        </script>
+    </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Execute prepared statement
     if($stmt->execute()) {
-        header("Location: index.php");
+        header("Location: view_post.php?discussionID=".$_SESSION['discussionID']);
         exit(); 
     } else {
         echo '<script>alert("Error '.$conn->error.'")</script>';
