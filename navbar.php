@@ -58,21 +58,38 @@ function buildQueryStringTopic($topic)
             </form>
             <!-- Notifications -->
             <?php if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) : ?>
+                <?php
+                // Query to get notifications
+                $query = "SELECT * FROM Notifications WHERE notified_userID = " . $_SESSION["user_id"];
+                $result = mysqli_query($conn, $query);
+                $count = mysqli_num_rows($result);
+                ?>
                 <div class="dropdown ms-auto">
                     <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
                         <span style="margin-right: 5px;">📬</span> Notifications
-                        <span class="badge bg-danger" style="margin-left: 5px;">5</span>
+                        <span class="badge bg-danger" style="margin-left: 5px;"><?php $count ?></span>
                     </button>
                     <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
-                        <!-- Sample messages as cards -->
-                        <li>
-                            <div class="card">
-                                <div class="card-body">
-                                    <p class="card-text">Sample Message 1</p>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- Add more sample messages here -->
+                        <?php
+                        // Display notifications
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $commenting_userID = $row['commenting_userID'];
+                            $commenting_user_query = "SELECT username FROM User WHERE userID = $commenting_userID";
+                            $commenting_user_result = mysqli_query($conn, $commenting_user_query);
+                            $commenting_username = mysqli_fetch_assoc($commenting_user_result)['username'];
+
+                            echo '<li>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p class="card-text">' . $commenting_username . ' commented on your post. </p>
+                                        </div>
+                                    </div>
+                                </li>';
+                        }
+                        ?>
+
+
+
                     </ul>
                 </div>
             <?php endif; ?>
