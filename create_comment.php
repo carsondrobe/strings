@@ -30,6 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update Notifications
         $commentId = $conn->insert_id;
         $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, (SELECT userID FROM Discussions WHERE username = ?), 'comment')");
+
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+
         $stmt->bind_param("iiis", $discussionId, $commentId, $user_id, $username);
         $stmt->execute();
 
