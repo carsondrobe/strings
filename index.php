@@ -122,7 +122,7 @@
             $search = $_GET['query'];
             $search = htmlspecialchars($search);
             $search = mysqli_real_escape_string($conn, $search);
-            $query = "SELECT * FROM Discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
+            $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
         }
         if ($topic != null) {
             $query .= " AND category = '$topic'";
