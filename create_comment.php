@@ -29,8 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         // Update Notifications
         // First, get the userID for the given username
-        var_dump($username);
-        $stmt = $conn->prepare("SELECT userID FROM Discussions WHERE username = ?");
+        $stmt = $conn->prepare("SELECT userID FROM Users WHERE username = ?");
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
