@@ -19,12 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
- 
+
     $row = mysqli_fetch_assoc($result);
 
-   
+
     $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = $row['userID']; 
+    $_SESSION['user_id'] = $row['userID'];
 
 
     header("Location: index.php");
@@ -57,11 +57,12 @@ mysqli_close($conn);
         <div class="login_container">
             <fieldset>
                 <legend class="login_legend">Login</legend>
-                
+
                 <!-- Display error message if login fails -->
-                <?php if (isset($_SESSION['error'])): ?>
+                <?php if (isset($_SESSION['error'])) : ?>
                     <div class="alert alert-danger" role="alert">
-                        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                        <?php echo $_SESSION['error'];
+                        unset($_SESSION['error']); ?>
                     </div>
                 <?php endif; ?>
 

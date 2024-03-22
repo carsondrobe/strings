@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strings Home A</title>
+    <title>Strings Home</title>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- BOOTSTRAP -->
@@ -17,25 +17,16 @@
 <body>
     <?php include 'navbar.php'; ?>
 
-    <h1>Welcome to Strings</h1>
 
-    <!-- Filter Button -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
-                <div class="dropdown" id="filter-dropdown">
-                    <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
-                        Filter<i class="bi bi-filter"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Trending</a></li>
-                        <li><a class="dropdown-item" href="#">Recent</a></li>
-                        <li><a class="dropdown-item" href="#">Highest Voted</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    if ($_GET['query'] != null) {
+        echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
+    } else if ($_GET['topic'] != null) {
+        echo '<h1>Trending in ' . ucwords($_GET['topic']) . '</h1>';
+    } else {
+        echo '<h1>Welcome to Strings</h1>';
+    }
+    ?>
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -117,48 +108,89 @@
     </script>
 
 
-    <!-- When a post is searched for -->
-    <script>
-        function goToSearchResults() {
-            var searchTerm = document.getElementById('nav-bar-search').value;
-            if (searchTerm.trim() !== '') {
-                window.location.href = 'search_results.html?query=' + encodeURIComponent(searchTerm);
-            }
-            return false; // Prevents the form from submitting in the traditional way
-        }
-    </script>
+    <!-- Posts will be dynamically generated here -->
+    <div class="container" id="postContainer">
+        <!-- PHP script for displaying a post on the home page -->
+        <?php
+        session_start();
+        include 'config.php';
+        $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+        $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
 
-<!-- Posts will be dynamically generated here -->
-<div class="container" id="postContainer">
-    <!-- PHP script for displaying a post on the home page -->
-    <?php 
-    session_start();
-    include 'config.php';
-    try {
-        $query = "SELECT * FROM Discussions";
-        $result = $conn->query($query);
-        while($row = $result->fetch_assoc()) {
-            $imageData = base64_encode($row['discussion_picture']);
-            $contentPeek = substr($row['content'], 0, 100);
-            $contentPeek .= '...';
-            echo '
+
+        if ($_GET['query'] == null) {
+            $query = "SELECT * FROM Discussions";
+            if ($topic != null) {
+                $query .= " WHERE category = '$topic'";
+            }
+        } else {
+            $search = $_GET['query'];
+            $search = htmlspecialchars($search);
+            $search = mysqli_real_escape_string($conn, $search);
+            $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
+            if ($topic != null) {
+                $query .= " AND category = '$topic'";
+            }
+        }
+
+        if ($filter == 'highest') {
+            $query .= " ORDER BY upvotes DESC";
+        } else if ($filter == 'recent') {
+            $query .= " ORDER BY time_posted DESC";
+        } else if ($filter == 'oldest') {
+            $query .= " ORDER BY time_posted ASC";
+        }
+        try {
+            $result = $conn->query($query);
+            if ($result->num_rows == 0) {
+                echo '<h1 style="text-align:center;">No results found</h1>';
+            } else {
+                $queryStringHighest = buildQueryStringFilter('highest', $topic);
+                $queryStringRecent = buildQueryStringFilter('recent', $topic);
+                $queryStringOldest = buildQueryStringFilter('oldest', $topic);
+
+                echo '<!-- Filter Button -->
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
+                            <div class="dropdown" id="filter-dropdown">
+                                <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                                    Filter<i class="bi bi-filter"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="?' . $queryStringRecent . '">Newest</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringOldest . '">Oldest</a></li>
+                                    <li><a class="dropdown-item" href="?' . $queryStringHighest . '">Highest Voted</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
+            while ($row = $result->fetch_assoc()) {
+                $imageData = base64_encode($row['discussion_picture']);
+                $contentPeek = substr($row['content'], 0, 100);
+                $contentPeek .= '...';
+                echo '
             <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><strong>Posted by:✏️</strong> '.($row['username']).' | <strong>Published on:</strong> '.($row['time_posted']).'</p>
+                            <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
                             <hr>
-                            <a href="view_post.php?discussionID='.$row['discussionID'].'" class="post-link">                        
-                                <h4 class="card-title">'.($row['title']).'</h4>
-                                <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top" alt="Discussion Image" id="discussion-image">
-                                <p class="card-text">'.$contentPeek.'</p>
+                            <a href="view_post.php?discussionID=' . $row['discussionID'] . '" class="post-link">                        
+                                <h4 class="card-title">' . ($row['title']) . '</h4>
+                                <img src="data:image/jpeg;base64,' . $imageData . '" class="card-img-top" alt="Discussion Image" id="discussion-image">
+                                <p class="card-text">' . $contentPeek . '</p>
                             </a>
                             <hr>
                             <div class="d-flex justify-content-between">
-                                <p class="card-text" id="discussion-category">'.$row['category'].'</p>
+                                <p class="card-text" id="discussion-category">' . $row['category'] . '</p>
                                 <div>
-                                    <button type="button" class="btn btn-outline-success me-2">+ ('.$row['upvotes'].')</button>
-                                    <button type="button" class="btn btn-outline-danger">- ('.$row['downvotes'].')</button>
+                                    <button type="button" class="btn btn-outline-success me-2">+ (' . $row['upvotes'] . ')</button>
+                                    <button type="button" class="btn btn-outline-danger">- (' . $row['downvotes'] . ')</button>
                                 </div>
                             </div>
                         </div>
@@ -166,12 +198,23 @@
                 </div>
             </div>
             ';
+            }
+            // $conn->close();
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
-        // $conn->close();
-    } catch(Exception $e) {
-        die($e->getMessage());
-    }
-    ?>
-</div>
+        function buildQueryStringFilter($filter, $topic)
+        {
+            $queryParams = array(
+                'query' => $_GET['query'],
+                'filter' => $filter,
+                'topic' => $topic
+            );
+            return http_build_query($queryParams);
+        }
+
+        ?>
+    </div>
 </body>
+
 </html>

@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+function buildQueryStringTopic($topic)
+{
+    $queryParams = array(
+        'query' => $_GET['query'],
+        'topic' => $topic
+    );
+    return http_build_query($queryParams);
+}
+
 ?>
 <link href="css/navbar.css" rel="stylesheet">
 
@@ -28,70 +38,44 @@ session_start();
                 <!-- Trending Tab -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Trending
+                        Categories
                     </a>
                     <!-- Trending Content -->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">🌍 World News</a></li>
-                        <li><a class="dropdown-item" href="#">⚽ Sports</a></li>
-                        <li><a class="dropdown-item" href="#">💊 Health</a></li>
-                        <li><a class="dropdown-item" href="#">💼 Business</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">🔥 Trending For You</a></li>
+                        <?php
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('technology') . '">💻 Technology</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('food') . '">🍔 Food</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('science') . '">🔬 Science</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('world') . '">🌍 World News</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('business') . '">💼 Business</a></li>';
+                        ?>
                     </ul>
                 </li>
             </ul>
             <!-- Search Bar -->
-            <form class="d-flex" role="search" onsubmit="return goToSearchResults()">
-                <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search">
+            <form class="d-flex" role="search" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search" name="query">
             </form>
             <!-- Notifications -->
-            <div class="dropdown ms-auto">
-                <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
-                    <span style="margin-right: 5px;">📬</span> Notifications
-                    <span class="badge bg-danger" style="margin-left: 5px;">5</span>
-                </button>
-                <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
-                    <!-- Sample messages as cards -->
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">Sample Message 1</p>
+            <?php if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) : ?>
+                <div class="dropdown ms-auto">
+                    <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
+                        <span style="margin-right: 5px;">📬</span> Notifications
+                        <span class="badge bg-danger" style="margin-left: 5px;">5</span>
+                    </button>
+                    <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+                        <!-- Sample messages as cards -->
+                        <li>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text">Sample Message 1</p>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">Sample Message 2</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">Sample Message 3</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">Sample Message 4</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">Sample Message 5</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                        <!-- Add more sample messages here -->
+                    </ul>
+                </div>
+            <?php endif; ?>
             <!-- Login Button -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
