@@ -113,16 +113,21 @@
                                                 <div class="card" id="comment">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
-                            ';
-                                    
-                        // if ($comment['replyingTo'] != NULL) {
-                        //     echo '
-                        //                                 <p class="card-text">Responding To: ' . $comment['replyingTo'] . '</p>
-                        //     ';
-                        // }
-                        
-                        echo '
                                                         <p class="card-text">' . $comment['content'] . '</p>
+                        ';
+                        if($_SESSION['username'] == $comment['username']) {
+                            echo '
+                                                        <form method="post" action="edit_comment.php" style="text-align: right;">
+                                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                                            <button type="submit" class="btn btn-danger btn-sm";">Edit</button>
+                                                        </form>
+                                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete</button>
+                                                        </form>
+                            ';
+                        }
+                        echo '
                                                     </div>
                                                 </div>
                             ';
