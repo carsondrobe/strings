@@ -222,45 +222,45 @@
 
         <!-- Edit Post Modal -->
         <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editPostModalTitle">Edit your post:</h5>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="edit_post.php" enctype="multipart/form-data">
-                    <input type="hidden" name="discussionID" id="editDiscussionID">
-                        <div class="form-group row">
-                            <label for="editPostCategory" class="col-sm-2 col-form-label">Category</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="editPostCategory" name="editPostCategory" placeholder="Enter post category">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPostModalTitle">Edit your post:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="edit_post.php" enctype="multipart/form-data">
+                        <input type="hidden" name="discussionID" id="editDiscussionID">
+                            <div class="form-group row">
+                                <label for="editPostCategory" class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="editPostCategory" name="editPostCategory" placeholder="Enter post category...">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="editPostTitle" class="col-sm-2 col-form-label">Title</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="editPostTitle" name="editPostTitle" placeholder="Enter post title...">
+                            <div class="form-group row">
+                                <label for="editPostTitle" class="col-sm-2 col-form-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="editPostTitle" name="editPostTitle" placeholder="Enter post title...">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="editPostImage" class="col-sm-2 col-form-label">Image</label>
-                            <div class="col-sm-10">
-                                <input type="file" id="editPostImage" name="editPostImage">
+                            <div class="form-group row">
+                                <label for="editPostImage" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="editPostImage" name="editPostImage">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="editPostContent">Description</label>
-                            <textarea class="form-control" id="editPostContent" name="editPostContent" rows="5" placeholder="Enter post description..."></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update Post</button>
-                        </div>
-                    </form>
+                            <div class="form-group row">
+                                <label for="editPostContent">Description</label>
+                                <textarea class="form-control" id="editPostContent" name="editPostContent" rows="5" placeholder="Enter post description..."></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Post</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 </body>
 
