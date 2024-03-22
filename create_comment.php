@@ -4,10 +4,11 @@ require 'config.php';
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_SESSION['username']; 
+    $username = $_SESSION['username'];
     $discussionId = $_POST['discussionID'];
     $content = $_POST['commentContent'];
     $timePosted = date('Y-m-d');
+    $user_id = $_SESSION['user_id'];
 
     // Check if content is over limit
     if (strlen($content) > 5000) {
@@ -22,6 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
+        // Update Notifications
+        $commentId = $conn->insert_id;
+        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, (SELECT userID FROM Discussions WHERE username = ?), 'comment')");
+        $stmt->bind_param("iiis", $discussionId, $commentId, $user_id, $username);
+        $stmt->execute();
+
         header("Location: view_post.php?discussionID=$discussionId");
     } else {
         echo "Error: " . $stmt->error;
@@ -31,4 +38,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Invalid request.";
 }
-?>
