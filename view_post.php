@@ -118,10 +118,6 @@
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-'.$comment['commentID'].'">
                                                             <p class="card-text">'.$comment['content'].'</p>
-                        ';
-                        if($_SESSION['username'] == $comment['username']) {
-                            echo '
-                                                            <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right;">Edit</button>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
                                                                 <div class="card">
                                                                     <div class="card-body">
@@ -134,6 +130,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                        ';
+                        if($_SESSION['username'] == $comment['username']) {
+                            echo '
+                                                            <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: right;">Edit</button>
                                                             <form method="post"  action="delete_comment.php" style="text-align: right;">
                                                                 <input type="hidden" name="commentID" value='.$comment['commentID'].'>
                                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete</button>
