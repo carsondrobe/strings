@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $_SESSION['logged_in'] = true;
     $_SESSION['user_id'] = $row['userID'];
+    $_SESSION['username'] = $row['username']; 
+
 
 
     header("Location: index.php");
