@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute prepared statement
     if ($stmt->execute()) {
         $commentId = $stmt->insert_id;
+        var_dump($commentId);
         // Update Notifications
         // First, get the userID for the given username
         $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
