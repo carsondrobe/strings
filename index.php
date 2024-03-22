@@ -17,11 +17,12 @@
 <body>
     <?php include 'navbar.php'; ?>
 
-    <h1>Welcome to Strings</h1>
 
     <?php
     if ($_GET['query'] != null) {
         echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
+    } else {
+        echo '<h1>Welcome to Strings</h1>';
     }
     ?>
 
