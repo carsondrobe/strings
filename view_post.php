@@ -86,7 +86,7 @@
                     // Display button to edit or delete post if user is author of post
                     if ($_SESSION['username'] == $row['username']) {
                         echo '   <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
-                                    <button onclick="openEditModal(' . htmlspecialchars($row['discussionID']) . ', ' . htmlspecialchars($row['title'], ENT_QUOTES) . ', ' . htmlspecialchars($row['content'], ENT_QUOTES) . ', ' . htmlspecialchars($row['category'], ENT_QUOTES) . ')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                                    <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
                                 </a>
                                 <form method="post" action="delete_discussion.php">
                                     <input type="hidden" name="discussionID" value="'.$discussionId.'">
