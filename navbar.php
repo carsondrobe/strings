@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+function buildQueryStringTopic($topic)
+{
+    $queryParams = array(
+        'query' => $_GET['query'],
+        'topic' => $topic
+    );
+    return http_build_query($queryParams);
+}
+
 ?>
 <link href="css/navbar.css" rel="stylesheet">
 
@@ -32,10 +42,12 @@ session_start();
                     </a>
                     <!-- Trending Content -->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">🌍 World News</a></li>
-                        <li><a class="dropdown-item" href="#">⚽ Sports</a></li>
-                        <li><a class="dropdown-item" href="#">💊 Health</a></li>
-                        <li><a class="dropdown-item" href="#">💼 Business</a></li>
+                        <?php
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('world') . '">🌍 World News</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('sports') . '">⚽ Sports</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('health') . '">💊 Health</a></li>';
+                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('business') . '">💼 Business</a></li>';
+                        ?>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

@@ -114,6 +114,8 @@
         session_start();
         include 'config.php';
         $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+        $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
+
         if ($_GET['query'] == null) {
             $query = "SELECT * FROM Discussions";
         } else {
@@ -121,6 +123,9 @@
             $search = htmlspecialchars($search);
             $search = mysqli_real_escape_string($conn, $search);
             $query = "SELECT * FROM Discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
+        }
+        if ($topic != null) {
+            $query .= " AND category = '$topic'";
         }
         if ($filter == 'highest') {
             $query .= " ORDER BY upvotes DESC";
@@ -134,9 +139,9 @@
             if ($result->num_rows == 0) {
                 echo '<h1 style="text-align:center;">No results found</h1>';
             } else {
-                $queryStringHighest = buildQueryString('highest');
-                $queryStringRecent = buildQueryString('recent');
-                $queryStringOldest = buildQueryString('oldest');
+                $queryStringHighest = buildQueryStringFilter('highest', $topic);
+                $queryStringRecent = buildQueryStringFilter('recent', $topic);
+                $queryStringOldest = buildQueryStringFilter('oldest', $topic);
 
                 echo '<!-- Filter Button -->
                 <div class="container">
@@ -192,11 +197,12 @@
         } catch (Exception $e) {
             die($e->getMessage());
         }
-        function buildQueryString($filter)
+        function buildQueryStringFilter($filter, $topic)
         {
             $queryParams = array(
                 'query' => $_GET['query'],
-                'filter' => $filter
+                'filter' => $filter,
+                'topic' => $topic
             );
             return http_build_query($queryParams);
         }
