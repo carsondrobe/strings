@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if content is over limit
     if (strlen($content) > 5000) {
         $_SESSION['error_message'] = "Your comment content exceeds the maximum allowed length of 5000 characters. Please shorten your post.";
-        header("Location: view_post.php?discussionID=$discussionId");
+        header("Location: view_post_user.php?discussionID=$discussionId");
         exit();
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        header("Location: view_post.php?discussionID=$discussionId");
+        header("Location: view_post_user.php?discussionID=$discussionId");
     } else {
         echo "Error: " . $stmt->error;
     }
