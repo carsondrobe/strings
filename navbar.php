@@ -67,7 +67,7 @@ function buildQueryStringTopic($topic)
                 <div class="dropdown ms-auto">
                     <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
                         <span style="margin-right: 5px;">📬</span> Notifications
-                        <span class="badge bg-danger" style="margin-left: 5px;"><?php $count ?></span>
+                        <span class="badge bg-danger" style="margin-left: 5px;"><?php echo $count ?></span>
                     </button>
                     <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
                         <?php
