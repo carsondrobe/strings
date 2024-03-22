@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_SESSION['username'];
 
     // Prepare prepared statement
-    $sql = "DELETE FROM Discussions WHERE discussionsID = ? AND username = ?";
-    $stmt = $conn->prepare($query);
+    $sql = "DELETE FROM Discussions WHERE discussionID = ? AND username = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("is", $discussionId, $username);
     
     // Execute prepared statement
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<script>alert("Discussion deleted successfully.")</script>';
         header("Location: index.php");
         exit(); 
-    }; else {
+    } else {
         echo '<script>alert("Error '.$conn->error.'")</script>';
     }
 }
