@@ -116,7 +116,7 @@
                                                 <div class="card" id="comment-'.$comment['commentID'].'">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
-                                                        <div id="comment-content-'.$comment['commentID'].'">
+                                                        <div id="comment-content-'.$comment['commentID'].'" style="display:block;">
                                                             <p class="card-text">'.$comment['content'].'</p>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:block;">
                                                                 <div class="card" style="margin-bottom: 15px;">
