@@ -28,8 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, (SELECT userID FROM Discussions WHERE username = ?), 'comment')");
         $stmt->bind_param("iiis", $discussionId, $commentId, $user_id, $username);
         $stmt->execute();
+        // Debug
+        var_dump($stmt->error);
 
-        header("Location: view_post.php?discussionID=$discussionId");
+
+        // header("Location: view_post.php?discussionID=$discussionId");
     } else {
         echo "Error: " . $stmt->error;
     }
