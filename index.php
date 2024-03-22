@@ -115,19 +115,23 @@
         include 'config.php';
         $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
         $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
-        echo var_dump($topic);
+
 
         if ($_GET['query'] == null) {
             $query = "SELECT * FROM Discussions";
+            if ($topic != null) {
+                $query .= " WHERE category = '$topic'";
+            }
         } else {
             $search = $_GET['query'];
             $search = htmlspecialchars($search);
             $search = mysqli_real_escape_string($conn, $search);
             $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
+            if ($topic != null) {
+                $query .= " AND category = '$topic'";
+            }
         }
-        if ($topic != null) {
-            $query .= " AND category = '$topic'";
-        }
+
         if ($filter == 'highest') {
             $query .= " ORDER BY upvotes DESC";
         } else if ($filter == 'recent') {
