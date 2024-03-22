@@ -20,3 +20,6 @@ Strings is an open discussion platform aiming to allow users to engage in immers
 3. Server: https://cosc360.ok.ubc.ca/phpmyadmin   Personal: http://localhost/phpmyadmin
 
 4. Use the strings.sql file in our GitHub repo for the DB schema stuff...
+
+### Script for Server pulls from public_html
+cd strings/; git stash; git pull; cd ..; chmod -R 775 strings/;
