@@ -16,6 +16,7 @@
 <body>
 
     <?php include 'navbar.php'; ?>
+    <script>hideForm()</script>
 
     <!-- PHP script for displaying a post on the home page -->
     <?php 
@@ -168,10 +169,13 @@
     ?>
     <!-- JavaScript functions for editing comments -->
     <script>
+        function hideForm() {
+            document.getElementById('edit-form-' + commentID).style.display = "none";
+        }
         function editComment(commentID) {
             commentID = commentID.toString();
+            document.getElementById('edit-form-' + commentID).style.display = "block";
             document.getElementById('comment-content-' + commentID).style.display = "none";
-            document.getElementById('edit-form-' + commentID).style.display = "none";
         }
         function cancelEdit(commentID) {
             commentID = commentID.toString();
