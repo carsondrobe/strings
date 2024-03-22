@@ -18,9 +18,10 @@
     <?php include 'navbar.php'; ?>
 
     <h1>Welcome to Strings</h1>
+
     <?php
     if ($_GET['query'] != null) {
-        echo '<h2>Search results for: ' . $_GET['query'] . '</h2>';
+        echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
     }
     ?>
 
