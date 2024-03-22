@@ -46,7 +46,6 @@ session_start();
             <!-- Search Bar -->
             <form class="d-flex" role="search" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search" name="query">
-                <input type="submit" value="Search" />
             </form>
             <!-- Notifications -->
             <?php if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) : ?>
