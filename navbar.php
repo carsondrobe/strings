@@ -85,7 +85,7 @@ function buildQueryStringTopic($topic)
                             echo '<li>
                                     <div class="card">
                                         <div class="card-body">
-                                            <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '">' . $commenting_username . ' commented on your post. </a>
+                                        <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '" style="text-decoration: none; color: black;">' . $commenting_username . ' commented on your post. </a>
                                         </div>
                                     </div>
                                 </li>';
