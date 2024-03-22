@@ -118,7 +118,7 @@
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-'.$comment['commentID'].'" style="display:block;">
                                                             <p class="card-text">'.$comment['content'].'</p>
-                                                            <div id="edit-form-'.$comment['commentID'].'">
+                                                            <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
                                                                 <div class="card" style="margin-bottom: 15px;">
                                                                     <div class="card-body">
                                                                         <form method="post" action="edit_comment.php">
