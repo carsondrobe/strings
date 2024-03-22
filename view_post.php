@@ -26,7 +26,10 @@
             $discussionId = $_GET['discussionID'];
             $_SESSION['discussionID'] = $discussionId;
             $query = "SELECT * FROM Discussions WHERE discussionID = " . $discussionId;
-            $result = $conn->query($query);
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $discussionId);
+            $stmt->execute();
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $imageData = base64_encode($row['discussion_picture']);
@@ -49,7 +52,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text"><strong>Posted by: ✏️ </strong>'.($row['username']).' | <strong>Published on:</strong>
+                                        <p class="card-text"><strong>Posted by: ✏️ </strong>'.($row['username']).' | <strong>Published on:</strong>  | <i><strong>'.($row['category']).'</strong></i>
                                         '.($row['time_posted']).'</p>
                                         <h4 class="card-title">'.($row['title']).'</h4>
                                         <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top img-fluid mx-auto d-block"
