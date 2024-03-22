@@ -169,9 +169,12 @@
     <!-- JavaScript functions for editing comments -->
     <script>
         function editComment(commentID) {
+            commentID = commentID.toString();
             document.getElementById('edit-form-' + commentID).style.display = "block";
         }
         function cancelEdit(commentID) {
+            commentID = commentID.toString();
+            document.getElementById('comment-content-' + commentID).style.display = "none";
             document.getElementById('edit-form-' + commentID).style = "none";
         }
     </script>
