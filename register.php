@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 $profilePicture = NULL;
 
@@ -52,17 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
     }
+    $defaultPicPath = 'img/defaultprofile.jpeg';
 
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
-  
         $tmpName = $_FILES['profile_pic']['tmp_name'];
-        $fp = fopen($tmpName, 'rb'); 
-        $profilePicture = fread($fp, filesize($tmpName));
-        fclose($fp);
-
-        echo "<p>File Size: " . strlen($profilePicture) . " bytes</p>";
+    } else {
+        $tmpName = $defaultPicPath;
     }
-
+    
+    $fp = fopen($tmpName, 'rb');
+    $profilePicture = fread($fp, filesize($tmpName));
+    fclose($fp);
 
     if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
         $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
