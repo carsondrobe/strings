@@ -175,8 +175,8 @@
         }
         function cancelEdit(commentID) {
             commentID = commentID.toString();
-            // document.getElementById('comment-content-' + commentID).style.display = "block";
-            // document.getElementById('edit-form-' + commentID).style = "none";
+            document.getElementById('comment-content-' + commentID).style.display = "none";
+            document.getElementById('edit-form-' + commentID).style = "block";
         }
     </script>
     <!-- BOOTSTRAP -->
