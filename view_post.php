@@ -169,7 +169,7 @@
     <!-- JavaScript functions for editing comments -->
     <script>
         function editComment(commentID) {
-            commentID = commentID.toString();
+            console.log(typeof commentID);
             document.getElementById('comment-content-' + commentID).style.display = 'none';
             document.getElementById('edit-form-' + commentID).style.display = 'block';
         }
