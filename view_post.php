@@ -119,8 +119,8 @@
                                                         <div id="comment-content-'.$comment['commentID'].'">
                                                             <p class="card-text">'.$comment['content'].'</p>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:block;">
-                                                                <div class="card">
-                                                                    <div class="card-body" style="margin-bottom: 15px;">
+                                                                <div class="card" style="margin-bottom: 15px;">
+                                                                    <div class="card-body">
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
                                                                             <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">'.($comment['content']).'</textarea>
