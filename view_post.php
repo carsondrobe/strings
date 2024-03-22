@@ -120,10 +120,10 @@
                                                             <p class="card-text">'.$comment['content'].'</p>
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:block;">
                                                                 <div class="card">
-                                                                    <div class="card-body">
+                                                                    <div class="card-body" style="margin-bottom: 15px;">
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
-                                                                            <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 5px;">'.($comment['content']).'</textarea>
+                                                                            <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">'.($comment['content']).'</textarea>
                                                                             <button type="submit" class="btn btn-success btn-sm">Save</button>
                                                                             <button type="button" onclick="cancelEdit('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
                                                                         </form>
