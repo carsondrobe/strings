@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($result) != 1) {
         echo "<script> alert('Username or Password is Incorrect') </script>";
+        header("Location: login.php");
         exit();
     }
 
