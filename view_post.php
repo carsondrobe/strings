@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <br><br><br>
+                    <br><br>
                     <div class="container justify-content-center">
                         <div class="row justify-content-center">
                             <div class="col-12">
@@ -134,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+                    <br><br>
                 ';
             } else {
                 echo "Could not find any posts with this discussionID.";

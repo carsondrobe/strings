@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Execute prepared statement
     if($stmt->execute()) {
-        echo '<script>alert("Discussion deleted successfully.")</script>';
         header("Location: index.php");
+        echo '<script>alert("Discussion deleted successfully.")</script>';
         exit(); 
     } else {
         echo '<script>alert("Error '.$conn->error.'")</script>';
