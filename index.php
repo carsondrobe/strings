@@ -113,6 +113,7 @@
         <?php
         session_start();
         include 'config.php';
+        $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
         if ($_GET['query'] == null) {
             $query = "SELECT * FROM Discussions";
         } else {
@@ -120,6 +121,9 @@
             $search = htmlspecialchars($search);
             $search = mysqli_real_escape_string($conn, $search);
             $query = "SELECT * FROM Discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
+        }
+        if ($filter == 'highest') {
+            $query .= " ORDER BY upvotes DESC";
         }
         try {
             $result = $conn->query($query);
@@ -137,7 +141,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Trending</a></li>
                                     <li><a class="dropdown-item" href="#">Recent</a></li>
-                                    <li><a class="dropdown-item" href="#">Highest Voted</a></li>
+                                    <li><a class="dropdown-item" href="?filter=highest">Highest Voted</a></li>
                                 </ul>
                             </div>
                         </div>
