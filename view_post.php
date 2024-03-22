@@ -16,7 +16,7 @@
 <body>
 
     <?php include 'navbar.php'; ?>
-    
+
     <!-- PHP script for displaying a post on the home page -->
     <?php 
     session_start();
@@ -170,7 +170,7 @@
     <script>
         function editComment(commentID) {
             commentID = commentID.toString();
-            document.getElementById('edit-form-' + commentID).style.display = "block";
+            // document.getElementById('edit-form-' + commentID).style.display = "block";
             document.getElementById('comment-content-' + commentID).style.display = "none";
         }
         function cancelEdit(commentID) {
