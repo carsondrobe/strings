@@ -26,24 +26,6 @@
     }
     ?>
 
-    <!-- Filter Button -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
-                <div class="dropdown" id="filter-dropdown">
-                    <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
-                        Filter<i class="bi bi-filter"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Trending</a></li>
-                        <li><a class="dropdown-item" href="#">Recent</a></li>
-                        <li><a class="dropdown-item" href="#">Highest Voted</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
@@ -141,6 +123,28 @@
         }
         try {
             $result = $conn->query($query);
+            if ($result->num_rows == 0) {
+                echo '<h1>No results found</h1>';
+            } else {
+                echo '<!-- Filter Button -->
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
+                            <div class="dropdown" id="filter-dropdown">
+                                <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                                    Filter<i class="bi bi-filter"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Trending</a></li>
+                                    <li><a class="dropdown-item" href="#">Recent</a></li>
+                                    <li><a class="dropdown-item" href="#">Highest Voted</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
             while ($row = $result->fetch_assoc()) {
                 $imageData = base64_encode($row['discussion_picture']);
                 $contentPeek = substr($row['content'], 0, 100);
