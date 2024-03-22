@@ -130,10 +130,9 @@
             $search = $_GET['query'];
             $search = htmlspecialchars($search);
             $search = mysqli_real_escape_string($conn, $search);
-            $query = "SELECT * FROM discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
+            $query = "SELECT * FROM Discussions WHERE (`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%')";
         }
         try {
-
             $result = $conn->query($query);
             while ($row = $result->fetch_assoc()) {
                 $imageData = base64_encode($row['discussion_picture']);
