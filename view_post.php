@@ -57,6 +57,18 @@
                                         <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
                                         <p class="card-text">'.($row['content']).'</p>
+
+                                        <div id="post-edit-form" style="display:block;" class="card-body">
+                                            <form method="post" action="update_post.php" enctype="multipart/form-data">
+                                                <input type="hidden" name="discussionID" value='.($row['discussionID']).'>
+                                                <input type="text" name="title" value='.($row['title']).' required>
+                                                <textarea name="content" rows="5" required>'.($row['content']).'</textarea>
+                                                <input type="file" name="picture">
+                                                <input type="text" name="category" value='.($row['category']).' required>
+                                                <button type="submit">Update Post</button>
+                                            </form>
+                                        </div>
+
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
@@ -88,7 +100,7 @@
                         echo '  <button onclick="editPost()" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
                                 <form method="post" action="delete_discussion.php">
                                     <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
+                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
                                 </form>';
                     }
                 }
@@ -124,11 +136,12 @@
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
                                                                 <div class="card" style="margin-bottom: 15px;">
                                                                     <div class="card-body">
+                                                                    <h5 class="card-title">Edit Comment</h5>
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
                                                                             <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">'.($comment['content']).'</textarea>
-                                                                            <button type="submit" class="btn btn-success btn-sm">Save</button>
-                                                                            <button type="button" onclick="cancelEdit('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
+                                                                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                                                                            <button type="button" onclick="cancelEditComment('.$comment['commentID'].')" class="btn btn-secondary btn-sm">Cancel</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -169,18 +182,30 @@
         die($e->getMessage());
     }
     ?>
-    <!-- JavaScript functions for editing comments -->
+    <!-- JavaScript functions for editing posts and comments -->
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
             document.getElementById('edit-comment-btn').style.display = "none";
             document.getElementById('delete-comment-btn').style.display = "none";
         }
-        function cancelEdit(commentID) {
+        function cancelEditComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "none";
             document.getElementById('edit-comment-btn').style.display = "inline";
             document.getElementById('delete-comment-btn').style.display = "inline";
         }
+        function editPost() {
+            document.getElementById('post-edit-form').style.display = 'block';
+            document.getElementById('post-display').style.display = 'none';
+            document.getElementById('edit-comment-btn').style.display = "none";
+            document.getElementById('delete-comment-btn').style.display = "none";
+        }
+        function cancelEditPost() {
+            document.getElementById('post-edit-form').style.display = 'none';
+            document.getElementById('post-display').style.display = 'block';
+            document.getElementById('edit-comment-btn').style.display = "block";
+            document.getElementById('delete-comment-btn').style.display = "block";
+    }
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
