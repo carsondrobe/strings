@@ -62,7 +62,9 @@ function buildQueryStringTopic($topic)
                 // Query to get notifications
                 $query = "SELECT * FROM Notifications WHERE notified_userID = 2";
                 $result = mysqli_query($conn, $query);
+                var_dump($result);
                 $count = mysqli_num_rows($result);
+                var_dump($count);
                 ?>
                 <div class="dropdown ms-auto">
                     <button type="button" class="btn btn-outline-dark ms-auto" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 5px; border-radius: 20px; background-color: #ffffff; color: #343a40;">
