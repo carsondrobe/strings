@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("No user found with username: $username");
         }
 
+        $commentId = $conn->insert_id;
         // Then, insert the notification
         $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
         $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
