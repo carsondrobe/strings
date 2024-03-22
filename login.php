@@ -10,21 +10,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the user exists
     $user = "SELECT * FROM User WHERE username = '$username' and password = '$password'";
     $result = mysqli_query($conn, $user);
+    $credentials = true;
 
     if (mysqli_num_rows($result) != 1) {
-        echo "<script> alert('Username or Password is Incorrect') </script>";
-        header("Location: login.php");
-        exit();
+        $credentials = false;
     }
 
-    if ($result) {
+    if ($result && $credentials) {
         // Send them to the index home page
         $_SESSION['logged_in'] = true;
         $_SESSION['username'] = $username;
         header("Location: index.php");
         exit();
     } else {
-        echo "Registration failed.";
+        echo "<script> alert('Username or Password is Incorrect') </script>";;
     }
 
     mysqli_close($conn);
