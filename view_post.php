@@ -57,18 +57,6 @@
                                         <img src="data:image/jpeg;base64,'.$imageData.'" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
                                         <p class="card-text">'.($row['content']).'</p>
-
-                                        <div id="post-edit-form" style="display:block;" class="card-body">
-                                            <form method="post" action="update_post.php" enctype="multipart/form-data">
-                                                <input type="hidden" name="discussionID" value='.($row['discussionID']).'>
-                                                <input type="text" name="title" value='.($row['title']).' required>
-                                                <textarea name="content" rows="5" required>'.($row['content']).'</textarea>
-                                                <input type="file" name="picture">
-                                                <input type="text" name="category" value='.($row['category']).' required>
-                                                <button type="submit">Update Post</button>
-                                            </form>
-                                        </div>
-
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="button" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
@@ -82,7 +70,7 @@
                     echo '
                                                 <div class="card mb-3">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Create a Comment</h5>
+                                                        <h5 class="card-title">Leave a comment!</h5>
                                                         <form method="post" action="create_comment.php">
                                                             <input type="hidden" name="discussionID" value='.$discussionId.'>
                                                             <div class="mb-3">
@@ -97,7 +85,7 @@
                     ';
                     // Display button to delete post if user is author of post
                     if ($_SESSION['username'] == $row['username']) {
-                        echo '  <button onclick="editPost()" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                        echo '  <button onclick="openEditModal('.($row['discussionID']).', '.($row['title'].)', '.($row['content']).', '.($row['category']).')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
                                 <form method="post" action="delete_discussion.php">
                                     <input type="hidden" name="discussionID" value="'.$discussionId.'">
                                     <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
@@ -136,7 +124,7 @@
                                                             <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
                                                                 <div class="card" style="margin-bottom: 15px;">
                                                                     <div class="card-body">
-                                                                    <h5 class="card-title">Edit Comment</h5>
+                                                                    <h5 class="card-title">Edit your comment:</h5>
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="'.$comment['commentID'].'">
                                                                             <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">'.($comment['content']).'</textarea>
@@ -205,7 +193,17 @@
             document.getElementById('post-display').style.display = 'block';
             document.getElementById('edit-comment-btn').style.display = "block";
             document.getElementById('delete-comment-btn').style.display = "block";
-    }
+        }
+        function openEditModal(discussionID, title, content, category) {
+            document.getElementById('editDiscussionID').value = discussionID;
+            document.getElementById('editPostTitle').value = title;
+            document.getElementById('editPostContent').value = content;
+            document.getElementById('editPostCategory').value = category;
+            var editModal = new bootstrap.Modal(document.getElementById('editPostModal'), {
+            keyboard: false
+            });
+            editModal.show();
+        }
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -224,6 +222,49 @@
             }
         });
     </script>
+
+        <!-- Edit Post Modal -->
+        <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPostModalTitle">Edit your post:</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="edit_post.php" enctype="multipart/form-data">
+                    <input type="hidden" name="discussionID" id="editDiscussionID">
+                        <div class="form-group row">
+                            <label for="editPostCategory" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="editPostCategory" name="editPostCategory" placeholder="Enter post category">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPostTitle" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="editPostTitle" name="editPostTitle" placeholder="Enter post title...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPostImage" class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="editPostImage" name="editPostImage">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPostContent">Description</label>
+                            <textarea class="form-control" id="editPostContent" name="editPostContent" rows="5" placeholder="Enter post description..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
