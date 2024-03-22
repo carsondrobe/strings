@@ -98,30 +98,32 @@ mysqli_close($conn);
                 <button type="submit" class="btn btn-primary">Update Information</button>
             </form>
         </div>
-
-    <div class="container">
-        <div class="row justify-content-start">
-            <h3>
-                <p>
-                    My posts:
-                </p>
-            </h3>
-
-            <!-- User List with Delete Button -->
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href='view_post.html';" style="cursor: pointer;">
-                    ✏️ Exciting News in Tech World
-                    <button type="button" class="btn btn-danger" onclick="event.stopPropagation(); deleteUser(1);">Delete</button>
-                </li>
-            </ul>
-        </div>
     </div>
+</div>
 
-    <!-- BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <!-- BOOTSTRAP -->
+<div class="container">
+    <div class="row justify-content-start">
+        <h3>
+            <p>
+                My posts:
+            </p>
+        </h3>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- User List with Delete Button -->
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href='view_post.html';" style="cursor: pointer;">
+                ✏️ Exciting News in Tech World
+                <button type="button" class="btn btn-danger" onclick="event.stopPropagation(); deleteUser(1);">Delete</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- BOOTSTRAP -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 
