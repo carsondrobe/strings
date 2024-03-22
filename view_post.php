@@ -118,7 +118,7 @@
                                                         <p class="card-text"><strong>Written By: ' . $comment['username'] . ' ✏️ | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-'.$comment['commentID'].'" style="display:block;">
                                                             <p class="card-text">'.$comment['content'].'</p>
-                                                            <div id="edit-form-'.$comment['commentID'].'" style="display:block;">
+                                                            <div id="edit-form-'.$comment['commentID'].'" style="display:none;">
                                                                 <div class="card" style="margin-bottom: 15px;">
                                                                     <div class="card-body">
                                                                         <form method="post" action="edit_comment.php">
@@ -169,10 +169,12 @@
     <!-- JavaScript functions for editing comments -->
     <script>
         function editComment(commentID) {
+            commentID = commentID.toString();
             document.getElementById('comment-content-' + commentID).style.display = 'none';
             document.getElementById('edit-form-' + commentID).style.display = 'block';
         }
         function cancelEdit(commentID) {
+            commentID = commentID.toString();
             document.getElementById('comment-content-' + commentID).style.display = 'block';
             document.getElementById('edit-form-' + commentID).style.display = 'none';
         }
