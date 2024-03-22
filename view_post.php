@@ -85,10 +85,10 @@
                     ';
                     // Display button to delete post if user is author of post
                     if ($_SESSION['username'] == $row['username']) {
-                        echo '  <button onclick="editPost()" class="btn btn-outline-info">Edit Post</button>
+                        echo '  <button onclick="editPost()" class="btn btn-outline-info" style="text-align: left; display: inline;" id="edit-post-btn">Edit Post</button>
                                 <form method="post" action="delete_discussion.php">
                                     <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
+                                    <button type="submit" class="btn btn-danger" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
                                 </form>';
                     }
                 }
@@ -139,7 +139,7 @@
                                                             <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
                                                             <form method="post"  action="delete_comment.php" style="text-align: right;">
                                                                 <input type="hidden" name="commentID" value='.$comment['commentID'].'>
-                                                                <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn"onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                                             </form>
                             ';
                         }
