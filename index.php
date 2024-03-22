@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="postCategory" class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter post category">
+                                <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter post category...">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -65,7 +65,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- Submit button inside the form -->
                             <button type="submit" class="btn btn-primary">Post</button>
                         </div>
                     </form>

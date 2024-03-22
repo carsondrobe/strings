@@ -1,12 +1,18 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
+$profilePicture = NULL;
 
 include 'config.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['username'])) {
         $usernameErr = "Username is required";
     } else {
@@ -28,66 +34,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['dob'])) {
         $dobErr = "Date of Birth is required";
     } else {
-        // Validate the format of the date
         $dob = test_input($_POST['dob']);
-        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob) == 0) {
-            $dobErr = "Invalid date format. Please use YYYY-MM-DD";
-        } else {
-            // Check if the date is in the past (not future DOB)
-            $currentDate = date("Y-m-d");
-            if ($dob >= $currentDate) {
-                $dobErr = "Date of Birth must be in the past";
-            }
-        }
+
     }
 
     if (empty($_POST['password'])) {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST['password']);
-        if ($password != $_POST['retype-pass']) {
-            $retypePasswordErr = "Passwords do not match";
-        }
+
     }
+
+    if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
+  
+        $tmpName = $_FILES['profile_pic']['tmp_name'];
+        $fp = fopen($tmpName, 'rb'); 
+        $profilePicture = fread($fp, filesize($tmpName));
+        fclose($fp);
+
+        echo "<p>File Size: " . strlen($profilePicture) . " bytes</p>";
+    }
+
 
     if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
-        // Check for unique User
-        $unique_user = "SELECT * FROM User WHERE username = '$username' or email = '$email'";
-        $result = mysqli_query($conn, $unique_user);
+        $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if (mysqli_num_rows($result) > 0) {
-            echo "<script> alert('Username or Email already exists!') </script>";
-            exit();
-        }
+        if ($result->num_rows == 0) {
+            $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
+            $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
 
-        // TODO: Add profile picture upload
-        $profilePicture = null;
+            if ($insert_stmt->execute()) {
 
-        $sql = "INSERT INTO User (username, password, email, dob) VALUES ('$username', '$password', '$email', '$dob')";
+                header("Location: login.php");
+                exit();
+            } else {
 
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            // Send them to the login page
-            header("Location: login.php");
-            exit();
-        } else {
-            echo "Registration failed.";
+                echo "<p>Registration failed: " . $conn->error . "</p>";
+            }
         }
     }
-
-    mysqli_close($conn);
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+    $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,7 +98,7 @@ function test_input($data)
     <?php include 'navbar.php'; ?>
 
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return validateForm()">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div class="register_container">
             <fieldset>
                 <legend class="register_legend">Register</legend>
@@ -125,8 +116,7 @@ function test_input($data)
                     <label for="inputEmail1">Email</label>
                     <input type="email" class="form-control" id="inputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                     <span class="error"><?php echo $emailErr; ?></span>
-                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us
-                        :)</small>
+                    <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us:</small>
                 </div>
                 <div class="form-group">
                     <label for="inputDOB1">Date of Birth</label>

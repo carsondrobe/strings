@@ -1,34 +1,38 @@
 <?php
-// Path: login.php
 session_start();
-include 'config.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+require 'config.php';
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Check if the user exists
-    $user = "SELECT * FROM User WHERE username = '$username' and password = '$password'";
-    $result = mysqli_query($conn, $user);
-    $credentials = true;
+    $username = mysqli_real_escape_string($conn, $username);
+    $password = mysqli_real_escape_string($conn, $password);
+
+
+    $user_query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $user_query);
 
     if (mysqli_num_rows($result) != 1) {
-        $credentials = false;
-    }
-
-    if ($result && $credentials) {
-        // Send them to the index home page
-        $_SESSION['logged_in'] = true;
-        $_SESSION['username'] = $username;
-        header("Location: index.php");
+        $_SESSION['error'] = 'Account not found. Please check your username and password.';
+        header("Location: login.php");
         exit();
-    } else {
-        echo "<script> alert('Username or Password is Incorrect') </script>";
     }
 
-    mysqli_close($conn);
+
+    $row = mysqli_fetch_assoc($result);
+
+
+    $_SESSION['logged_in'] = true;
+    $_SESSION['user_id'] = $row['userID'];
+
+
+    header("Location: index.php");
+    exit();
 }
 
+// Close the database connection at the end of your script
+mysqli_close($conn);
 ?>
 
 
@@ -53,6 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="login_container">
             <fieldset>
                 <legend class="login_legend">Login</legend>
+
+                <!-- Display error message if login fails -->
+                <?php if (isset($_SESSION['error'])) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $_SESSION['error'];
+                        unset($_SESSION['error']); ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label for="exampleInputEmail1">Username</label>
                     <input type="text" class="form-control" id="exampleInputUsername1" name="username" placeholder="Enter username" required>

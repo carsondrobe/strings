@@ -1,3 +1,27 @@
+<?php 
+session_start();
+include 'navbar.php'; 
+include 'config.php';
+
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$user_query = "SELECT * FROM User WHERE userID = '$user_id'";
+$result = mysqli_query($conn, $user_query);
+
+if (!$result) {
+    echo "Error: " . mysqli_error($conn);
+    exit();
+}
+
+$row = mysqli_fetch_assoc($result);
+
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +38,6 @@
 </head>
 
 <body>
-
     <?php include 'navbar.php'; ?>
 
     <div class="container mt-5 account-main">
@@ -22,7 +45,7 @@
             <!-- Profile Picture Column -->
             <div class="col-md-4">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
-                    <img src="img/goatprofile.jpeg" class="img-fluid rounded-circle" alt="Profile Picture">
+                <img src="handlepfp.php?user_id=<?php echo urlencode($user_id); ?>" class="img-fluid rounded-circle" alt="Profile Picture">
                 </button>
             </div>
 
@@ -35,16 +58,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="profilePicInput" class="form-label">Select image</label>
-                                    <input class="form-control" type="file" id="profilePicInput" accept="image/*">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Upload</button>
+                        <form id="updateProfilePicForm" method="POST" action="updatepfp.php" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="profilePicInput" class="form-label">Select New Profile Picture</label>
+                                <input type="file" class="form-control" id="profilePicInput" name="profilePicInput" accept="image/*">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -52,30 +73,31 @@
 
             <!-- Account Information Form Column -->
             <div class="col-md-8">
-                <h2>My Account</h2>
-                <form>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="TechEnthusiast">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="MJordan23@gmail.com">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Date of Birth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="DOB" value="1963-02-17">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="***********">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Information</button>
-                </form>
-            </div>
+            <h2>My Account</h2>
+            <form id="updateForm" method="POST" action="update_info.php">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?php echo $row['username']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="DOB" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="DOB" name="DOB" value="<?php echo $row['dob']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="<?php echo $row['password']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">New Password (leave blank to keep the same)</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Information</button>
+            </form>
         </div>
-    </div>
 
     <div class="container">
         <div class="row justify-content-start">
@@ -95,12 +117,11 @@
         </div>
     </div>
 
-
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 
