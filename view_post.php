@@ -61,7 +61,9 @@
                                         </div>
                                         <br>
                 ';
+                // If user is logged in
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                    // Display create a comment form
                     echo '
                                                 <div class="card mb-3">
                                                     <div class="card-body">
@@ -78,6 +80,13 @@
                                                     </div>
                                                 </div>
                     ';
+                    // Display button to delete post if user is author of post
+                    if ($_SESSION['username'] == $row['username']) {
+                        echo '<form method="post" action="delete_discussion.php">
+                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Discussion</button>
+                              </form>';
+                    }
                 }
                 echo '
                                     </div>
