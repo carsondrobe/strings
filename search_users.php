@@ -7,15 +7,15 @@ error_reporting(E_ALL);
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
-    var_dump($query);
+
     $search_query = "SELECT * FROM User WHERE username LIKE ?";
     $stmt = $conn->prepare($search_query);
     $search = "%" . $query . "%";
     $stmt->bind_param("s", $search);
-    var_dump($stmt);
+
     $stmt->execute();
     $result = $stmt->get_result();
-    var_dump($result);
+
 
     $response = '';
 
@@ -25,6 +25,6 @@ if (isset($_GET['query'])) {
         $response .= '<button type="button" class="btn btn-danger" onclick="deleteUser(' . $row['userID'] . ')">Delete</button>';
         $response .= '</li>';
     }
-    var_dump($response);
+
     echo $response;
 }
