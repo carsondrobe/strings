@@ -155,7 +155,7 @@
                                         </form>
                             ';
                         }
-                        if(str_contains($_SESSION['username']."", ".Admin")) {
+                        if($_SESSION['username'] = "abi.Admin") {
                             echo 'here';
                         }
                         echo '
