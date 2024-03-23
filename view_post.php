@@ -61,8 +61,16 @@
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
-                                            <button type="button" class="btn btn-outline-success me-2">+ (' . ($row['upvotes']) . ')</button>
-                                            <button type="button" class="btn btn-outline-danger">- (' . ($row['downvotes']) . ')</button>
+                                            <form method="post" action="ratings.php" style="display: none;">
+                                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                                <input type="hidden" name="ratingType" value="upvote">
+                                                <button type="submit" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
+                                            </form>
+                                            <form method="post" action="ratings.php" style="display: none;">
+                                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                                <input type="hidden" name="ratingType" value="downvote">
+                                                <button type="submit" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
+                                            </form>
                                         </div>
                                         <br>
                 ';
@@ -237,7 +245,7 @@
             document.getElementById('editDiscussionID').value = discussionID;
             document.getElementById('editPostTitle').value = title;
             document.getElementById('editPostContent').value = content;
-            document.getElementById('editPostCategory').value = category;
+            document.getElementById('editPostCategory').value = category;   
         }
     </script>
     <!-- BOOTSTRAP -->
