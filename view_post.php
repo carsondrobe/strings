@@ -78,7 +78,7 @@
                             echo '
                                 <form method="post" action="ratings.php">
                                     <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
-                                    <input type="hidden" name="ratingType" value="upvotes">
+                                    <input type="hidden" name="ratingType" value="upvote">
                                     <button type="submit" id="upvote-btn" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
                                 </form>
                             ';
@@ -86,7 +86,7 @@
                             echo '
                             <form method="post" action="ratings.php">
                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
-                                <input type="hidden" name="ratingType" value="downvotes">
+                                <input type="hidden" name="ratingType" value="downvote">
                                 <button type="submit" id="downvote-btn" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
                             </form>
                             ';

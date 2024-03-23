@@ -38,9 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             }
         // If user hasn't voted yet
         } else {
-            // Insert new vote into UserVotes table & update Discussions table
-            $stmt = $conn->prepare("INSERT INTO UserVotes (userID, discussionID, voteType) VALUES (?, ?, ?); UPDATE Discussions SET $ratingType = $ratingType + 1 WHERE discussionID = ?");
-            $stmt->bind_param("iisi", $userID, $discussionID, $ratingType, $discussionID);
+            // Insert the new vote into UserVotes
+            $stmt = $conn->prepare("INSERT INTO UserVotes (userID, discussionID, voteType) VALUES (?, ?, ?)");
+            $stmt->bind_param("iis", $userID, $discussionID, $ratingType);
+            $stmt->execute();
+            // Update vote count in the Discussions table
+            $incrementQuery = "UPDATE Discussions SET " . ($ratingType === 'upvote' ? 'upvotes' : 'downvotes') . " = " . ($ratingType === 'upvote' ? 'upvotes' : 'downvotes') . " + 1 WHERE discussionID = ?";
+            $stmt = $conn->prepare($incrementQuery);
+            $stmt->bind_param("i", $discussionID);
             $stmt->execute();
         }
         // Commit the transaction
