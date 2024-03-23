@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-$userID = $POST['userID'];
+$userID = $_POST['userID'];
 // Delete User
 $delete_query = "DELETE FROM User WHERE userID = ?";
 $stmt = $conn->prepare($delete_query);
