@@ -47,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Then, insert the notification
+        var_dump($user_id);
+        var_dump($notified_userID);
         $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
         $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
         if ($stmt->execute()) {
