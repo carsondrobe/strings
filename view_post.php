@@ -111,7 +111,7 @@
                                                             <input type="hidden" name="discussionID" value=' . $discussionId . '>
                                                             <div class="mb-3">
                                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
-                                                                <div id="characterCount"></div>
+                                                                <div id="characterCount" style="float: right;"></div>
                                                             </div>
                                                             <button type="button" id="submitComment" class="btn btn-outline-info">Comment</button>
                                                         </form>
@@ -314,7 +314,7 @@
 
         document.getElementById('commentContent').addEventListener('input', function() {
             document.getElementById('characterCount').innerHTML = (5000 - this.value.length) + " characters remaining";
-            if (charCount > maxChars) {
+            if ((5000 - this.value.length) > 5000) {
                 document.getElementById('characterCount').style.color = 'red';
             } else {
                 document.getElementById('characterCount').style.color = 'black';
