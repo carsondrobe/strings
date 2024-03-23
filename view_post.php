@@ -61,15 +61,15 @@
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
-                                            <form method="post" action="ratings.php">
+                                            <form method="post" action="ratings.php" class="rating-form">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="upvote">
-                                                <button type="submit" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
+                                                <button type="submit" class="btn btn-outline-success ratingBtn upvote-btn" data-discussion-id="'.($row['discussionID']).'">+ ('.($row['upvotes']).')</button>
                                             </form>
-                                            <form method="post" action="ratings.php">
+                                            <form method="post" action="ratings.php" class="rating-form">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="downvote">
-                                                <button type="submit" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
+                                                <button type="submit" class="btn btn-outline-danger ratingBtn downvote-btn" data-discussion-id="'.($row['discussionID']).'">- ('.($row['downvotes']).')</button>
                                             </form>
                                         </div>
                                         <br>
@@ -213,7 +213,7 @@
         die($e->getMessage());
     }
     ?>
-    <!-- JavaScript functions for editing posts and comments -->
+    <!-- JavaScript functions for editing posts and comments and rating buttons -->
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
@@ -247,6 +247,25 @@
             document.getElementById('editPostContent').value = content;
             document.getElementById('editPostCategory').value = category;   
         }
+
+        document.querySelectorAll('.ratingBtn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const isUpvote = this.classList.contains('upvote-btn');
+                const discussionID = this.getAttribute('data-discussion-id');
+                const upvoteButton = document.querySelector('.upvote-btn[data-discussion-id="'+discussionID+'"]');
+                const downvoteButton = document.querySelector('.downvote-btn[data-discussion-id="'+discussionID+'"]');
+                // If this button has been pressed, cannot click again
+                if (this.classList.contains('highlighted')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Highlight clicked button and remove other button's highlight
+                upvoteButton.classList.remove('highlighted');
+                downvoteButton.classList.remove('highlighted');
+                this.classList.add('highlighted');
+            });
+        });
+
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
