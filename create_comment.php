@@ -27,9 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        $commentId = $stmt->insert_id;
         // Update Notifications
-        //  Get the Username for the discussion
+
+        $commentId = $stmt->insert_id;
+        //  Get the Username for the discussion commented on
         $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
