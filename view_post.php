@@ -313,11 +313,13 @@
         });
 
         document.getElementById('commentContent').addEventListener('input', function() {
-            document.getElementById('characterCount').innerHTML = (5000 - this.value.length) + " characters remaining";
-            if ((5000 - this.value.length) > 5000) {
-                document.getElementById('characterCount').style.color = 'red';
+            var characters = this.value.length;
+            var maxCharacters = 5000;
+            var currentLength = maxCharacters - characters;
+            if (currentLength <= maxCharacters) {
+                document.getElementById('characterCount').textContent = currentLength + " characters remaining";
             } else {
-                document.getElementById('characterCount').style.color = 'black';
+                document.getElementById('characterCount').style.color = (currentLength - maxCharacters) + " CHARACTERS OVER LIMIT";
             }
             });
     </script>
