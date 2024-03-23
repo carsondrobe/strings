@@ -13,10 +13,13 @@ if (isset($_GET['query'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
+    $response = '';
+
     while ($row = $result->fetch_assoc()) {
-        echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
-        echo '✏️ ' . $row['username'];
-        echo '<button type="button" class="btn btn-danger" onclick="deleteUser(' . $row['userID'] . ')">Delete</button>';
-        echo '</li>';
+        $response .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
+        $response .= '✏️ ' . $row['username'];
+        $response .= '<button type="button" class="btn btn-danger" onclick="deleteUser(' . $row['userID'] . ')">Delete</button>';
+        $response .= '</li>';
     }
+    echo $response;
 }
