@@ -36,7 +36,7 @@
                 $row = $result->fetch_assoc();
                 $imageData = base64_encode($row['discussion_picture']);
                 echo '
-                    <div class="container justify-content-center" style="margin-top: 1.5em;">
+                    <div class="container justify-content-center" style="margin-top: 3em;">
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <div class="card">
