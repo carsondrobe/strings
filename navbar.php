@@ -61,7 +61,8 @@ function buildQueryStringTopic($topic)
             <?php if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) : ?>
                 <?php
                 // Query to get notifications
-                $query = "SELECT * FROM Notifications WHERE notified_userID = 2 AND is_read = 0";
+                $userID = $_SESSION['user_id'];
+                $query = "SELECT * FROM Notifications WHERE notified_userID = " . $userID . " AND is_read = 0";
 
                 $result = mysqli_query($conn, $query);
 
