@@ -36,19 +36,6 @@
                 $row = $result->fetch_assoc();
                 $imageData = base64_encode($row['discussion_picture']);
                 echo '
-                    <div class="container justify-content-center" id="headbar">
-                        <div class="row align-items-center">
-                            <div class="col " id="headtext">
-                                <button type="button" class="btn btn-outline-success me-2">+</button>
-                                <button type="button" class="btn btn-outline-danger">-</button>
-                            </div>
-                            <div class="col-6 " id="headtext">' . ($row['title']) . '</div>
-                            <div class="col text-end white-text">
-                                <a href="index.php" class="btn-close white-button">&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
                     <div class="container justify-content-center">
                         <div class="row justify-content-center">
                             <div class="col-12">
