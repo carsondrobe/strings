@@ -12,6 +12,7 @@ if (isset($_GET['query'])) {
     $stmt = $conn->prepare($search_query);
     $search = "'%" . $query . "%'";
     $stmt->bind_param("s", $search);
+    var_dump($stmt);
     $stmt->execute();
     $result = $stmt->get_result();
     var_dump($result);
