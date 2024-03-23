@@ -155,7 +155,10 @@
                                         </form>
                             ';
                         }
-                        echo 'here
+                        if(str_contains($_SESSION['username']."", ".Admin")) {
+                            echo 'here';
+                        }
+                        echo '
                                                         </div>
                                                     </div>
                                                 </div>
