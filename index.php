@@ -27,6 +27,37 @@
         // Check for Admin
         if (substr($_SESSION['username'], -6) === ".Admin") {
             echo '<h1>Welcome to Strings for Admin</h1>';
+            echo '<!-- Search Users -->
+            <div class="container">
+                <div class="row justify-content-start">
+                    <p>
+                        Find Users:
+                    </p>
+                    <div class="col-4">
+                        <div class="input-group" style="margin-bottom: 1em;">
+                            <input type="search" class="form-control rounded" placeholder="Search for Username"
+                                aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
+                        </div>
+                    </div>
+        
+                    <!-- User List with Delete Button -->
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ✏️ User 1
+                            <button type="button" class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ✏️ User 2
+                            <button type="button" class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ✏️ User 3
+                            <button type="button" class="btn btn-danger" onclick="deleteUser(3)">Delete</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>';
         } else {
             echo '<h1>Welcome to Strings</h1>';
         }
