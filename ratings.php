@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        
+        header("Location: view_post.php?discussionID=".$discussionID);
+        exit(); 
     } else {
         echo "Error: " . $stmt->error;
     }
