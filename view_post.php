@@ -91,12 +91,12 @@
                                 <form method="post" action="ratings.php">
                                     <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                     <input type="hidden" name="ratingType" value="upvote">
-                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success" onclick="ratingSubmitted();">+ ('.($row['upvotes']).')</button>
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">Upvote</button>
                                 </form>
                                 <form method="post" action="ratings.php">
                                     <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                     <input type="hidden" name="ratingType" value="downvote">
-                                    <button type="submit" id="downvote-btn" class="btn btn-outline-danger" onclick="ratingSubmitted();">- ('.($row['downvotes']).')</button>
+                                    <button type="submit" id="downvote-btn" class="btn btn-outline-danger">Downvote</button>
                                 </form>
                             </div>
                         ';
