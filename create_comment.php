@@ -28,9 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute prepared statement
     if ($stmt->execute()) {
         $commentId = $stmt->insert_id;
-        var_dump($commentId);
         // Update Notifications
-        // First, get the userID for the given username
+        //  Get the Username for the discussion
+        $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+        $stmt->bind_param("i", $discussionId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $username = $row['username'];
+
+        // get the userID for the given username
         $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
@@ -47,8 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Then, insert the notification
-        var_dump($user_id);
-        var_dump($notified_userID);
         $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
         $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
         if ($stmt->execute()) {
