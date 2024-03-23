@@ -24,7 +24,32 @@
     } else if ($_GET['topic'] != null) {
         echo '<h1>Trending in ' . ucwords($_GET['topic']) . '</h1>';
     } else {
-        echo '<h1>Welcome to Strings</h1>';
+        // Check for Admin
+        if (substr($_SESSION['username'], -6) === ".Admin") {
+            echo '<h1>Welcome to Strings for Admin</h1>';
+            echo '<!-- Search Users -->
+            <div class="container">
+                <div class="row justify-content-start">
+                    <p>
+                        Find Users:
+                    </p>
+                    <div class="col-4">
+                        <form class="input-group" style="margin-bottom: 1em;" id="search-users">
+                            <input type="search" class="form-control rounded" placeholder="Search for Username"
+                                aria-label="Search" aria-describedby="search-addon" id="search-input" />
+                            <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init id="search-button">Search</button>
+                        </form>
+                    </div>
+        
+                    <!-- User List with Delete Button -->
+                    <ul class="users" id="user-list">
+                        
+                    </ul>
+                </div>
+            </div>';
+        } else {
+            echo '<h1>Welcome to Strings</h1>';
+        }
     }
     ?>
 
@@ -215,6 +240,34 @@
 
         ?>
     </div>
+
+    <script>
+        document.querySelector('#search-users').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var searchQuery = document.getElementById('search-input').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "search_users.php?query=" + searchQuery, true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('user-list').innerHTML = this.responseText;
+                }
+            };
+            xhr.send();
+        });
+
+        function deleteUser(userID, element) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "delete_user.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Remove the <li> element from the screen
+                    element.parentNode.removeChild(element);
+                }
+            };
+            xhr.send("userID=" + userID);
+        }
+    </script>
 </body>
 
 </html>
