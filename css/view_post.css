@@ -12,9 +12,5 @@
 .btn-outline-black {
     color: black;
     border-color: black;
-}
-
-.btn-outline-black:hover {
-    border-color: black;
     background-color: rgb(249, 249, 249);
 }
