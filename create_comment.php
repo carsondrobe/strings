@@ -2,12 +2,17 @@
 session_start();
 require 'config.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_SESSION['username']; 
+    $username = $_SESSION['username'];
     $discussionId = $_POST['discussionID'];
     $content = $_POST['commentContent'];
     $timePosted = date('Y-m-d');
+    $user_id = $_SESSION['user_id'];
 
     // Check if content is over limit
     if (strlen($content) > 5000) {
@@ -22,7 +27,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        header("Location: view_post.php?discussionID=$discussionId");
+        // Update Notifications
+
+        $commentId = $stmt->insert_id;
+        //  Get the Username for the discussion commented on
+        $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+        $stmt->bind_param("i", $discussionId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $username = $row['username'];
+
+        // get the userID for the given username
+        $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $notified_userID = $row['userID'];
+        } else {
+            die("No user found with username: $username");
+        }
+
+
+        // Then, insert the notification
+        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
+        $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
+        if ($stmt->execute()) {
+            header("Location: view_post.php?discussionID=$discussionId");
+        } else {
+            echo "Error: " . $stmt->error;
+        }
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -31,4 +73,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Invalid request.";
 }
-?>
