@@ -10,7 +10,8 @@ if (isset($_GET['query'])) {
     var_dump($query);
     $search_query = "SELECT * FROM User WHERE username LIKE '%?%'";
     $stmt = $conn->prepare($search_query);
-    $stmt->bind_param("s", $query);
+    $search_query = '%' . $query . '%';
+    $stmt->bind_param("s", $search_query);
     $stmt->execute();
     $result = $stmt->get_result();
     var_dump($result);
