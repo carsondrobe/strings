@@ -34,8 +34,8 @@ require 'config.php'; // Include your database connection configuration file
             ';
         }
         ?>
-        
-        
+
+
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
@@ -91,7 +91,7 @@ require 'config.php'; // Include your database connection configuration file
                             echo '<li>
                                     <div class="card">
                                         <div class="card-body">
-                                        <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '" style="text-decoration: none; color: black;">' . $commenting_username . ' commented on your post. </a>
+                                        <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '&notificationID=' . $row['notification_id'] . '" style="text-decoration: none; color: black;">' . $commenting_username . ' commented on your post. </a>
                                         </div>
                                     </div>
                                 </li>';
@@ -106,9 +106,9 @@ require 'config.php'; // Include your database connection configuration file
             <!-- Login Button -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                <?php
+                    <?php
                     if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-                        
+
                         $user_id = $_SESSION['user_id'];
 
                         $query = "SELECT profile_picture FROM User WHERE userID = ?";
@@ -118,7 +118,7 @@ require 'config.php'; // Include your database connection configuration file
                         $stmt->store_result();
 
                         if ($stmt->num_rows > 0) {
-      
+
                             $stmt->bind_result($profile_picture);
                             $stmt->fetch();
 
@@ -136,7 +136,7 @@ require 'config.php'; // Include your database connection configuration file
                     }
                     ?>
                 </li>
-                
+
                 <!-- Logout Button -->
                 <li class="nav-item">
                     <?php
