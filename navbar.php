@@ -22,7 +22,7 @@ require 'config.php'; // Include your database connection configuration file
     <div class="container-fluid">
         <!-- Logo -->
         <?php
-        if (substr($_SESSION['username'], -6) === ".Admin") {
+        if (isset($_SESSION['username']) && substr($_SESSION['username'], -6) === ".Admin") {
             $logo = 'strings admin';
         } else {
             $logo = 'strings';
