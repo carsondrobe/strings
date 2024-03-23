@@ -49,11 +49,11 @@ require 'config.php'; // Include your database connection configuration file
                     <!-- Trending Content -->
                     <ul class="dropdown-menu">
                         <?php
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('technology') . '">💻 Technology</a></li>';
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('food') . '">🍔 Food</a></li>';
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('science') . '">🔬 Science</a></li>';
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('world') . '">🌍 World News</a></li>';
-                        echo '<li><a class="dropdown-item" href="?' . buildQueryStringTopic('business') . '">💼 Business</a></li>';
+                        echo '<li><a class="dropdown-item" href="index.php?' . buildQueryStringTopic('technology') . '">💻 Technology</a></li>';
+                        echo '<li><a class="dropdown-item" href="index.php?' . buildQueryStringTopic('food') . '">🍔 Food</a></li>';
+                        echo '<li><a class="dropdown-item" href="index.php?' . buildQueryStringTopic('science') . '">🔬 Science</a></li>';
+                        echo '<li><a class="dropdown-item" href="index.php?' . buildQueryStringTopic('world') . '">🌍 World News</a></li>';
+                        echo '<li><a class="dropdown-item" href="index.php?' . buildQueryStringTopic('business') . '">💼 Business</a></li>';
                         ?>
                     </ul>
                 </li>
