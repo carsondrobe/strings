@@ -57,8 +57,8 @@
                                         <div class="d-flex justify-content-between">
                                             <p class="card-text"><strong>✏️ Posted by: </strong>' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . ' | <i><strong>' . ($row['category']) . '</strong></i></p>
                                             <div>
-                                                <button type="button" class="btn btn-outline-success me-2" disabled>+ (' . $row['upvotes'] . ')</button>
-                                                <button type="button" class="btn btn-outline-danger" disabled>- (' . $row['downvotes'] . ')</button>
+                                                <button type="button" class="btn btn-outline-success me-2" disabled>Likes (' . $row['upvotes'] . ')</button>
+                                                <button type="button" class="btn btn-outline-danger" disabled>Dislikes (' . $row['downvotes'] . ')</button>
                                             </div>
                                         </div>
                                         <h4 class="card-title">' . ($row['title']) . '</h4>
@@ -85,7 +85,7 @@
                                 <form method="post" action="ratings.php">
                                     <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                     <input type="hidden" name="ratingType" value="upvote">
-                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">Like</button>
                                 </form>
                             ';
                         } else {
@@ -93,7 +93,7 @@
                             <form method="post" action="ratings.php">
                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                 <input type="hidden" name="ratingType" value="downvote">
-                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
+                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger">Dislike</button>
                             </form>
                             ';
                         }
