@@ -6,12 +6,11 @@ require 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get discussion id and username
     $discussionId = $_POST['discussionID'];
-    $username = $_SESSION['username'];
 
     // Prepare prepared statement
-    $sql = "DELETE FROM Discussions WHERE discussionID = ? AND username = ?";
+    $sql = "DELETE FROM Discussions WHERE discussionID = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("is", $discussionId, $username);
+    $stmt->bind_param("i", $discussionId);
     
     // Execute prepared statement
     if($stmt->execute()) {
