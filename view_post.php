@@ -306,7 +306,7 @@
                     `;
                     commentsContainer.appendChild(newComment);
                 } else {
-                    alert('Error submitting comment: ' + data.error);
+                    alert('Error submitting comment: ' + data.message);
                 }
             })
             .catch(error => console.error('Error:', error));
