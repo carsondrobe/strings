@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             $stmt->bind_param("iis", $userID, $discussionID, $ratingType);
             $stmt->execute();
             // Update discussions table
-            $stmt2 + $conn->prepate("UPDATE Discussions SET $ratingType = $ratingType + 1 WHERE discussionID = ?");
+            $stmt2 = $conn->prepare("UPDATE Discussions SET $ratingType = $ratingType + 1 WHERE discussionID = ?");
             $stmt2->bind_param("i", $discussionID);
             $stmt2->execute(); 
         }
