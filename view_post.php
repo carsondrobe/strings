@@ -61,15 +61,15 @@
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
-                                            <form method="post" action="ratings.php" class="rating-form">
+                                            <form method="post" action="ratings.php">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="upvote">
-                                                <button type="submit" class="btn btn-outline-success ratingBtn upvote-btn" data-discussion-id="'.($row['discussionID']).'">+ ('.($row['upvotes']).')</button>
+                                                <button type="submit" id="upvote-btn" class="btn btn-outline-success" onclick="ratingSubmitted();">+ ('.($row['upvotes']).')</button>
                                             </form>
-                                            <form method="post" action="ratings.php" class="rating-form">
+                                            <form method="post" action="ratings.php">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="downvote">
-                                                <button type="submit" class="btn btn-outline-danger ratingBtn downvote-btn" data-discussion-id="'.($row['discussionID']).'">- ('.($row['downvotes']).')</button>
+                                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger" onclick="ratingSubmitted();">- ('.($row['downvotes']).')</button>
                                             </form>
                                         </div>
                                         <br>
@@ -248,23 +248,10 @@
             document.getElementById('editPostCategory').value = category;   
         }
 
-        document.querySelectorAll('.ratingBtn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const isUpvote = this.classList.contains('upvote-btn');
-                const discussionID = this.getAttribute('data-discussion-id');
-                const upvoteButton = document.querySelector('.upvote-btn[data-discussion-id="'+discussionID+'"]');
-                const downvoteButton = document.querySelector('.downvote-btn[data-discussion-id="'+discussionID+'"]');
-                // If this button has been pressed, cannot click again
-                if (this.classList.contains('highlighted')) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Highlight clicked button and remove other button's highlight
-                upvoteButton.classList.remove('highlighted');
-                downvoteButton.classList.remove('highlighted');
-                this.classList.add('highlighted');
-            });
-        });
+        function ratingSubmitted() {
+            document.getElementById('upvote-btn').style.display = "none";
+            document.getElementById('downvote-btn').style.display = "none";
+        }
 
     </script>
     <!-- BOOTSTRAP -->
