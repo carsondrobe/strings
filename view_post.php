@@ -160,6 +160,7 @@
                                     </div>
                                 </div>
                                 <br>
+                                <div class="comments-container">
                 ';
                 // Dynamically generate comments here
                 $query2 = "SELECT * FROM Comments WHERE discussionID = ?";
@@ -180,7 +181,7 @@
                     }
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
-                                                <div class="card comments-container" id="comment-' . $comment['commentID'] . '">
+                                                <div class="card" id="comment-' . $comment['commentID'] . '">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>✏️ Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-' . $comment['commentID'] . '" style="display:block;">
@@ -227,7 +228,9 @@
                             ';
                     }
                 } else {
-                    echo '<p class="card-text">No one has commented yet, be the first!</p>';
+                    echo '
+                            </div>
+                            <p class="card-text">No one has commented yet, be the first!</p>';
                 }
                 echo '
                             </div>
