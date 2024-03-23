@@ -41,22 +41,69 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text"><strong>✏️ Posted by: </strong>' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . ' | <i><strong>' . ($row['category']) . '</strong></i></p>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="card-text"><strong>✏️ Posted by: </strong>' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . ' | <i><strong>' . ($row['category']) . '</strong></i></p>
+                                            <div>
+                                                <button type="button" class="btn btn-outline-success me-2" disabled>' . $row['upvotes'] . ' Upvotes</button>
+                                                <button type="button" class="btn btn-outline-danger" disabled>' . $row['downvotes'] . ' Downvotes</button>
+                                            </div>
+                                        </div>
                                         <h4 class="card-title">' . ($row['title']) . '</h4>
                                         <img src="data:image/jpeg;base64,' . $imageData . '" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <button type="button" class="btn btn-outline-success me-2">+ (' . ($row['upvotes']) . ')</button>
-                                            <button type="button" class="btn btn-outline-danger">- (' . ($row['downvotes']) . ')</button>
-                                        </div>
-                                        <br>
                 ';
                 // If user is logged in
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                    // Check if user has already rated this post by querying user votes table
+                    $stmt = $conn->prepare("SELECT voteType FROM UserVotes WHERE userID = ? AND discussionID = ?");
+                    $stmt->bind_param("ii", $_SESSION['user_id'], $discussionId);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    // If user has already rated this post
+                    if($result->num_rows > 0) {
+                        // Display opposite option of their vote
+                        echo '<div class="d-flex justify-content-end mt-3">                        ';
+                        $voteRow = $result->fetch_assoc();
+                        $userVoteType = $voteRow['voteType'];
+                        if($voteRow['voteType'] !== 'upvote') {
+                            echo '
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="upvote">
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">Upvote</button>
+                                </form>
+                            ';
+                        } else {
+                            echo '
+                            <form method="post" action="ratings.php">
+                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                <input type="hidden" name="ratingType" value="downvote">
+                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger">Downvote</button>
+                            </form>
+                            ';
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '
+                            <div class="d-flex justify-content-end mt-3">
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="upvote">
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">Upvote</button>
+                                </form>
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="downvote">
+                                    <button type="submit" id="downvote-btn" class="btn btn-outline-danger">Downvote</button>
+                                </form>
+                            </div>
+                        ';
+                    }                    
                     // Display create a comment form
-                    echo '
+                    echo '       
+                                                <br>
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Leave a comment!</h5>
@@ -192,7 +239,7 @@
         die($e->getMessage());
     }
     ?>
-    <!-- JavaScript functions for editing posts and comments -->
+    <!-- JavaScript functions for editing posts and comments and rating buttons -->
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
@@ -224,7 +271,7 @@
             document.getElementById('editDiscussionID').value = discussionID;
             document.getElementById('editPostTitle').value = title;
             document.getElementById('editPostContent').value = content;
-            document.getElementById('editPostCategory').value = category;
+            document.getElementById('editPostCategory').value = category;   
         }
     </script>
     <!-- BOOTSTRAP -->
