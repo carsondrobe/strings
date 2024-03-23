@@ -61,12 +61,12 @@
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
                                         <div class="d-flex justify-content-end mt-3">
-                                            <form method="post" action="ratings.php" style="display: none;">
+                                            <form method="post" action="ratings.php">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="upvote">
                                                 <button type="submit" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
                                             </form>
-                                            <form method="post" action="ratings.php" style="display: none;">
+                                            <form method="post" action="ratings.php">
                                                 <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                                 <input type="hidden" name="ratingType" value="downvote">
                                                 <button type="submit" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
