@@ -47,16 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Then, insert the notification
-        if ($user_id != $notified_userID) {
-            $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
-            $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
-            if ($stmt->execute()) {
-                header("Location: view_post.php?discussionID=$discussionId");
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-        } else {
+        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
+        $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
+        if ($stmt->execute()) {
             header("Location: view_post.php?discussionID=$discussionId");
+        } else {
+            echo "Error: " . $stmt->error;
         }
     } else {
         echo "Error: " . $stmt->error;
