@@ -110,9 +110,8 @@
                                                         <form id="commentForm">
                                                             <input type="hidden" name="discussionID" value=' . $discussionId . '>
                                                             <div class="mb-3">
-                                                            <div id="characterCount">
                                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
-                                                            </div>
+                                                                <div id="characterCount"></div>
                                                             </div>
                                                             <button type="button" id="submitComment" class="btn btn-outline-info">Comment</button>
                                                         </form>
