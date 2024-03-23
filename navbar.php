@@ -2,15 +2,18 @@
 session_start();
 require 'config.php';
 
-function buildQueryStringTopic($topic)
-{
-    $queryParams = array(
-        'query' => $_GET['query'],
-        'topic' => $topic
-    );
-    return http_build_query($queryParams);
+if (!function_exists('buildQueryStringTopic')) {
+    function buildQueryStringTopic($topic)
+    {
+        $queryParams = array(
+            'query' => $_GET['query'],
+            'topic' => $topic
+        );
+        return http_build_query($queryParams);
+    }
 }
 
+require 'config.php'; // Include your database connection configuration file
 ?>
 <link href="css/navbar.css" rel="stylesheet">
 
@@ -31,6 +34,8 @@ function buildQueryStringTopic($topic)
             ';
         }
         ?>
+        
+        
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
@@ -101,16 +106,42 @@ function buildQueryStringTopic($topic)
             <!-- Login Button -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                <?php
+                    if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                        
+                        $user_id = $_SESSION['user_id'];
+
+                        $query = "SELECT profile_picture FROM User WHERE userID = ?";
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param("s", $user_id);
+                        $stmt->execute();
+                        $stmt->store_result();
+
+                        if ($stmt->num_rows > 0) {
+      
+                            $stmt->bind_result($profile_picture);
+                            $stmt->fetch();
+
+                            if (!is_null($profile_picture)) {
+                                echo '<a class="nav-link" href="account.php"><img src="data:image/jpeg;base64,' . base64_encode($profile_picture) . '" alt="Profile Picture" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>';
+                            } else {
+                                echo '<a class="nav-link" href="account.php"><img src="img/defaultprofile.jpeg" alt="Default Profile Picture" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>';
+                            }
+                        } else {
+                            echo '<a class="nav-link" href="account.php"><img src="img/defaultprofile.jpeg" alt="Default Profile Picture" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>';
+                        }
+
+                        $stmt->close();
+                        $conn->close();
+                    }
+                    ?>
+                </li>
+                
+                <!-- Logout Button -->
+                <li class="nav-item">
                     <?php
                     if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-                        echo '<ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="account.php"><img src="img/goatprofile.jpeg" alt="" id="nav-profileimg" style="max-height: 30px; max-width: 30px; border-radius: 50%;"></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="logout.php" style="margin-left: 10px;">Logout</a>
-                                </li>
-                            </ul>';
+                        echo '<a class="nav-link" href="logout.php">Logout</a>';
                     } else {
                         echo '<a class="nav-link" href="login.php">Login</a>';
                     }
