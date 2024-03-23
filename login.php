@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['username'] = $row['username'];
 
 
+
     header("Location: index.php");
     exit();
 }

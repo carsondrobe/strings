@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_SESSION['username'];
 
     // Prepare prepared statement
-    $sql = "DELETE FROM Comments WHERE commentID = ? AND username = ?";
+    $sql = "DELETE FROM Comments WHERE commentID = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("is", $commentID, $username);
+    $stmt->bind_param("i", $commentID);
     
     // Execute prepared statement
     if($stmt->execute()) {
