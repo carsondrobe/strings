@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if content is over limit
     if (strlen($content) > 5000) {
         $_SESSION['error_message'] = "Your post content exceeds the maximum allowed length of 5000 characters. Please shorten your post.";
-        header("Location: view_post_user.php?discussionID=".$_SESSION['discussionID']);
+        header("Location: view_post.php?discussionID=".$_SESSION['discussionID']);
         exit();
     }
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if file is over limit
         if ($_FILES['editPostImage']['size'] > 2 * 1024 * 1024) {
             $_SESSION['error_message'] = "The uploaded file exceeds the maximum allowed size of 2048 KiB. Please upload a smaller file.";
-            header("Location: view_post_user.php?discussionID=".$_SESSION['discussionID']);
+            header("Location: view_post.php?discussionID=".$_SESSION['discussionID']);
             exit();
         }
         $image = file_get_contents($_FILES['editPostImage']['tmp_name']);
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute prepared statement
     if ($stmt->execute()) {
-        header("Location: view_post_user.php?discussionID=".$_SESSION['discussionID']);
+        header("Location: view_post.php?discussionID=".$_SESSION['discussionID']);
     } else {
         echo "Error: " . $stmt->error;
     }

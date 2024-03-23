@@ -180,7 +180,7 @@
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
                             <hr>
-                            <a href="view_post_user.php?discussionID=' . $row['discussionID'] . '" class="post-link">                        
+                            <a href="view_post.php?discussionID=' . $row['discussionID'] . '" class="post-link">                        
                                 <h4 class="card-title">' . ($row['title']) . '</h4>
                                 <img src="data:image/jpeg;base64,' . $imageData . '" class="card-img-top" alt="Discussion Image" id="discussion-image">
                                 <p class="card-text">' . $contentPeek . '</p>
