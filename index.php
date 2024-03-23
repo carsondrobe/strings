@@ -42,7 +42,7 @@
                     </div>
         
                     <!-- User List with Delete Button -->
-                    <ul class="user-list">
+                    <ul class="users" id="user-list">
                         
                     </ul>
                 </div>
