@@ -315,11 +315,12 @@
         document.getElementById('commentContent').addEventListener('input', function() {
             var characters = this.value.length;
             var maxCharacters = 5000;
-            document.getElementById('characterCount').innerHTML = characters + "/" + maxCharacters;
+            var charactersRemaining = characters - 5000;
+            document.getElementById('characterCount').innerHTML = charactersRemaining + " characters remaining";
             if (charCount > maxChars) {
-                document.getElementById('charCount').style.color = 'red';
+                document.getElementById('characterCount').style.color = 'red';
             } else {
-                document.getElementById('charCount').style.color = 'black';
+                document.getElementById('characterCount').style.color = 'black';
             }
             });
     </script>
