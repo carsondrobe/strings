@@ -14,3 +14,8 @@
     border-color: black;
     background-color: rgb(249, 249, 249);
 }
+
+.btn-outline-black:hover {
+    border-color: black;
+    background-color: rgb(249, 249, 249);
+}
