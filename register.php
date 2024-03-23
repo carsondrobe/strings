@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 $usernameErr = $emailErr = $dobErr = $passwordErr = $retypePasswordErr = "";
 $profilePicture = NULL;
 
@@ -35,6 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dobErr = "Date of Birth is required";
     } else {
         $dob = test_input($_POST['dob']);
+        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob)) {
+            $dobErr = "Invalid Date Format. Please use YYYY-MM-DD";
+        }elseif ($dob>=date("Y-m-d")){
+            $dobErr = "Date of Birth must be in the past";
+        }
 
     }
 
@@ -42,19 +49,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST['password']);
+        if ($password != $_POST['retype-pass']){
+            $retypePasswordErr = "Passwords do not match";
+        }
 
     }
+    $defaultPicPath = 'img/defaultprofile.jpeg';
 
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == UPLOAD_ERR_OK) {
-  
         $tmpName = $_FILES['profile_pic']['tmp_name'];
-        $fp = fopen($tmpName, 'rb'); 
-        $profilePicture = fread($fp, filesize($tmpName));
-        fclose($fp);
-
-        echo "<p>File Size: " . strlen($profilePicture) . " bytes</p>";
+    } else {
+        $tmpName = $defaultPicPath;
     }
-
+    
+    $fp = fopen($tmpName, 'rb');
+    $profilePicture = fread($fp, filesize($tmpName));
+    fclose($fp);
 
     if (empty($usernameErr) && empty($emailErr) && empty($dobErr) && empty($passwordErr) && empty($retypePasswordErr)) {
         $stmt = $conn->prepare("SELECT * FROM User WHERE username = ? OR email = ?");
@@ -62,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
         if ($result->num_rows == 0) {
             $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
