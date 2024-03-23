@@ -238,8 +238,8 @@
         function ratingSubmitted() {
             // document.getElementById('upvote-btn').style.display = "none";
             // document.getElementById('downvote-btn').style.display = "none";
-            document.getElementById('upvote-btn').classList.add = "disabled";
-            document.getElementById('downvote-btn').classList.add = "disabled";
+            document.getElementById('upvote-btn').classList.add("disabled");
+            document.getElementById('downvote-btn').classList.add("disabled");
         }
 
     </script>
