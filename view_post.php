@@ -107,15 +107,22 @@
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Leave a comment!</h5>
-                                                        <form method="post" action="create_comment.php">
+                                                        <form id="commentForm">
                                                             <input type="hidden" name="discussionID" value=' . $discussionId . '>
                                                             <div class="mb-3">
                                                             <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
                                                             </div>
-                                                            <button class="btn btn-outline-info" type="submit">
-                                                                Comment
-                                                            </button>
+                                                            <button type="button" id="submitComment" class="btn btn-outline-info">Comment</button>
                                                         </form>
+                                                        // <form method="post" action="create_comment.php">
+                                                        //     <input type="hidden" name="discussionID" value=' . $discussionId . '>
+                                                        //     <div class="mb-3">
+                                                        //     <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
+                                                        //     </div>
+                                                        //     <button class="btn btn-outline-info" type="submit">
+                                                        //         Comment
+                                                        //     </button>
+                                                        // </form>
                                                     </div>
                                                 </div>
                     ';
@@ -173,7 +180,7 @@
                     }
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
-                                                <div class="card" id="comment-' . $comment['commentID'] . '">
+                                                <div class="card comments-container" id="comment-' . $comment['commentID'] . '">
                                                     <div class="card-body">
                                                         <p class="card-text"><strong>✏️ Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</strong></p>
                                                         <div id="comment-content-' . $comment['commentID'] . '" style="display:block;">
@@ -239,7 +246,7 @@
         die($e->getMessage());
     }
     ?>
-    <!-- JavaScript functions for editing posts and comments and rating buttons -->
+    <!-- JavaScript functions for posts and comments and rating buttons -->
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
@@ -273,6 +280,37 @@
             document.getElementById('editPostContent').value = content;
             document.getElementById('editPostCategory').value = category;   
         }
+
+        document.getElementById('submitComment').addEventListener('click', function() {
+            var discussionID = document.querySelector('#commentForm input[name="discussionID"]').value;
+            var commentContent = document.getElementById('commentContent').value;
+            var comment = new FormData();
+            comment.append('discussionID', discussionID);
+            comment.append('commentContent', commentContent);
+            fetch('create_comment.php', {
+                method: 'POST',
+                body: comment
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    document.getElementById('commentContent').value = '';
+                    var commentsContainer = document.querySelector('.comments-container');
+                    var newComment = document.createElement('div');
+                    newComment.classList.add('card');
+                    newComment.innerHTML = `
+                        <div class="card-body">
+                            <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | Just now</strong></p>
+                            <p class="card-text">${commentContent}</p>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(newComment);
+                } else {
+                    alert('Error submitting comment: ' + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
