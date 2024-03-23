@@ -243,7 +243,6 @@
 
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
-            event.preventDefault();
             var searchQuery = document.getElementById('search-input').value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "search_users.php?query=" + searchQuery, true);
