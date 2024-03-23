@@ -7,7 +7,7 @@ require 'config.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$response = ['success' => false, 'message' => '', 'username' => '', 'timePosted' => ''];
+$response = ['success' => false, 'message' => '', 'username' => '', 'timePosted' => '', 'commentId' => ''];
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update json responses
         $response['success'] = true;
         $response['message'] = "Comment successfully added.";
-
+        $response['commentId'] = $commentId;
         //  Get the Username for the discussion commented on
         $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
         if ($stmt === false) {

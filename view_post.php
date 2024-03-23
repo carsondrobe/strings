@@ -114,15 +114,6 @@
                                                             </div>
                                                             <button type="button" id="submitComment" class="btn btn-outline-info">Comment</button>
                                                         </form>
-                                                        // <form method="post" action="create_comment.php">
-                                                        //     <input type="hidden" name="discussionID" value=' . $discussionId . '>
-                                                        //     <div class="mb-3">
-                                                        //     <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
-                                                        //     </div>
-                                                        //     <button class="btn btn-outline-info" type="submit">
-                                                        //         Comment
-                                                        //     </button>
-                                                        // </form>
                                                     </div>
                                                 </div>
                     ';
@@ -303,8 +294,13 @@
                     newComment.classList.add('card');
                     newComment.innerHTML = `
                         <div class="card-body">
-                            <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | Just now</strong></p>
+                            <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <form method="post" action="delete_comment.php" style="text-align: right;">
+                                <input type="hidden" name="commentID" value="${data.commentId}">
+                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
+                            </form>
                         </div>
                     `;
                     commentsContainer.appendChild(newComment);
