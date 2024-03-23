@@ -12,6 +12,7 @@ if (isset($_GET['query'])) {
     $stmt->bind_param("s", $query);
     $stmt->execute();
     $result = $stmt->get_result();
+    var_dump($result);
 
     $response = '';
 
@@ -21,5 +22,6 @@ if (isset($_GET['query'])) {
         $response .= '<button type="button" class="btn btn-danger" onclick="deleteUser(' . $row['userID'] . ')">Delete</button>';
         $response .= '</li>';
     }
+    var_dump($response);
     echo $response;
 }
