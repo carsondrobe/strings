@@ -20,7 +20,7 @@ if (isset($_GET['query'])) {
     $response = '';
 
     while ($row = $result->fetch_assoc()) {
-        $response .= '<li class="list-group-item d-flex justify-content-between align-items-center style="margin=1em;"">';
+        $response .= '<li class="list-group-item d-flex justify-content-between align-items-center" style="margin: 1em;">';
         $response .= '✏️ ' . $row['username'];
         $response .= '<button type="button" class="btn btn-danger" onclick="deleteUser(' . $row['userID'] . ')">Delete</button>';
         $response .= '</li>';
