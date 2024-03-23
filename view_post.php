@@ -60,24 +60,57 @@
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
                                         <p class="card-text">' . ($row['content']) . '</p>
                                         <hr>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <form method="post" action="ratings.php">
-                                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
-                                                <input type="hidden" name="ratingType" value="upvote">
-                                                <button type="submit" id="upvote-btn" class="btn btn-outline-success" onclick="ratingSubmitted();">+ ('.($row['upvotes']).')</button>
-                                            </form>
-                                            <form method="post" action="ratings.php">
-                                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
-                                                <input type="hidden" name="ratingType" value="downvote">
-                                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger" onclick="ratingSubmitted();">- ('.($row['downvotes']).')</button>
-                                            </form>
-                                        </div>
-                                        <br>
                 ';
                 // If user is logged in
                 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+                    // Check if user has already rated this post by querying user votes table
+                    $stmt = $conn->prepare("SELECT voteType FROM UserVotes WHERE userID = ? AND discussionID = ?");
+                    $stmt->bind_param("ii", $_SESSION['user_id'], $discussionId);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    // If user has already rated this post
+                    if($result->num_rows > 0) {
+                        // Display opposite option of their vote
+                        echo '<div class="d-flex justify-content-end mt-3">                        ';
+                        $voteRow = $result->fetch_assoc();
+                        $userVoteType = $voteRow['voteType'];
+                        if($voteRow['voteType'] !== 'upvote') {
+                            echo '
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="upvote">
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
+                                </form>
+                            ';
+                        } else {
+                            echo '
+                            <form method="post" action="ratings.php">
+                                <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                <input type="hidden" name="ratingType" value="downvote">
+                                <button type="submit" id="downvote-btn" class="btn btn-outline-danger">- ('.($row['downvotes']).')</button>
+                            </form>
+                            ';
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '
+                            <div class="d-flex justify-content-end mt-3">
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="upvote">
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success" onclick="ratingSubmitted();">+ ('.($row['upvotes']).')</button>
+                                </form>
+                                <form method="post" action="ratings.php">
+                                    <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
+                                    <input type="hidden" name="ratingType" value="downvote">
+                                    <button type="submit" id="downvote-btn" class="btn btn-outline-danger" onclick="ratingSubmitted();">- ('.($row['downvotes']).')</button>
+                                </form>
+                            </div>
+                        ';
+                    }                    
                     // Display create a comment form
-                    echo '
+                    echo '       
+                                                <br>
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Leave a comment!</h5>
@@ -247,14 +280,6 @@
             document.getElementById('editPostContent').value = content;
             document.getElementById('editPostCategory').value = category;   
         }
-
-        function ratingSubmitted() {
-            // document.getElementById('upvote-btn').style.display = "none";
-            // document.getElementById('downvote-btn').style.display = "none";
-            document.getElementById('upvote-btn').classList.add("disabled");
-            document.getElementById('downvote-btn').classList.add("disabled");
-        }
-
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
