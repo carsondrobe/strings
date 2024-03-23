@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(str_contains($username, '.Admin')) {
         $sql = "DELETE FROM Comments WHERE commentID = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("is", $commentID);
+        $stmt->bind_param("i", $commentID);
     } else {
         $sql = "DELETE FROM Comments WHERE commentID = ? AND username = ?";
         $stmt = $conn->prepare($sql);
