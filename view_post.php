@@ -41,7 +41,13 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text"><strong>✏️ Posted by: </strong>' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . ' | <i><strong>' . ($row['category']) . '</strong></i></p>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="card-text"><strong>✏️ Posted by: </strong>' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . ' | <i><strong>' . ($row['category']) . '</strong></i></p>
+                                            <div>
+                                                <button type="button" class="btn btn-outline-success me-2" disabled>+ (' . $row['upvotes'] . ')</button>
+                                                <button type="button" class="btn btn-outline-danger" disabled>- (' . $row['downvotes'] . ')</button>
+                                            </div>
+                                        </div>
                                         <h4 class="card-title">' . ($row['title']) . '</h4>
                                         <img src="data:image/jpeg;base64,' . $imageData . '" class="card-img-top img-fluid mx-auto d-block"
                                             style="max-width: 400px; margin-bottom: .25em;" alt="Discussion Image">
@@ -66,7 +72,7 @@
                                 <form method="post" action="ratings.php">
                                     <input type="hidden" name="discussionID" value="'.($row['discussionID']).'">
                                     <input type="hidden" name="ratingType" value="upvote">
-                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success">+ ('.($row['upvotes']).')</button>
+                                    <button type="submit" id="upvote-btn" class="btn btn-outline-success me-2">+ ('.($row['upvotes']).')</button>
                                 </form>
                             ';
                         } else {
