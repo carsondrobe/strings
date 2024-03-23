@@ -214,8 +214,8 @@
                             <div class="d-flex justify-content-between">
                                 <p class="card-text" id="discussion-category">' . $row['category'] . '</p>
                                 <div>
-                                    <button type="button" class="btn btn-outline-success me-2">+ (' . $row['upvotes'] . ')</button>
-                                    <button type="button" class="btn btn-outline-danger">- (' . $row['downvotes'] . ')</button>
+                                    <button type="button" class="btn btn-outline-success me-2" disabled>+ (' . $row['upvotes'] . ')</button>
+                                    <button type="button" class="btn btn-outline-danger" disabled>- (' . $row['downvotes'] . ')</button>
                                 </div>
                             </div>
                         </div>
