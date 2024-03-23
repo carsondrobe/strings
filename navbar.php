@@ -91,7 +91,7 @@ require 'config.php'; // Include your database connection configuration file
                             echo '<li>
                                     <div class="card">
                                         <div class="card-body">
-                                        <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '&notificationID=' . $row['notification_id'] . '" style="text-decoration: none; color: black;">' . $commenting_username . ' commented on your post. </a>
+                                        <a class="card-text" href="view_post.php?discussionID=' . $row['discussion_id'] . '" onclick="deleteNotification(' . $row['notification_id'] . ')" style="text-decoration: none; color: black;">' . $commenting_username . ' commented on your post. </a>
                                         </div>
                                     </div>
                                 </li>';
@@ -151,3 +151,11 @@ require 'config.php'; // Include your database connection configuration file
         </div>
     </div>
 </nav>
+
+<script>
+    function deleteNotification(notificationID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "delete_notification.php?notificationID=" + notificationID, true);
+        xhr.send();
+    }
+</script>
