@@ -18,6 +18,10 @@ if (!$result) {
 
 $row = mysqli_fetch_assoc($result);
 
+$username = mysqli_real_escape_string($conn, $row['username']);
+$posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
+$posts_result = mysqli_query($conn, $posts_query);
+
 mysqli_close($conn);
 ?>
 
@@ -116,20 +120,16 @@ mysqli_close($conn);
         <h3>My posts:</h3>
         <ul class="list-group">
             <?php
-            include 'config.php'; 
-            $user_id = $_SESSION['user_id']; 
-            $posts_query = "SELECT * FROM discussion WHERE user_id = '$user_id' ORDER BY created_at DESC";
-            $posts_result = mysqli_query($conn, $posts_query);
-
             if ($posts_result) {
                 while ($post = mysqli_fetch_assoc($posts_result)) {
-                    echo '<li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href=\'view_post.php?post_id=' . urlencode($post['post_id']) . '\';" style="cursor: pointer;">' . htmlspecialchars($post['title']) . '<button type="button" class="btn btn-danger" onclick="event.stopPropagation(); deletePost(' . $post['post_id'] . ');">Delete</button></li>';
+                    $title = htmlspecialchars($post['title']);
+                    $post_id = htmlspecialchars($post['discussionID']);
+                    // Make sure to adjust the onclick function to properly handle the post_id
+                    echo "<li class='list-group-item d-flex justify-content-between align-items-center' onclick='window.location.href=\"view_post.php?post_id=$post_id\";' style='cursor: pointer;'>$title<button type='button' class='btn btn-danger' onclick='event.stopPropagation(); deletePost($post_id);'>Delete</button></li>";
                 }
             } else {
                 echo "Error fetching posts: " . mysqli_error($conn);
             }
-
-            mysqli_close($conn);
             ?>
         </ul>
     </div>
