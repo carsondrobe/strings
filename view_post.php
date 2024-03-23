@@ -313,10 +313,7 @@
         });
 
         document.getElementById('commentContent').addEventListener('input', function() {
-            var characters = this.value.length;
-            var maxCharacters = 5000;
-            var charactersRemaining = characters - 5000;
-            document.getElementById('characterCount').innerHTML = charactersRemaining + " characters remaining";
+            document.getElementById('characterCount').innerHTML = (5000 - this.value.length) + " characters remaining";
             if (charCount > maxChars) {
                 document.getElementById('characterCount').style.color = 'red';
             } else {
