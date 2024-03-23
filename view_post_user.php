@@ -83,15 +83,34 @@
                                                     </div>
                                                 </div>
                     ';
-                    // Display button to edit or delete post if user is author of post
-                    if ($_SESSION['username'] == $row['username']) {
-                        echo '   <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
-                                    <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
-                                </a>
-                                <form method="post" action="delete_discussion.php">
-                                    <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
-                                </form>';
+                    // If user is admin
+                    if (substr($_SESSION['username'], -6) === ".Admin") {
+                        // If admin is author, allowing editing of post
+                        if($_SESSION['username'] == $comment['username']) {
+                            echo '  
+                                            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
+                                                <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                                            </a>
+                            ';
+                        }
+                        // Allow deletion of post
+                        echo '      
+                                            <form method="post" action="delete_discussion.php">
+                                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                                <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
+                                            </form>
+                        ';
+                    // If user is author, allow editing and deletion of post
+                    } elseif($_SESSION['username'] == $comment['username']) {
+                        echo '      
+                                            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
+                                                <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                                            </a>
+                                            <form method="post" action="delete_discussion.php">
+                                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                                <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
+                                            </form>
+                        ';
                     }
                 }
                 echo '
