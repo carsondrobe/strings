@@ -59,7 +59,7 @@ require 'config.php'; // Include your database connection configuration file
                 </li>
             </ul>
             <!-- Search Bar -->
-            <form class="d-flex" role="search" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <form class="d-flex" role="search" method="get" action="index.php">
                 <input class="form-control me-2" type="search" placeholder="Search Strings... 🔍" aria-label="Search" id="nav-bar-search" name="query">
             </form>
             <!-- Notifications -->
