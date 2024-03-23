@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
-    $search_query = "SELECT * FROM Users WHERE username LIKE ?";
+    $search_query = "SELECT * FROM User WHERE username LIKE ?";
     $stmt = $conn->prepare($search_query);
     $stmt->bind_param("s", $query);
     $stmt->execute();
