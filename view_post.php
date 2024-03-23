@@ -28,6 +28,7 @@
         $stmt = $conn->prepare($delete_query);
         $stmt->bind_param("i", $notificationID);
         $stmt->execute();
+        header("Location: view_post.php?discussionID=" . $_GET['discussionID']);
     }
 
     try {
