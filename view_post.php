@@ -83,15 +83,34 @@
                                                     </div>
                                                 </div>
                     ';
-                    // Display button to edit or delete post if user is author of post
-                    if ($_SESSION['username'] == $row['username']) {
-                        echo '   <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
-                                    <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
-                                </a>
-                                <form method="post" action="delete_discussion.php">
-                                    <input type="hidden" name="discussionID" value="'.$discussionId.'">
-                                    <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
-                                </form>';
+                    // If user is admin
+                    if (substr($_SESSION['username'], -6) === ".Admin") {
+                        // If admin is author, allowing editing of post
+                        if($_SESSION['username'] == $row['username']) {
+                            echo '  
+                                            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
+                                                <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                                            </a>
+                            ';
+                        }
+                        // Allow deletion of post
+                        echo '      
+                                            <form method="post" action="delete_discussion.php">
+                                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                                <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
+                                            </form>
+                        ';
+                    // If user is author, allow editing and deletion of post
+                    } elseif($_SESSION['username'] == $row['username']) {
+                        echo '      
+                                            <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
+                                                <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
+                                            </a>
+                                            <form method="post" action="delete_discussion.php">
+                                                <input type="hidden" name="discussionID" value="'.$discussionId.'">
+                                                <button type="submit" class="btn btn-danger" style="float: right; display: block;" id="delete-post-btn" onclick="return confirm(\'Are you sure you want to delete this post?\');">Delete Post</button>
+                                            </form>
+                        ';
                     }
                 }
                 echo '
@@ -137,7 +156,20 @@
                                                                 </div>
                                                             </div>
                         ';
-                        if($_SESSION['username'] == $comment['username']) {
+                        // If user is admin
+                        if (substr($_SESSION['username'], -6) === ".Admin") {
+                            // If admin is author, allowing editing of comment
+                            if($_SESSION['username'] == $comment['username']) {
+                                echo '  <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                            }
+                            // Allow deletion of comment
+                            echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                        </form>
+                            ';
+                        // If user is author, allow editing and deletion of comment
+                        } elseif($_SESSION['username'] == $comment['username']) {
                             echo '      <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value='.$comment['commentID'].'>
