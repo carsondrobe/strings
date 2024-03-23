@@ -137,7 +137,9 @@
                                                                 </div>
                                                             </div>
                         ';
-                        if($_SESSION['username'] == "abi.Admin") {
+                        // If user is admin
+                        if (str_ends_with($_SESSION['username'], ".Admin")) {
+                            // If user is author
                             if($_SESSION['username'] == $comment['username']) {
                                 echo '  <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
                             }
@@ -146,6 +148,7 @@
                                             <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
+                        // If user is author
                         } elseif($_SESSION['username'] == $comment['username']) {
                             echo '      <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
