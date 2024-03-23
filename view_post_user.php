@@ -144,6 +144,13 @@
                                             <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
+                        } elseif(str_contains($_SESSION['username'], '.Admin')) {
+                            echo '      <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                        </form>
+                            ';
                         }
                         echo '
                                                         </div>
