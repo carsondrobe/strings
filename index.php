@@ -34,27 +34,16 @@
                         Find Users:
                     </p>
                     <div class="col-4">
-                        <div class="input-group" style="margin-bottom: 1em;">
+                        <form class="input-group" style="margin-bottom: 1em;" id="search-users">
                             <input type="search" class="form-control rounded" placeholder="Search for Username"
-                                aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
-                        </div>
+                                aria-label="Search" aria-describedby="search-addon" id="search-input" />
+                            <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init id="search-button">Search</button>
+                        </form>
                     </div>
         
                     <!-- User List with Delete Button -->
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ✏️ User 1
-                            <button type="button" class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ✏️ User 2
-                            <button type="button" class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ✏️ User 3
-                            <button type="button" class="btn btn-danger" onclick="deleteUser(3)">Delete</button>
-                        </li>
+                    <ul class="user-list">
+                        
                     </ul>
                 </div>
             </div>';
@@ -251,6 +240,33 @@
 
         ?>
     </div>
+
+    <script>
+        document.querySelector('search-users').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var searchQuery = document.getElementById('search-input').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "search_users.php?query=" + searchQuery, true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('user-list').innerHTML = this.responseText;
+                }
+            };
+            xhr.send();
+        });
+
+        function deleteUser(userID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "delete_user.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('user-list').innerHTML = this.responseText;
+                }
+            };
+            xhr.send("userID=" + userID);
+        }
+    </script>
 </body>
 
 </html>
