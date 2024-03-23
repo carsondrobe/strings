@@ -138,7 +138,7 @@
                                                             </div>
                         ';
                         // If user is admin
-                        if (str_ends_with($_SESSION['username'], ".Admin")) {
+                        if (substr($_SESSION['username'], -6) === ".Admin") {
                             // If admin is author, allowing editing of comment
                             if($_SESSION['username'] == $comment['username']) {
                                 echo '  <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
