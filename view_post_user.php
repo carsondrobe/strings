@@ -145,6 +145,10 @@
                                         </form>
                             ';
                         }
+                        if(str_contains(string $_SESSION['username'], string ".Admin")) {
+                            echo '      <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                            ';
+                        }
                         echo '
                                                         </div>
                                                     </div>
