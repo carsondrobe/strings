@@ -242,7 +242,7 @@
     </div>
 
     <script>
-        document.querySelector('search-users').addEventListener('submit', function(event) {
+        document.querySelector('#search-users').addEventListener('submit', function(event) {
             event.preventDefault();
             var searchQuery = document.getElementById('search-input').value;
             var xhr = new XMLHttpRequest();
