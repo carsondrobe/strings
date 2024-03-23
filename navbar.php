@@ -154,6 +154,7 @@ require 'config.php'; // Include your database connection configuration file
 
 <script>
     function deleteNotification(notificationID) {
+        console.log("Deleting Notification: " + notificationID);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "delete_notification.php?notificationID=" + notificationID, true);
         xhr.send();
