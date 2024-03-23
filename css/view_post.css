@@ -1,24 +1,3 @@
-#headbar {
-    background-color: rgb(56, 56, 56);
-    padding: .7em;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-#headtext {
-    color: lightgray;
-    font-size: large;
-}
-
-.white-button {
-    background-color: white;
-    color: #000;
-}
-
-.white-text {
-    color: lightgray;
-}
-
 #comment {
     margin: 0.25em 1em;
 }
@@ -33,6 +12,7 @@
 .btn-outline-black {
     color: black;
     border-color: black;
+    background-color: rgb(249, 249, 249);
 }
 
 .btn-outline-black:hover {
