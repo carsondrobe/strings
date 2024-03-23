@@ -290,8 +290,8 @@
 
         function scrollFunction() {
             if (
-                document.body.scrollTop > 500 ||
-                document.documentElement.scrollTop > 500
+                document.body.scrollTop > 0 ||
+                document.documentElement.scrollTop > 0
             ) {
                 mybutton.style.display = "block";
             } else {
