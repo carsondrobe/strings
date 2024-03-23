@@ -256,13 +256,14 @@
             xhr.send();
         });
 
-        function deleteUser(userID) {
+        function deleteUser(userID, element) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "delete_user.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById('user-list').innerHTML = this.responseText;
+                    // Remove the <li> element from the screen
+                    element.parentNode.removeChild(element);
                 }
             };
             xhr.send("userID=" + userID);
