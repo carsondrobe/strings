@@ -86,7 +86,7 @@
                     // If user is admin
                     if (substr($_SESSION['username'], -6) === ".Admin") {
                         // If admin is author, allowing editing of post
-                        if($_SESSION['username'] == $comment['username']) {
+                        if($_SESSION['username'] == $row['username']) {
                             echo '  
                                             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
                                                 <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
@@ -101,7 +101,7 @@
                                             </form>
                         ';
                     // If user is author, allow editing and deletion of post
-                    } elseif($_SESSION['username'] == $comment['username']) {
+                    } elseif($_SESSION['username'] == $row['username']) {
                         echo '      
                                             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#editPostModal">
                                                 <button onclick="openEditModal(\'' . htmlspecialchars($row['discussionID']) . '\', \'' . htmlspecialchars(addslashes($row['title']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['content']), ENT_QUOTES) . '\', \'' . htmlspecialchars(addslashes($row['category']), ENT_QUOTES) . '\')" class="btn btn-outline-info" style="text-align: left; display: block;" id="edit-post-btn">Edit Post</button>
