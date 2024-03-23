@@ -243,12 +243,13 @@
 
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
-            var searchQuery = document.getElementById('search-input').value;
+            event.preventDefault();
+            var searchQuery = document.getElementById('#search-input').value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "search_users.php?query=" + searchQuery, true);
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById('user-list').innerHTML = this.responseText;
+                    document.getElementById('#user-list').innerHTML = this.responseText;
                 }
             };
             xhr.send();
@@ -260,7 +261,7 @@
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById('user-list').innerHTML = this.responseText;
+                    document.getElementById('#user-list').innerHTML = this.responseText;
                 }
             };
             xhr.send("userID=" + userID);
