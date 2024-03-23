@@ -316,11 +316,7 @@
             var characters = this.value.length;
             var maxCharacters = 5000;
             var currentLength = maxCharacters - characters;
-            if (currentLength <= maxCharacters) {
-                document.getElementById('characterCount').textContent = currentLength + " characters remaining";
-            } else {
-                document.getElementById('characterCount').style.color = (currentLength - maxCharacters) + " CHARACTERS OVER LIMIT";
-            }
+            document.getElementById('characterCount').textContent = currentLength + " characters remaining";
             });
     </script>
     <!-- BOOTSTRAP -->
