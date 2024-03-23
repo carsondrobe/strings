@@ -24,7 +24,12 @@
     } else if ($_GET['topic'] != null) {
         echo '<h1>Trending in ' . ucwords($_GET['topic']) . '</h1>';
     } else {
-        echo '<h1>Welcome to Strings</h1>';
+        // Check for Admin
+        if (substr($_SESSION['username'], -6) === ".Admin") {
+            echo '<h1>Welcome to Strings for Admin</h1>';
+        } else {
+            echo '<h1>Welcome to Strings</h1>';
+        }
     }
     ?>
 

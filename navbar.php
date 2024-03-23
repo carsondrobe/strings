@@ -21,7 +21,14 @@ require 'config.php'; // Include your database connection configuration file
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="index.php">strings</a>
+        <?php
+        if (substr($_SESSION['username'], -6) === ".Admin") {
+            $logo = 'strings admin';
+        } else {
+            $logo = 'strings';
+        }
+        ?>
+        <a class="navbar-brand" href="index.php"><?php echo $logo ?></a>
         <!-- Check if user logged in with PHP -->
         <?php
         if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
