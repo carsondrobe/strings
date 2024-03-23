@@ -44,7 +44,18 @@ mysqli_close($conn);
             <!-- Profile Picture Column -->
             <div class="col-md-4">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
-                <img src="handlepfp.php?user_id=<?php echo urlencode($user_id); ?>" class="img-fluid rounded-circle" alt="Profile Picture">
+                <?php
+                
+                $profilePicPath = $row['profile_picture'];
+                if (empty($profilePicPath)) {
+                   
+                    $profilePicPath = "img/defaultprofile.jpeg";
+                } else {
+                    
+                    $profilePicPath = "handlepfp.php?user_id=" . urlencode($user_id);
+                }
+                ?>
+                <img src="<?php echo $profilePicPath; ?>" class="img-fluid rounded-circle" alt="Profile Picture">
                 </button>
             </div>
 
@@ -102,18 +113,24 @@ mysqli_close($conn);
 
 <div class="container">
     <div class="row justify-content-start">
-        <h3>
-            <p>
-                My posts:
-            </p>
-        </h3>
-
-        <!-- User List with Delete Button -->
+        <h3>My posts:</h3>
         <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href='view_post.html';" style="cursor: pointer;">
-                ✏️ Exciting News in Tech World
-                <button type="button" class="btn btn-danger" onclick="event.stopPropagation(); deleteUser(1);">Delete</button>
-            </li>
+            <?php
+            include 'config.php'; 
+            $user_id = $_SESSION['user_id']; 
+            $posts_query = "SELECT * FROM discussion WHERE user_id = '$user_id' ORDER BY created_at DESC";
+            $posts_result = mysqli_query($conn, $posts_query);
+
+            if ($posts_result) {
+                while ($post = mysqli_fetch_assoc($posts_result)) {
+                    echo '<li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href=\'view_post.php?post_id=' . urlencode($post['post_id']) . '\';" style="cursor: pointer;">' . htmlspecialchars($post['title']) . '<button type="button" class="btn btn-danger" onclick="event.stopPropagation(); deletePost(' . $post['post_id'] . ');">Delete</button></li>';
+                }
+            } else {
+                echo "Error fetching posts: " . mysqli_error($conn);
+            }
+
+            mysqli_close($conn);
+            ?>
         </ul>
     </div>
 </div>
