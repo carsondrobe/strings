@@ -137,16 +137,16 @@
                                                                 </div>
                                                             </div>
                         ';
-                        // if(str_contains($_SESSION['username'], '.Admin')) {
-                        //     if($_SESSION['username'] == $comment['username']) {
-                        //         echo '  <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
-                        //     }
-                        //     echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
-                        //                     <input type="hidden" name="commentID" value='.$comment['commentID'].'>
-                        //                     <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
-                        //                 </form>
-                        //     ';
-                        // }
+                        if($_SESSION['username'] == "abi.Admin") {
+                            if($_SESSION['username'] == $comment['username']) {
+                                echo '  <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                            }
+                            echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                            <input type="hidden" name="commentID" value='.$comment['commentID'].'>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                        </form>
+                            ';
+                        }
                         if($_SESSION['username'] == $comment['username']) {
                             echo '      <button onclick="editComment('.$comment['commentID'].')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
@@ -154,9 +154,6 @@
                                             <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
-                        }
-                        if($_SESSION['username'] = "abi.Admin") {
-                            echo 'here';
                         }
                         echo '
                                                         </div>
