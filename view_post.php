@@ -198,20 +198,20 @@
                         if (substr($_SESSION['username'], -6) === ".Admin") {
                             // If admin is author, allowing editing of comment
                             if ($_SESSION['username'] == $comment['username']) {
-                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn-' . $comment['commentID'] . '">Edit Comment</button>';
                             }
                             // Allow deletion of comment
                             echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-' . $comment['commentID'] . '" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
                             // If user is author, allow editing and deletion of comment
                         } elseif ($_SESSION['username'] == $comment['username']) {
-                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn-' . $comment['commentID'] . '">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-' . $comment['commentID'] . '" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
                         }
@@ -244,14 +244,14 @@
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
-            document.getElementById('edit-comment-btn').style.display = "none";
-            document.getElementById('delete-comment-btn').style.display = "none";
+            document.getElementById('edit-comment-btn-'+commentID).style.display = "none";
+            document.getElementById('delete-comment-btn-'+commentID).style.display = "none";
         }
 
         function cancelEditComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "none";
-            document.getElementById('edit-comment-btn').style.display = "inline";
-            document.getElementById('delete-comment-btn').style.display = "inline";
+            document.getElementById('edit-comment-btn-'+commentID).style.display = "inline";
+            document.getElementById('delete-comment-btn-'+commentID).style.display = "inline";
         }
 
         function editPost() {
@@ -297,10 +297,10 @@
                         <div class="card-body">
                             <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
-                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn-${data.commentId}">Edit Comment</button>
                             <form method="post" action="delete_comment.php" style="text-align: right;">
                                 <input type="hidden" name="commentID" value="${data.commentId}">
-                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
+                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-${data.commentId}" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
                             </form>
                         </div>
                     `;
@@ -341,6 +341,47 @@
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
+
+    <!-- Create Post Modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPostModalTitle">Start a discussion!</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="create_post.php" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label for="postCategory" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter post category...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postTitle" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Enter post title...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postImage" class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="postImage" name="postImage">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postDescription">Description</label>
+                            <textarea class="form-control" id="postDescription" name="postDescription" rows="5" placeholder="Enter post description..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Edit Post Modal -->
     <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
@@ -383,6 +424,11 @@
             </div>
         </div>
     </div>
+    <style>
+    .row {
+        margin-bottom: 1em;
+    }
+    </style>
 
     <!-- Back to top button -->
     <button type="button" class="btn btn-outline-black" id="btn-back-to-top">

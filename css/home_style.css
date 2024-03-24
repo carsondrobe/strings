@@ -35,9 +35,7 @@ body {
 
 .post-link {
     text-decoration: none;
-    /* Remove default underline for links */
     color: #000;
-    /* Set the color for the link */
 }
 
 .card {
