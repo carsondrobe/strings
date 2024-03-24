@@ -334,11 +334,9 @@
         });
 
         // For editing asynchronously updated comments 
-        document.querySelector('.comments-container').addEventListener('click', function(e) {
-            if (e.target.classList.contains('edit-comment-btn')) {
-                var commentId = e.target.getAttribute('data-commentid');
-                editComment(commentId);
-            }
+        document.getElementById('edit-comment-btn').addEventListener('click', function(e) {
+            var commentId = e.target.getAttribute('data-commentid');
+            editComment(commentId);
         });
     </script>
     <!-- BOOTSTRAP -->
