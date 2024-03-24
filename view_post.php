@@ -198,20 +198,20 @@
                         if (substr($_SESSION['username'], -6) === ".Admin") {
                             // If admin is author, allowing editing of comment
                             if ($_SESSION['username'] == $comment['username']) {
-                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn-' . $comment['commentID'] . '">Edit Comment</button>';
                             }
                             // Allow deletion of comment
                             echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-' . $comment['commentID'] . '" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
                             // If user is author, allow editing and deletion of comment
                         } elseif ($_SESSION['username'] == $comment['username']) {
-                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn-' . $comment['commentID'] . '">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-' . $comment['commentID'] . '" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
                                         </form>
                             ';
                         }
@@ -244,14 +244,14 @@
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
-            document.getElementById('edit-comment-btn').style.display = "none";
-            document.getElementById('delete-comment-btn').style.display = "none";
+            document.getElementById('edit-comment-btn-'+commentID).style.display = "none";
+            document.getElementById('delete-comment-btn-'+commentID).style.display = "none";
         }
 
         function cancelEditComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "none";
-            document.getElementById('edit-comment-btn').style.display = "inline";
-            document.getElementById('delete-comment-btn').style.display = "inline";
+            document.getElementById('edit-comment-btn-'+commentID).style.display = "inline";
+            document.getElementById('delete-comment-btn-'+commentID).style.display = "inline";
         }
 
         function editPost() {
@@ -297,10 +297,10 @@
                         <div class="card-body">
                             <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
-                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn-${data.commentId}">Edit Comment</button>
                             <form method="post" action="delete_comment.php" style="text-align: right;">
                                 <input type="hidden" name="commentID" value="${data.commentId}">
-                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
+                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn-${data.commentId}" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
                             </form>
                         </div>
                     `;
@@ -424,6 +424,11 @@
             </div>
         </div>
     </div>
+    <style>
+    .row {
+        margin-bottom: 1em;
+    }
+    </style>
 
     <!-- Back to top button -->
     <button type="button" class="btn btn-outline-black" id="btn-back-to-top">
