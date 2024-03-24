@@ -162,14 +162,15 @@
                 $result2 = $stmt2->get_result();
                 $num_comments = $result2->num_rows;
                 if ($num_comments > 0) {
-                    if ($num_comments == 1) {
+                    if ($num_comments == 0) {
                         echo '
-                                            <p class="card-text" id="numComments">1 Comment</p>
-                        ';
+                                            <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
+                    } elseif ($num_comments == 1) {
+                        echo '
+                                            <p class="card-text" id="numComments">1 Comment</p>';
                     } else {
                         echo '
-                                            <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>
-                        ';
+                                            <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>';
                     }
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
@@ -219,12 +220,9 @@
                                                 </div>
                             ';
                     }
-                } else {
-                    echo '
-                            </div>
-                            <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
                 }
                 echo '
+                                </div>
                             </div>
                         </div>
                     </div>
