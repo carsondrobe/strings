@@ -326,6 +326,7 @@
             });
         
         document.getElementById('updatedCommentContent').addEventListener('input', function() {
+            document.getElementById('updatedCharacterCount').textContent = "";
             var characters = this.value.length;
             var maxCharacters = 5000;
             var currentLength = maxCharacters - characters;
