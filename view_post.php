@@ -13,13 +13,11 @@
 </head>
 
 <body>
-
-    <?php include 'navbar.php'; ?>
-
     <!-- PHP script for displaying a post on the home page -->
     <?php
     session_start();
     include 'config.php';
+    include 'navbar.php';
 
 
 
