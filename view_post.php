@@ -107,14 +107,13 @@
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Leave a comment!</h5>
-                                                        <form method="post" action="create_comment.php">
+                                                        <form id="commentForm">
                                                             <input type="hidden" name="discussionID" value=' . $discussionId . '>
                                                             <div class="mb-3">
-                                                            <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
+                                                                <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required></textarea>
+                                                                <div id="characterCount" style="float: right;"></div>
                                                             </div>
-                                                            <button class="btn btn-outline-info" type="submit">
-                                                                Comment
-                                                            </button>
+                                                            <button type="button" id="submitComment" class="btn btn-outline-info">Comment</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -153,6 +152,7 @@
                                     </div>
                                 </div>
                                 <br>
+                                <div class="comments-container">
                 ';
                 // Dynamically generate comments here
                 $query2 = "SELECT * FROM Comments WHERE discussionID = ?";
@@ -161,16 +161,17 @@
                 $stmt2->execute();
                 $result2 = $stmt2->get_result();
                 $num_comments = $result2->num_rows;
-                if ($num_comments > 0) {
-                    if ($num_comments == 1) {
+                    if ($num_comments == 0) {
                         echo '
-                                            <p class="card-text">1 Comment</p>
-                        ';
+                                            <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
+                    } elseif ($num_comments == 1) {
+                        echo '
+                                            <p class="card-text" id="numComments">1 Comment</p>';
                     } else {
                         echo '
-                                            <p class="card-text">' . $num_comments . ' Comments</p>
-                        ';
+                                            <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>';
                     }
+                    if ($num_comments > 0) {
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
                                                 <div class="card" id="comment-' . $comment['commentID'] . '">
@@ -184,7 +185,8 @@
                                                                     <h5 class="card-title">Edit your comment:</h5>
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="' . $comment['commentID'] . '">
-                                                                            <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
+                                                                            <textarea oninput="editCommentCharacterCount(' . $comment['commentID'] . ')" class="form-control" id="updatedCommentContent-' . $comment['commentID'] . '" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
+                                                                            <div id="updatedCharacterCount-' . $comment['commentID'] . '" style="float: right;"></div>
                                                                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                                                                             <button type="button" onclick="cancelEditComment(' . $comment['commentID'] . ')" class="btn btn-secondary btn-sm">Cancel</button>
                                                                         </form>
@@ -219,10 +221,9 @@
                                                 </div>
                             ';
                     }
-                } else {
-                    echo '<p class="card-text">No one has commented yet, be the first!</p>';
                 }
                 echo '
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -239,7 +240,7 @@
         die($e->getMessage());
     }
     ?>
-    <!-- JavaScript functions for editing posts and comments and rating buttons -->
+    <!-- JavaScript functions for posts and comments and rating buttons -->
     <script>
         function editComment(commentID) {
             document.getElementById('edit-form-' + commentID).style.display = "block";
@@ -273,6 +274,69 @@
             document.getElementById('editPostContent').value = content;
             document.getElementById('editPostCategory').value = category;   
         }
+
+        document.getElementById('submitComment').addEventListener('click', function() {
+            var discussionID = document.querySelector('#commentForm input[name="discussionID"]').value;
+            var commentContent = document.getElementById('commentContent').value;
+            var comment = new FormData();
+            comment.append('discussionID', discussionID);
+            comment.append('commentContent', commentContent);
+            fetch('create_comment.php', {
+                method: 'POST',
+                body: comment
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Add comment to page asynchronously
+                    document.getElementById('commentContent').value = '';
+                    var commentsContainer = document.querySelector('.comments-container');
+                    var newComment = document.createElement('div');
+                    newComment.classList.add('card');
+                    newComment.innerHTML = `
+                        <div class="card-body">
+                            <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
+                            <p class="card-text">${commentContent}</p>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <form method="post" action="delete_comment.php" style="text-align: right;">
+                                <input type="hidden" name="commentID" value="${data.commentId}">
+                                <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
+                            </form>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(newComment);
+                    // Update number of comments asynchronously
+                    if(data.numComments == 1) {
+                        document.getElementById('numComments').textContent = `${data.numComments} Comment`;
+                    } else {
+                        document.getElementById('numComments').textContent = `${data.numComments} Comments`;
+                    }
+                } else {
+                    alert('Error submitting comment: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('commentContent').addEventListener('input', function() {
+            var characters = this.value.length;
+            var maxCharacters = 5000;
+            var currentLength = maxCharacters - characters;
+            document.getElementById('characterCount').textContent = currentLength + " characters remaining";
+            });
+        
+        function editCommentCharacterCount(commentID) {
+            document.getElementById('updatedCommentContent-' + commentID).addEventListener('input', function() {
+                var characters = this.value.length;
+                var maxCharacters = 5000;
+                var currentLength = maxCharacters - characters;
+                document.getElementById('updatedCharacterCount-' + commentID).textContent = currentLength + " characters remaining";
+            });
+        }
+        
+        document.getElementById('submitComment').addEventListener('click', function() {
+            document.getElementById('characterCount').textContent = "5000 characters remaining";
+        });
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
