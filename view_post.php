@@ -14,13 +14,11 @@
 
 <body>
 
-    <?php 
-    session_start();
-    include 'navbar.php'; 
-    ?>
+    <?php include 'navbar.php'; ?>
 
     <!-- PHP script for displaying a post on the home page -->
     <?php
+    session_start();
     include 'config.php';
 
 
@@ -343,6 +341,47 @@
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- BOOTSTRAP -->
+
+    <!-- Create Post Modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPostModalTitle">Start a discussion!</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="create_post.php" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label for="postCategory" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter post category...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postTitle" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Enter post title...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postImage" class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="postImage" name="postImage">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="postDescription">Description</label>
+                            <textarea class="form-control" id="postDescription" name="postDescription" rows="5" placeholder="Enter post description..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Edit Post Modal -->
     <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
