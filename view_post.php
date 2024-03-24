@@ -197,7 +197,7 @@
                         if (substr($_SESSION['username'], -6) === ".Admin") {
                             // If admin is author, allowing editing of comment
                             if ($_SESSION['username'] == $comment['username']) {
-                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
                             }
                             // Allow deletion of comment
                             echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
@@ -207,7 +207,7 @@
                             ';
                             // If user is author, allow editing and deletion of comment
                         } elseif ($_SESSION['username'] == $comment['username']) {
-                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
                                         <form method="post"  action="delete_comment.php" style="text-align: right;">
                                             <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
                                             <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
@@ -296,7 +296,7 @@
                         <div class="card-body">
                             <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
-                            <button type="submit" onclick="editComment(${data.commentId})" data-commentId="${data.commentId}" class="btn btn-outline-info btn-sm edit-comment-btn" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
                             <form method="post" action="delete_comment.php" style="text-align: right;">
                                 <input type="hidden" name="commentID" value="${data.commentId}">
                                 <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
@@ -327,15 +327,6 @@
         document.getElementById('submitComment').addEventListener('click', function() {
             document.getElementById('characterCount').textContent = "5000 characters remaining";
         });
-
-        document.querySelector('.edit-comment-btn').addEventListener('click', function(e) {
-            var commentId = e.target.dataset.commentId;
-            var originalComment = document.querySelector('#comment-content-' + commentId).textContent;
-            document.getElementById('edit-form-' + commentID).style.display = "block";
-            document.getElementById('edit-comment-btn').style.display = "none";
-            document.getElementById('delete-comment-btn').style.display = "none";
-        });
-
     </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
