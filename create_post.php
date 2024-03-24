@@ -14,7 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if content is over limit
     if (strlen($content) > 5000) {
-        echo '<script>alert("Your post content exceeds the maximum allowed length of 5000 characters. Please shorten your post."); window.history.back();</script>';
+        $_SESSION['error_message'] = "Your post content exceeds the maximum allowed length of 5000 characters. Please shorten your post.";
+        header("Location: index.php");
         exit();
     }
 
