@@ -7,7 +7,7 @@ require 'config.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$response = ['success' => false, 'message' => '', 'username' => '', 'timePosted' => '', 'commentId' => ''];
+$response = ['success' => false, 'message' => '', 'username' => '', 'timePosted' => '', 'commentId' => '', 'numComments' => ''];
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,51 +27,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO Comments (discussionID, username, content, timePosted) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("isss", $discussionId, $username, $content, $timePosted);
          // Execute prepared statement
-    if ($stmt->execute()) {
-        // Update Notifications
-        $commentId = $stmt->insert_id;
-        // Update json responses
-        $response['success'] = true;
-        $response['message'] = "Comment successfully added.";
-        $response['commentId'] = $commentId;
-        //  Get the Username for the discussion commented on
-        $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error);
-        }
-        $stmt->bind_param("i", $discussionId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $username = $row['username'];
-
-        // get the userID for the given username
-        $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
-        if ($stmt === false) {
-            $response['message'] = "Error: " . $stmt->error;
-        }
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $notified_userID = $row['userID'];
-        } else {
-            $response['message'] = "Error: " . $stmt->error;
-        }
-
-        // Then, insert the notification
-        $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
-        $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
         if ($stmt->execute()) {
+            // Update Notifications
+            $commentId = $stmt->insert_id;
+            // Update json responses
+            $response['success'] = true;
+            $response['message'] = "Comment successfully added.";
+            $response['commentId'] = $commentId;
+            // Get total number of comments for discussion
+            $countStmt = $conn->prepare("SELECT COUNT(*) AS numComments FROM Comments WHERE discussionID = ?");
+            $countStmt->bind_param("i", $discussionId);
+            $countStmt->execute();
+            $countResult = $countStmt->get_result()->fetch_assoc();
+            $response['numComments'] = $countResult['numComments'];
+            //  Get the Username for the discussion commented on
+            $stmt = $conn->prepare("SELECT username FROM Discussions WHERE discussionID = ?");
+            if ($stmt === false) {
+                die("Error preparing statement: " . $conn->error);
+            }
+            $stmt->bind_param("i", $discussionId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $username = $row['username'];
+
+            // get the userID for the given username
+            $stmt = $conn->prepare("SELECT userID FROM User WHERE username = ?");
+            if ($stmt === false) {
+                $response['message'] = "Error: " . $stmt->error;
+            }
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $notified_userID = $row['userID'];
+            } else {
+                $response['message'] = "Error: " . $stmt->error;
+            }
+
+            // Then, insert the notification
+            $stmt = $conn->prepare("INSERT INTO Notifications (discussion_id, comment_id, commenting_userID, notified_userID, notification_type) VALUES (?, ?, ?, ?, 'comment')");
+            $stmt->bind_param("iiii", $discussionId, $commentId, $user_id, $notified_userID);
+            if ($stmt->execute()) {
+            } else {
+                $response['message'] = "Error: " . $stmt->error;
+            }
         } else {
             $response['message'] = "Error: " . $stmt->error;
         }
-    } else {
-        $response['message'] = "Error: " . $stmt->error;
-    }
-    $stmt->close();
-    // $conn->close();
+        $stmt->close();
+        // $conn->close();
     }
 } else {
     $response['message'] = "Error: " . $stmt->error;

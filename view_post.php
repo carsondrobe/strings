@@ -164,11 +164,11 @@
                 if ($num_comments > 0) {
                     if ($num_comments == 1) {
                         echo '
-                                            <p class="card-text">1 Comment</p>
+                                            <p class="card-text" id="numComments">1 Comment</p>
                         ';
                     } else {
                         echo '
-                                            <p class="card-text">' . $num_comments . ' Comments</p>
+                                            <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>
                         ';
                     }
                     while ($comment = $result2->fetch_assoc()) {
@@ -222,7 +222,7 @@
                 } else {
                     echo '
                             </div>
-                            <p class="card-text">No one has commented yet, be the first!</p>';
+                            <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
                 }
                 echo '
                             </div>
@@ -289,6 +289,7 @@
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
+                    // Add comment to page asynchronously
                     document.getElementById('commentContent').value = '';
                     var commentsContainer = document.querySelector('.comments-container');
                     var newComment = document.createElement('div');
@@ -305,6 +306,12 @@
                         </div>
                     `;
                     commentsContainer.appendChild(newComment);
+                    // Update number of comments asynchronously
+                    if(data.numComments == 1) {
+                        document.getElementById('numComments').textContent = `${data.numComments} Comment`;
+                    } else {
+                        document.getElementById('numComments').textContent = `${data.numComments} Comments`;
+                    }
                 } else {
                     alert('Error submitting comment: ' + data.message);
                 }
