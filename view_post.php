@@ -161,67 +161,64 @@
                 $stmt2->execute();
                 $result2 = $stmt2->get_result();
                 $num_comments = $result2->num_rows;
-                // Generate num comment statement
-                if ($num_comments == 0) {
-                    echo '
-                                        <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
-                } elseif ($num_comments == 1) {
-                    echo '
-                                        <p class="card-text" id="numComments">1 Comment</p>';
-                } else {
-                    echo '
-                                        <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>';
-                }
-                // If comments, display them and add form for editing comments but make it hidden
-                if ($num_comments > 0) {
-                while ($comment = $result2->fetch_assoc()) {
-                    echo '
-                                            <div class="card" id="comment-' . $comment['commentID'] . '">
-                                                <div class="card-body">
-                                                    <p class="card-text"><strong>✏️ Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</strong></p>
-                                                    <div id="comment-content-' . $comment['commentID'] . '" style="display:block;">
-                                                        <p class="card-text">' . $comment['content'] . '</p>
-                                                        <div id="edit-form-' . $comment['commentID'] . '" style="display:none;">
-                                                            <div class="card" style="margin-bottom: 15px;">
-                                                                <div class="card-body">
-                                                                <h5 class="card-title">Edit your comment:</h5>
-                                                                    <form method="post" action="edit_comment.php">
-                                                                        <input type="hidden" name="commentID" value="' . $comment['commentID'] . '">
-                                                                        <textarea class="form-control" id="commentContent" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
-                                                                        <div id="characterCount" style="float: right;"></div>
-                                                                        <button type="submit" class="btn btn-success btn-sm">Update</button>
-                                                                        <button type="button" onclick="cancelEditComment(' . $comment['commentID'] . ')" class="btn btn-secondary btn-sm">Cancel</button>
-                                                                    </form>
+                    if ($num_comments == 0) {
+                        echo '
+                                            <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
+                    } elseif ($num_comments == 1) {
+                        echo '
+                                            <p class="card-text" id="numComments">1 Comment</p>';
+                    } else {
+                        echo '
+                                            <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>';
+                    }
+                    if ($num_comments > 0) {
+                    while ($comment = $result2->fetch_assoc()) {
+                        echo '
+                                                <div class="card" id="comment-' . $comment['commentID'] . '">
+                                                    <div class="card-body">
+                                                        <p class="card-text"><strong>✏️ Written By: ' . $comment['username'] . ' | ' . $comment['timePosted'] . '</strong></p>
+                                                        <div id="comment-content-' . $comment['commentID'] . '" style="display:block;">
+                                                            <p class="card-text">' . $comment['content'] . '</p>
+                                                            <div id="edit-form-' . $comment['commentID'] . '" style="display:none;">
+                                                                <div class="card" style="margin-bottom: 15px;">
+                                                                    <div class="card-body">
+                                                                    <h5 class="card-title">Edit your comment:</h5>
+                                                                        <form method="post" action="edit_comment.php">
+                                                                            <input type="hidden" name="commentID" value="' . $comment['commentID'] . '">
+                                                                            <textarea class="form-control" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
+                                                                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                                                                            <button type="button" onclick="cancelEditComment(' . $comment['commentID'] . ')" class="btn btn-secondary btn-sm">Cancel</button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                    ';
-                    // If user is admin
-                    if (substr($_SESSION['username'], -6) === ".Admin") {
-                        // If admin is author, allowing editing of comment
-                        if ($_SESSION['username'] == $comment['username']) {
-                            echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                        ';
+                        // If user is admin
+                        if (substr($_SESSION['username'], -6) === ".Admin") {
+                            // If admin is author, allowing editing of comment
+                            if ($_SESSION['username'] == $comment['username']) {
+                                echo '  <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>';
+                            }
+                            // Allow deletion of comment
+                            echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                            <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                        </form>
+                            ';
+                            // If user is author, allow editing and deletion of comment
+                        } elseif ($_SESSION['username'] == $comment['username']) {
+                            echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
+                                        <form method="post"  action="delete_comment.php" style="text-align: right;">
+                                            <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
+                                            <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
+                                        </form>
+                            ';
                         }
-                        // Allow deletion of comment
-                        echo '      <form method="post"  action="delete_comment.php" style="text-align: right;">
-                                        <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                        <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
-                                    </form>
-                        ';
-                        // If user is author, allow editing and deletion of comment
-                    } elseif ($_SESSION['username'] == $comment['username']) {
-                        echo '      <button onclick="editComment(' . $comment['commentID'] . ')" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>                                        
-                                    <form method="post"  action="delete_comment.php" style="text-align: right;">
-                                        <input type="hidden" name="commentID" value=' . $comment['commentID'] . '>
-                                        <button type="submit" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm(\'Are you sure you want to delete this comment?\');">Delete Comment</button>
-                                    </form>
-                        ';
-                    }
-                    echo '
+                        echo '
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                        ';
+                            ';
                     }
                 }
                 echo '
@@ -277,7 +274,6 @@
             document.getElementById('editPostCategory').value = category;   
         }
 
-        // For asynchronous comment updating
         document.getElementById('submitComment').addEventListener('click', function() {
             var discussionID = document.querySelector('#commentForm input[name="discussionID"]').value;
             var commentContent = document.getElementById('commentContent').value;
@@ -300,7 +296,7 @@
                         <div class="card-body">
                             <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
-                            <button class="edit-comment-btn btn btn-outline-info btn-sm" data-commentid="${data.commentId}" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <button onclick="editComment(${data.commentId})" class="btn btn-outline-info btn-sm" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
                             <form method="post" action="delete_comment.php" style="text-align: right;">
                                 <input type="hidden" name="commentID" value="${data.commentId}">
                                 <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
@@ -321,7 +317,6 @@
             .catch(error => console.error('Error:', error));
         });
 
-        // For character counter on comment box
         document.getElementById('commentContent').addEventListener('input', function() {
             var characters = this.value.length;
             var maxCharacters = 5000;
@@ -331,12 +326,6 @@
         
         document.getElementById('submitComment').addEventListener('click', function() {
             document.getElementById('characterCount').textContent = "5000 characters remaining";
-        });
-
-        // For editing asynchronously updated comments 
-        document.getElementById('edit-comment-btn').addEventListener('click', function(e) {
-            var commentId = e.target.getAttribute('data-commentid');
-            editComment(commentId);
         });
     </script>
     <!-- BOOTSTRAP -->
