@@ -185,8 +185,8 @@
                                                                     <h5 class="card-title">Edit your comment:</h5>
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="' . $comment['commentID'] . '">
-                                                                            <textarea class="form-control" id="updatedCommentContent" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
-                                                                            <div id="updatedCharacterCount" style="float: right;"></div>
+                                                                            <textarea oninput="editCommentCharacterCount(' . $comment['commentID'] . ')" class="form-control" id="updatedCommentContent-' . $comment['commentID'] . '" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
+                                                                            <div id="updatedCharacterCount-' . $comment['commentID'] . '" style="float: right;"></div>
                                                                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                                                                             <button type="button" onclick="cancelEditComment(' . $comment['commentID'] . ')" class="btn btn-secondary btn-sm">Cancel</button>
                                                                         </form>
@@ -325,13 +325,14 @@
             document.getElementById('characterCount').textContent = currentLength + " characters remaining";
             });
         
-        document.getElementById('updatedCommentContent').addEventListener('input', function() {
-            document.getElementById('updatedCharacterCount').textContent = "";
-            var characters = this.value.length;
-            var maxCharacters = 5000;
-            var currentLength = maxCharacters - characters;
-            document.getElementById('updatedCharacterCount').textContent = currentLength + " characters remaining";
+        function editCommentCharacterCount(commentID) {
+            document.getElementById('updatedCommentContent-' + commentID).addEventListener('input', function() {
+                var characters = this.value.length;
+                var maxCharacters = 5000;
+                var currentLength = maxCharacters - characters;
+                document.getElementById('updatedCharacterCount-' + commentID).textContent = currentLength + " characters remaining";
             });
+        }
         
         document.getElementById('submitComment').addEventListener('click', function() {
             document.getElementById('characterCount').textContent = "5000 characters remaining";
