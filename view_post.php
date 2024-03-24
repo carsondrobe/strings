@@ -186,7 +186,7 @@
                                                                         <form method="post" action="edit_comment.php">
                                                                             <input type="hidden" name="commentID" value="' . $comment['commentID'] . '">
                                                                             <textarea class="form-control" id="updatedCommentContent" name="updatedContent" rows="3" style="margin-bottom: 15px;">' . ($comment['content']) . '</textarea>
-                                                                            <div id="characterCount" style="float: right;"></div>
+                                                                            <div id="updatedCharacterCount" style="float: right;"></div>
                                                                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                                                                             <button type="button" onclick="cancelEditComment(' . $comment['commentID'] . ')" class="btn btn-secondary btn-sm">Cancel</button>
                                                                         </form>
@@ -329,7 +329,7 @@
             var characters = this.value.length;
             var maxCharacters = 5000;
             var currentLength = maxCharacters - characters;
-            document.getElementById('characterCount').textContent = currentLength + " characters remaining";
+            document.getElementById('updatedCharacterCount').textContent = currentLength + " characters remaining";
             });
         
         document.getElementById('submitComment').addEventListener('click', function() {
