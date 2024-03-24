@@ -296,7 +296,7 @@
                         <div class="card-body">
                             <p class="card-text"><strong>✏️ Written By: ${data.username || 'You'} | ${data.timePosted}</strong></p>
                             <p class="card-text">${commentContent}</p>
-                            <button onclick="editComment(${data.commentId})" data-commentId="${data.commentId}" class="btn btn-outline-info btn-sm edit-comment-btn" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
+                            <button type="submit" onclick="editComment(${data.commentId})" data-commentId="${data.commentId}" class="btn btn-outline-info btn-sm edit-comment-btn" style="text-align: left; display: inline;" id="edit-comment-btn">Edit Comment</button>
                             <form method="post" action="delete_comment.php" style="text-align: right;">
                                 <input type="hidden" name="commentID" value="${data.commentId}">
                                 <button type="button" class="btn btn-danger btn-sm" style="text-align: right; display: inline;" id="delete-comment-btn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete Comment</button>
