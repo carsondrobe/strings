@@ -22,6 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if content is over limit
     if (strlen($content) > 5000) {
         $response['message'] = "Your comment content exceeds the maximum allowed length of 5000 characters. Please shorten your post.";
+    } elseif(strlen($content) == 0) {
+        $response['message'] = "You cannot submit an empty comment.";
     } else {
         // Create prepared statement and bind parameters
         $stmt = $conn->prepare("INSERT INTO Comments (discussionID, username, content, timePosted) VALUES (?, ?, ?, ?)");
