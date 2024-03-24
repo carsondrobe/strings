@@ -161,7 +161,6 @@
                 $stmt2->execute();
                 $result2 = $stmt2->get_result();
                 $num_comments = $result2->num_rows;
-                if ($num_comments > 0) {
                     if ($num_comments == 0) {
                         echo '
                                             <p class="card-text" id="numComments">No one has commented yet, be the first!</p>';
@@ -172,6 +171,7 @@
                         echo '
                                             <p class="card-text" id="numComments">' . $num_comments . ' Comments</p>';
                     }
+                    if ($num_comments > 0) {
                     while ($comment = $result2->fetch_assoc()) {
                         echo '
                                                 <div class="card" id="comment-' . $comment['commentID'] . '">
