@@ -43,7 +43,7 @@ body {
     box-shadow: 1px 1px 5px grey;
 }
 
-.card:hover {
+.post-card:hover {
     cursor: pointer;
     transform: translateY(-3px) translateX(3px);
     box-shadow: 1px 1px 15px black;
