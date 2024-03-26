@@ -220,7 +220,7 @@
                             $contentPeek = substr($row['content'], 0, 100);
                             $contentPeek .= '...';
                             echo '
-            <div class="row justify-content-center">
+            <div class="row">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
