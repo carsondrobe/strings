@@ -152,7 +152,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-11">
+            <div class="col-md-11 justify-content-center">
                 <!-- Main content -->
                 <!-- Posts will be dynamically generated here -->
                 <div class="container" id="postContainer">
@@ -197,7 +197,7 @@
 
                             echo '<!-- Filter Button -->
                 <div class="container">
-                    <div class="row ">
+                    <div class="row justify-content-center">
                         <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
                             <div class="dropdown" id="filter-dropdown">
                                 <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
@@ -220,7 +220,7 @@
                             $contentPeek = substr($row['content'], 0, 100);
                             $contentPeek .= '...';
                             echo '
-            <div class="row">
+            <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
