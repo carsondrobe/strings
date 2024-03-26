@@ -197,7 +197,7 @@
 
                             echo '<!-- Filter Button -->
                 <div class="container">
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
                             <div class="dropdown" id="filter-dropdown">
                                 <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
@@ -220,7 +220,7 @@
                             $contentPeek = substr($row['content'], 0, 100);
                             $contentPeek .= '...';
                             echo '
-            <div class="row justify-content-center">
+            <div class="row">
             <div class="col-6">
                 <div class="card">
                         <div class="card-body">
