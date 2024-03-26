@@ -132,49 +132,70 @@
         }
     </script>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <h2>Topics</h2>
+                    <ul>
+                        <li><a href="index.php?topic=art">Art</a></li>
+                        <li><a href="index.php?topic=technology">Technology</a></li>
+                        <li><a href="index.php?topic=politics">Politics</a></li>
+                        <li><a href="index.php?topic=science">Science</a></li>
+                        <li><a href="index.php?topic=history">History</a></li>
+                        <li><a href="index.php?topic=food">Food</a></li>
+                        <li><a href="index.php?topic=travel">Travel</a></li>
+                        <li><a href="index.php?topic=health">Health</a></li>
+                        <li><a href="index.php?topic=education">Education</a></li>
+                        <li><a href="index.php?topic=entertainment">Entertainment</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <!-- Main content -->
+                <!-- Posts will be dynamically generated here -->
+                <div class="container" id="postContainer">
+                    <!-- PHP script for displaying a post on the home page -->
+                    <?php
+                    session_start();
+                    include 'config.php';
+                    $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+                    $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
 
-    <!-- Posts will be dynamically generated here -->
-    <div class="container" id="postContainer">
-        <!-- PHP script for displaying a post on the home page -->
-        <?php
-        session_start();
-        include 'config.php';
-        $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
-        $topic = isset($_GET['topic']) ? $_GET['topic'] : null;
 
+                    if ($_GET['query'] == null) {
+                        $query = "SELECT * FROM Discussions";
+                        if ($topic != null) {
+                            $query .= " WHERE category = '$topic'";
+                        }
+                    } else {
+                        $search = $_GET['query'];
+                        $search = htmlspecialchars($search);
+                        $search = mysqli_real_escape_string($conn, $search);
+                        $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
+                        if ($topic != null) {
+                            $query .= " AND category = '$topic'";
+                        }
+                    }
 
-        if ($_GET['query'] == null) {
-            $query = "SELECT * FROM Discussions";
-            if ($topic != null) {
-                $query .= " WHERE category = '$topic'";
-            }
-        } else {
-            $search = $_GET['query'];
-            $search = htmlspecialchars($search);
-            $search = mysqli_real_escape_string($conn, $search);
-            $query = "SELECT * FROM Discussions WHERE ((`title` LIKE '%" . $search . "%') OR (`content` LIKE '%" . $search . "%'))";
-            if ($topic != null) {
-                $query .= " AND category = '$topic'";
-            }
-        }
+                    if ($filter == 'highest') {
+                        $query .= " ORDER BY upvotes DESC";
+                    } else if ($filter == 'recent') {
+                        $query .= " ORDER BY time_posted DESC";
+                    } else if ($filter == 'oldest') {
+                        $query .= " ORDER BY time_posted ASC";
+                    }
+                    try {
+                        $result = $conn->query($query);
+                        if ($result->num_rows == 0) {
+                            echo '<h1 style="text-align:center;">No results found</h1>';
+                        } else {
+                            $queryStringHighest = buildQueryStringFilter('highest', $topic);
+                            $queryStringRecent = buildQueryStringFilter('recent', $topic);
+                            $queryStringOldest = buildQueryStringFilter('oldest', $topic);
 
-        if ($filter == 'highest') {
-            $query .= " ORDER BY upvotes DESC";
-        } else if ($filter == 'recent') {
-            $query .= " ORDER BY time_posted DESC";
-        } else if ($filter == 'oldest') {
-            $query .= " ORDER BY time_posted ASC";
-        }
-        try {
-            $result = $conn->query($query);
-            if ($result->num_rows == 0) {
-                echo '<h1 style="text-align:center;">No results found</h1>';
-            } else {
-                $queryStringHighest = buildQueryStringFilter('highest', $topic);
-                $queryStringRecent = buildQueryStringFilter('recent', $topic);
-                $queryStringOldest = buildQueryStringFilter('oldest', $topic);
-
-                echo '<!-- Filter Button -->
+                            echo '<!-- Filter Button -->
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
@@ -192,13 +213,13 @@
                         </div>
                     </div>
                 </div>';
-            }
+                        }
 
-            while ($row = $result->fetch_assoc()) {
-                $imageData = base64_encode($row['discussion_picture']);
-                $contentPeek = substr($row['content'], 0, 100);
-                $contentPeek .= '...';
-                echo '
+                        while ($row = $result->fetch_assoc()) {
+                            $imageData = base64_encode($row['discussion_picture']);
+                            $contentPeek = substr($row['content'], 0, 100);
+                            $contentPeek .= '...';
+                            echo '
             <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card">
@@ -223,39 +244,31 @@
                 </div>
             </div>
             ';
-            }
-            // $conn->close();
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-        function buildQueryStringFilter($filter, $topic)
-        {
-            $queryParams = array(
-                'query' => $_GET['query'],
-                'filter' => $filter,
-                'topic' => $topic
-            );
-            return http_build_query($queryParams);
-        }
+                        }
+                        // $conn->close();
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
+                    function buildQueryStringFilter($filter, $topic)
+                    {
+                        $queryParams = array(
+                            'query' => $_GET['query'],
+                            'filter' => $filter,
+                            'topic' => $topic
+                        );
+                        return http_build_query($queryParams);
+                    }
 
-        ?>
+                    ?>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="sidebar">
-        <h2>Topics</h2>
-        <ul>
-            <li><a href="index.php?topic=art">Art</a></li>
-            <li><a href="index.php?topic=technology">Technology</a></li>
-            <li><a href="index.php?topic=politics">Politics</a></li>
-            <li><a href="index.php?topic=science">Science</a></li>
-            <li><a href="index.php?topic=history">History</a></li>
-            <li><a href="index.php?topic=food">Food</a></li>
-            <li><a href="index.php?topic=travel">Travel</a></li>
-            <li><a href="index.php?topic=health">Health</a></li>
-            <li><a href="index.php?topic=education">Education</a></li>
-            <li><a href="index.php?topic=entertainment">Entertainment</a></li>
-        </ul>
-    </div>
+
+
+
 
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
