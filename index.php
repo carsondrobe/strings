@@ -241,6 +241,22 @@
         ?>
     </div>
 
+    <div class="sidebar">
+        <h2>Topics</h2>
+        <ul>
+            <li><a href="index.php?topic=art">Art</a></li>
+            <li><a href="index.php?topic=technology">Technology</a></li>
+            <li><a href="index.php?topic=politics">Politics</a></li>
+            <li><a href="index.php?topic=science">Science</a></li>
+            <li><a href="index.php?topic=history">History</a></li>
+            <li><a href="index.php?topic=food">Food</a></li>
+            <li><a href="index.php?topic=travel">Travel</a></li>
+            <li><a href="index.php?topic=health">Health</a></li>
+            <li><a href="index.php?topic=education">Education</a></li>
+            <li><a href="index.php?topic=entertainment">Entertainment</a></li>
+        </ul>
+    </div>
+
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
             event.preventDefault();
