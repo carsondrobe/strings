@@ -135,17 +135,6 @@
 
     <!-- Posts will be dynamically generated here -->
     <div class="container" id="postContainer">
-        <div class="card categories-sidebar">
-            <div class="card-header">
-                <h5>Categories</h5>
-            </div>
-            <ul class="nav nav-pills flex-column list-group list-group-flush">
-                <li class="nav-item list-group-item"><a class="nav-link" href="#">Category 1</a></li>
-                <li class="nav-item list-group-item"><a class="nav-link" href="#">Category 2</a></li>
-                <li class="nav-item list-group-item"><a class="nav-link" href="#">Category 3</a></li>
-                <!-- Add more categories as needed -->
-            </ul>
-        </div>
         <!-- PHP script for displaying a post on the home page -->
         <?php
         session_start();

@@ -38,12 +38,12 @@ body {
     color: #000;
 }
 
-.post-card {
+.card {
     transition: all 0.3s ease-in-out;
     box-shadow: 1px 1px 5px grey;
 }
 
-.post-card:hover {
+.card:hover {
     cursor: pointer;
     transform: translateY(-3px) translateX(3px);
     box-shadow: 1px 1px 15px black;
@@ -58,41 +58,4 @@ body {
     font-weight: bold;
     /* font-style: italic;  */
     float: left;
-}
-
-.categories-sidebar {
-    position: fixed;
-    top: 100px;
-    /* Adjust based on your header/nav height */
-    right: 0;
-    width: 200px;
-    /* Adjust based on your preference */
-    background-color: #f8f9fa;
-    /* A light background color */
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    height: calc(100% - 100px);
-    /* Adjust based on your header/nav height */
-    overflow-y: auto;
-}
-
-.categories-sidebar h5 {
-    margin-bottom: 15px;
-}
-
-.categories-sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.categories-sidebar ul li a {
-    text-decoration: none;
-    color: #007bff;
-    /* Bootstrap primary color */
-    display: block;
-    padding: 5px 0;
-}
-
-.categories-sidebar ul li a:hover {
-    text-decoration: underline;
 }
