@@ -60,18 +60,39 @@ body {
     float: left;
 }
 
-.sidebar {
+.categories-sidebar {
     position: fixed;
-    top: 50%;
-    left: 0;
-    width: 300px;
-    /* Adjust as needed */
-    transform: translateY(-50%);
+    top: 100px;
+    /* Adjust based on your header/nav height */
+    right: 0;
+    width: 200px;
+    /* Adjust based on your preference */
+    background-color: #f8f9fa;
+    /* A light background color */
     padding: 20px;
-    background-color: #f5f5f5;
-    /* Adjust as needed */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    height: calc(100% - 100px);
+    /* Adjust based on your header/nav height */
     overflow-y: auto;
-    /* Add a scrollbar if the content is too long */
-    border-right: 1px solid #ccc;
-    /* Add a border if you like */
+}
+
+.categories-sidebar h5 {
+    margin-bottom: 15px;
+}
+
+.categories-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.categories-sidebar ul li a {
+    text-decoration: none;
+    color: #007bff;
+    /* Bootstrap primary color */
+    display: block;
+    padding: 5px 0;
+}
+
+.categories-sidebar ul li a:hover {
+    text-decoration: underline;
 }
