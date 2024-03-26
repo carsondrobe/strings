@@ -152,7 +152,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-11 justify-content-center">
+            <div class="col-md-11 d-flex flex-column justify-content-center align-items-center">
                 <!-- Main content -->
                 <!-- Posts will be dynamically generated here -->
                 <div class="container" id="postContainer">
