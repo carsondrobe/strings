@@ -134,7 +134,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <h2>Topics</h2>
@@ -152,7 +152,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-11">
                 <!-- Main content -->
                 <!-- Posts will be dynamically generated here -->
                 <div class="container" id="postContainer">
