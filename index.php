@@ -135,14 +135,12 @@
 
     <!-- Posts will be dynamically generated here -->
     <div class="container" id="postContainer">
-        <div class="card categories-sidebar">
-            <div class="card-header">
-                <h5>Categories</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#">Category 1</a></li>
-                <li class="list-group-item"><a href="#">Category 2</a></li>
-                <li class="list-group-item"><a href="#">Category 3</a></li>
+        <div class="categories-sidebar">
+            <h5>Categories</h5>
+            <ul>
+                <li><a href="#">Category 1</a></li>
+                <li><a href="#">Category 2</a></li>
+                <li><a href="#">Category 3</a></li>
                 <!-- Add more categories as needed -->
             </ul>
         </div>
@@ -212,7 +210,7 @@
                 echo '
             <div class="row justify-content-center">
             <div class="col-6">
-                <div class="card">
+                <div class="card post-card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
                             <hr>

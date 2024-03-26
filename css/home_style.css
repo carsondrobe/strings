@@ -38,7 +38,7 @@ body {
     color: #000;
 }
 
-.card {
+.post-card {
     transition: all 0.3s ease-in-out;
     box-shadow: 1px 1px 5px grey;
 }
