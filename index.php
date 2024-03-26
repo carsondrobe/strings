@@ -135,6 +135,15 @@
 
     <!-- Posts will be dynamically generated here -->
     <div class="container" id="postContainer">
+        <div class="categories-sidebar">
+            <h5>Categories</h5>
+            <ul>
+                <li><a href="#">Category 1</a></li>
+                <li><a href="#">Category 2</a></li>
+                <li><a href="#">Category 3</a></li>
+                <!-- Add more categories as needed -->
+            </ul>
+        </div>
         <!-- PHP script for displaying a post on the home page -->
         <?php
         session_start();
@@ -241,15 +250,6 @@
         ?>
     </div>
 
-    <div class="categories-sidebar">
-        <h5>Categories</h5>
-        <ul>
-            <li><a href="#">Category 1</a></li>
-            <li><a href="#">Category 2</a></li>
-            <li><a href="#">Category 3</a></li>
-            <!-- Add more categories as needed -->
-        </ul>
-    </div>
 
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
