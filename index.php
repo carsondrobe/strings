@@ -134,7 +134,7 @@
 
 
     <!-- Posts will be dynamically generated here -->
-    <div class="container" id="postContainer">
+    <div class="container-fluid" id="postContainer">
         <!-- PHP script for displaying a post on the home page -->
         <?php
         session_start();
