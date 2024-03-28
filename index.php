@@ -201,7 +201,7 @@
                 echo '
             <div class="row justify-content-center">
             <div class="col-6">
-                <div class="card">
+                <div class="card post-card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
                             <hr>
@@ -240,6 +240,7 @@
 
         ?>
     </div>
+
 
     <script>
         document.querySelector('#search-users').addEventListener('submit', function(event) {
