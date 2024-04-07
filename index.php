@@ -41,6 +41,7 @@
                         </div>
                         <ul class="users" id="user-list"></ul>
                     </div>
+                    <hr>
                     <div class="row align-items-center"> 
                         <div class="col">
                             <div class="dropdown" id="reportDropdown"> 
@@ -60,7 +61,8 @@
                     <div id="generate-report" class="mt-3">
                         
                     </div>
-                  </div>';
+                    <hr>
+                </div>';
         } else {
             echo '<h1>Welcome to Strings</h1>';
         }
