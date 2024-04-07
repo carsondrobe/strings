@@ -43,16 +43,18 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col">
-                            <button class="btn btn-primary w-100 dropdown-toggle" type="button" id="reportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                View Reports
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                <li><a class="dropdown-item" href="#">This Week</a></li>
-                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                                <li><a class="dropdown-item" href="#">All Time</a></li>
-                            </ul>
+                            <div class="dropdown" id="reportDropdown"> 
+                                <button class="btn btn-outline-black rounded-pill w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    View Reports<i class="bi bi-filter"></i> 
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Week</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#">All Time</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div id="generate-report" class="mt-3">
@@ -189,7 +191,7 @@
                 echo '<!-- Filter Button -->
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-md-5"> <!-- Adjust the column width based on your layout -->
+                        <div class="col-md-5"> 
                             <div class="dropdown" id="filter-dropdown">
                                 <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
                                     Filter<i class="bi bi-filter"></i>
