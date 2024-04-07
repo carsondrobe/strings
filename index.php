@@ -40,8 +40,8 @@
                                 <button type="submit" class="btn btn-outline-primary" id="search-button">Search</button>
                             </form>
                         </div>
-                        <ul class="users" id="user-list"></ul>
                     </div>
+                    <ul class="users" id="user-list"></ul>
                     <hr>
                     <div class="row mt2"> 
                         <div class="col">
