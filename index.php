@@ -73,61 +73,57 @@
 
     <!-- Script for usage chart generation and closing -->
     <script>
-    let myChart = null;
-    async function fetchCategoryData(timeRange) {
-        const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
-        const data = await response.json();
-        return data;
-    }
-    function createChart(data) {
-        const ctx = document.getElementById('categoryChart').getContext('2d');
-        if (myChart) {
-            myChart.destroy();
-        }   
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.map(row => row.category),
-                datasets: [{
-                    label: 'Number of Posts',
-                    data: data.map(row => row.post_count),
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                maintainAspectRatio: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+        let myChart = null;
+        async function fetchCategoryData(timeRange) {
+            const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
+            const data = await response.json();
+            return data;
+        }
+        function createChart(data) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            if (myChart) {
+                myChart.destroy();
+            }   
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(row => row.category),
+                    datasets: [{
+                        label: 'Number of Posts',
+                        data: data.map(row => row.post_count),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    }
-    function generateChart(timeRange) {
-        document.getElementById("chartContainer").style.display = "block";
-        fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
-    }
-    function hideChart() {
-        document.getElementById("chartContainer").style.display = "none";
-    }
+            });
+        }
+        function generateChart(timeRange) {
+            document.getElementById("chartContainer").style.display = "block";
+            fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
+        }
+        function hideChart() {
+            document.getElementById("chartContainer").style.display = "none";
+        }
     </script>
     <style>
         #chartContainer {
             width: 60%;
-            /* Adjust width as needed */
             margin: auto;
-            /* This centers the div */
             padding: 20px;
         }
 
         #categoryChart {
             width: 100%;
-            /* Make the canvas fill the container */
             height: auto;
-            /* Maintain aspect ratio */
         }
     </style>
 

@@ -10,7 +10,7 @@ if (!isset($_SESSION['username']) || substr($_SESSION['username'], -6) !== ".Adm
 
 // Create sql statement depending on which filter range was clicked
 $timeRange = isset($_GET['timeRange']) ? $_GET['timeRange'] : 'allTime';
-$sqlBase = "SELECT category, COUNT(*) as post_count FROM Discussions ";
+$sql = "SELECT category, COUNT(*) as post_count FROM Discussions ";
 switch ($timeRange) {
     case 'today':
         $sqlCondition = "WHERE DATE(time_posted) = CURDATE() ";
@@ -28,8 +28,9 @@ switch ($timeRange) {
         $sqlCondition = "";
         break;
 }
-$sql = $sqlBase . $sqlCondition . "GROUP BY category";
+$sql .= $sqlCondition . "GROUP BY category";
 
+// Return json data from query
 $result = $conn->query($sql);
 
 $data = array();
