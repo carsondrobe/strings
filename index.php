@@ -41,7 +41,7 @@
                         </div>
                         <ul class="users" id="user-list"></ul>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col">
                             <div class="dropdown" id="reportDropdown"> 
                                 <button class="btn btn-outline-black rounded-pill w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
