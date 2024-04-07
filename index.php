@@ -51,12 +51,12 @@
                                     View Reports<i class="bi bi-filter"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Week</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    <li><a class="dropdown-item" onclick="generateAllTimeChart()">All Time</a></li>
-                                    </ul>
+                                    <li><a class="dropdown-item" onclick="generateChart(\'today\')">Today</a></li>
+                                    <li><a class="dropdown-item" onclick="generateChart(\'thisWeek\')">This Week</a></li>
+                                    <li><a class="dropdown-item" onclick="generateChart(\'thisMonth\')">This Month</a></li>
+                                    <li><a class="dropdown-item" onclick="generateChart(\'thisYear\')">This Year</a></li>
+                                    <li><a class="dropdown-item" onclick="generateChart(\'allTime\')">All Time</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -73,9 +73,8 @@
 
     <!-- Script for usage chart generation and closing -->
     <script>
-    async function fetchCategoryData() {
-        document.getElementById("chartContainer").style.display = "block";
-        const response = await fetch('usage_by_category.php');
+    async function fetchCategoryData(timeRange) {
+        const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
         const data = await response.json();
         return data;
     }
@@ -103,8 +102,9 @@
             }
         });
     }
-    function generateAllTimeChart() {
-        fetchCategoryData().then(createChart);
+    function generateChart(timeRange) {
+        document.getElementById("chartContainer").style.display = "block";
+        fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
     }
     function hideChart() {
         document.getElementById("chartContainer").style.display = "none";

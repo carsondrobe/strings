@@ -8,9 +8,27 @@ if (!isset($_SESSION['username']) || substr($_SESSION['username'], -6) !== ".Adm
     exit;
 }
 
-$sql = "SELECT category, COUNT(*) as post_count
-        FROM Discussions
-        GROUP BY category";
+// Create sql statement depending on which filter range was clicked
+$timeRange = isset($_GET['timeRange']) ? $_GET['timeRange'] : 'allTime';
+$sqlBase = "SELECT category, COUNT(*) as post_count FROM Discussions ";
+switch ($timeRange) {
+    case 'today':
+        $sqlCondition = "WHERE DATE(time_posted) = CURDATE() ";
+        break;
+    case 'thisWeek':
+        $sqlCondition = "WHERE YEARWEEK(time_posted, 1) = YEARWEEK(CURDATE(), 1) ";
+        break;
+    case 'thisMonth':
+        $sqlCondition = "WHERE MONTH(time_posted) = MONTH(CURDATE()) AND YEAR(time_posted) = YEAR(CURDATE()) ";
+        break;
+    case 'thisYear':
+        $sqlCondition = "WHERE YEAR(time_posted) = YEAR(CURDATE()) ";
+        break;
+    default:
+        $sqlCondition = "";
+        break;
+}
+$sql = $sqlBase . $sqlCondition . "GROUP BY category";
 
 $result = $conn->query($sql);
 
