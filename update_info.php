@@ -14,14 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $dob = $_POST['DOB'];
-    $password = $_POST['password'];
-    $new_password = $_POST['new_password'];
+    $password = md5($_POST['password']);
+    $new_password = md5($_POST['new_password']);
 
     $update_query = "UPDATE User SET username = '$username', email = '$email', dob = '$dob'";
     
 
     if (!empty($new_password)) {
-        $update_query .= ", password = ".md5($new_password);
+        $update_query .= ", password = '$new_password'";
     }
 
     $update_query .= " WHERE userID = '$user_id'";
