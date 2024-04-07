@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($result->num_rows == 0) {
             $insert_stmt = $conn->prepare("INSERT INTO User (username, password, email, dob, profile_picture) VALUES (?, ?, ?, ?, ?)");
-            $insert_stmt->bind_param("sssss", $username, md5($password), $email, $dob, $profilePicture);
+            $insert_stmt->bind_param("sssss", $username, $password, $email, $dob, $profilePicture);
 
             if ($insert_stmt->execute()) {
 

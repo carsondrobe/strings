@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     if (!empty($new_password)) {
-        $update_query .= ", password = ".md5($new_password);
+        $update_query .= ", password = '$new_password'";
     }
 
     $update_query .= " WHERE userID = '$user_id'";
