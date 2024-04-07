@@ -41,7 +41,7 @@
                         </div>
                         <ul class="users" id="user-list"></ul>
                     </div>
-                    <div class="row mt-2">
+                    <div class="row">
                         <div class="col">
                             <div class="dropdown" id="reportDropdown"> 
                                 <button class="btn btn-outline-black rounded-pill w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -189,7 +189,7 @@
                 $queryStringOldest = buildQueryStringFilter('oldest', $topic);
 
                 echo '<!-- Filter Button -->
-                <div class="container mt-2">
+                <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-5"> 
                             <div class="dropdown" id="filter-dropdown">
