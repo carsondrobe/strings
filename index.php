@@ -189,7 +189,7 @@
                 $queryStringOldest = buildQueryStringFilter('oldest', $topic);
 
                 echo '<!-- Filter Button -->
-                <div class="container">
+                <div class="container mt-2">
                     <div class="row justify-content-center">
                         <div class="col-md-5"> 
                             <div class="dropdown" id="filter-dropdown">
