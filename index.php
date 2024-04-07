@@ -47,9 +47,11 @@
                                 View Reports
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-                                <li><a class="dropdown-item" href="#">Daily</a></li>
-                                <li><a class="dropdown-item" href="#">Weekly</a></li>
-                                <li><a class="dropdown-item" href="#">Monthly</a></li>
+                                <li><a class="dropdown-item" href="daily">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Week</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                                <li><a class="dropdown-item" href="#">All Time</a></li>
                             </ul>
                         </div>
                     </div>
