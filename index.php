@@ -40,7 +40,6 @@
                                 <button type="submit" class="btn btn-outline-primary" id="search-button">Search</button>
                             </form>
                         </div>
-                    </div>
                         <ul class="users" id="user-list"></ul>
                     </div>
                     <hr>
