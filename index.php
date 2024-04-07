@@ -62,7 +62,7 @@
             const data = await response.json();
             return data;
         }
-        fetchCategoryData.then(data => {
+        fetchCategoryData().then(data => {
             const ctx = document.getElementById('categoryChart').getContext('2d');
             const chart = new Chart(ctx, {
                 type: 'bar',
