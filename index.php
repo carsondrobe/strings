@@ -40,8 +40,10 @@
                             </form>
                         </div>
                         <ul class="users" id="user-list"></ul>
-                        <div class="col-auto">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="reportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <button class="btn btn-primary w-100 dropdown-toggle" type="button" id="reportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 View Reports
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="reportDropdown">
