@@ -55,13 +55,13 @@
                                     <li><a class="dropdown-item" href="#">This Week</a></li>
                                     <li><a class="dropdown-item" href="#">This Month</a></li>
                                     <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    <li><a class="dropdown-item" href="#">All Time</a></li>
-                                </ul>
+                                    <li><a class="dropdown-item" onclick="generateAllTimeChart()">All Time</a></li>
+                                    </ul>
                             </div>
                         </div>
                     </div>
-                    <div id="generate-report" class="mt-3">
-                        
+                    <div id="chartContainer">
+                        <canvas id="categoryChart"></canvas>
                     </div>
                     <hr>
                 </div>';
@@ -71,40 +71,40 @@
     }
     ?>
 
-    <div id="chartContainer">
-        <canvas id="categoryChart"></canvas>
-    </div>
-
+    <!-- Script for usage chart generation -->
     <script>
-        async function fetchCategoryData() {
-            const response = await fetch('usage_by_category.php');
-            const data = await response.json();
-            return data;
-        }
-        fetchCategoryData().then(data => {
-            const ctx = document.getElementById('categoryChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.map(row => row.category),
-                    datasets: [{
-                        label: 'Number of Posts',
-                        data: data.map(row => row.post_count),
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+    async function fetchCategoryData() {
+        const response = await fetch('usage_by_category.php');
+        const data = await response.json();
+        return data;
+    }
+    function createChart(data) {
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(row => row.category),
+                datasets: [{
+                    label: 'Number of Posts',
+                    data: data.map(row => row.post_count),
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
+            }
         });
+    }
+    function generateAllTimeChart() {
+        fetchCategoryData().then(createChart);
+    }
     </script>
     <style>
         #chartContainer {
