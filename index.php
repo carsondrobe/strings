@@ -62,7 +62,7 @@
                     </div>
                     <div id="chartContainer" style="display: none;">
                         <canvas id="categoryChart"></canvas>
-                    </div>
+                        <button type="button" class="btn-close" aria-label="Close" onclick="hideChart()"></button>                    </div>
                     <hr>
                 </div>';
         } else {
@@ -71,7 +71,7 @@
     }
     ?>
 
-    <!-- Script for usage chart generation -->
+    <!-- Script for usage chart generation and closing -->
     <script>
     async function fetchCategoryData() {
         document.getElementById("chartContainer").style.display = "block";
@@ -105,6 +105,9 @@
     }
     function generateAllTimeChart() {
         fetchCategoryData().then(createChart);
+    }
+    function hideChart() {
+        document.getElementById("chartContainer").style.display = "none";
     }
     </script>
     <style>
