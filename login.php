@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $username);
     if(substr($password, -6) === ".Admin") {
         $password = mysqli_real_escape_string($conn, $password);
+    } else {
+        $password = md5(mysqli_real_escape_string($conn, $password));
     }
-    $password = md5(mysqli_real_escape_string($conn, $password));
-
 
     $user_query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $user_query);
