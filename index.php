@@ -10,13 +10,14 @@
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
 
 <body>
     <?php include 'navbar.php'; ?>
-
 
     <?php
     if ($_GET['query'] != null) {
@@ -69,6 +70,58 @@
         }
     }
     ?>
+
+    <div id="chartContainer">
+        <canvas id="categoryChart"></canvas>
+    </div>
+
+    <script>
+        async function fetchCategoryData() {
+            const response = await fetch('usage_by_category.php');
+            const data = await response.json();
+            return data;
+        }
+        fetchCategoryData().then(data => {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(row => row.category),
+                    datasets: [{
+                        label: 'Number of Posts',
+                        data: data.map(row => row.post_count),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        #chartContainer {
+            width: 60%;
+            /* Adjust width as needed */
+            margin: auto;
+            /* This centers the div */
+            padding: 20px;
+        }
+
+        #categoryChart {
+            width: 100%;
+            /* Make the canvas fill the container */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+    </style>
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
