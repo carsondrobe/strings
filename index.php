@@ -54,7 +54,9 @@
     }
     ?>
 
-    <canvas id="categoryChart" width="400" height="400"></canvas>
+    <div id="chartContainer">
+        <canvas id="categoryChart"></canvas>
+    </div>
 
     <script>
         async function fetchCategoryData() {
@@ -77,6 +79,7 @@
                     }]
                 },
                 options: {
+                    maintainAspectRatio: true,
                     scales: {
                         y: {
                             beginAtZero: true
@@ -86,6 +89,22 @@
             });
         });
     </script>
+    <style>
+        #chartContainer {
+            width: 60%;
+            /* Adjust width as needed */
+            margin: auto;
+            /* This centers the div */
+            padding: 20px;
+        }
+
+        #categoryChart {
+            width: 100%;
+            /* Make the canvas fill the container */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+    </style>
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
