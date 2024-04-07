@@ -29,7 +29,7 @@
             echo '<h1>Welcome to Strings for Admin</h1>';
             echo '<div class="container">
                     <hr>
-                    <div class="row align-items-center"> 
+                    <div class="col align-items-center"> 
                         <div class="col-auto">
                             <p class="mb-0">Find Users:</p>
                         </div>
