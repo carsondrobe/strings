@@ -54,28 +54,36 @@
     }
     ?>
 
-    <canvas id="myChart"></canvas>
+    <canvas id="categoryChart" width="400" height="400"></canvas>
 
     <script>
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        async function fetchCategoryData() {
+            const response = await fetch('usage_by_category.php');
+            const data = await response.json();
+            return data;
+        }
+        fetchCategoryData.then(data => {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(row => row.category),
+                    datasets: [{
+                        label: 'Number of Posts',
+                        data: data.map(row => row.post_count),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
     </script>
 
