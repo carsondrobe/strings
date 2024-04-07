@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand" href="home.php">strings</a>
+            <a class="navbar-brand" href="index.php">strings</a>
             <!-- Create a Post Button -->
             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal"
                 data-bs-target="#createPostModal">Create Post ✏️ </a>

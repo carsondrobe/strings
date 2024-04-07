@@ -28,7 +28,7 @@
         if (substr($_SESSION['username'], -6) === ".Admin") {
             echo '<h1>Welcome to Strings for Admin</h1>';
             echo '<div class="container">
-                    <div class="col align-items-center"> 
+                    <div class="row align-items-center"> 
                         <div class="col-auto">
                             <p class="mb-0">Find Users:</p>
                         </div>
