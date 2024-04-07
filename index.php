@@ -27,26 +27,36 @@
         // Check for Admin
         if (substr($_SESSION['username'], -6) === ".Admin") {
             echo '<h1>Welcome to Strings for Admin</h1>';
-            echo '<!-- Search Users -->
-            <div class="container">
-                <div class="row justify-content-start">
-                    <p>
-                        Find Users:
-                    </p>
-                    <div class="col-4">
-                        <form class="input-group" style="margin-bottom: 1em;" id="search-users">
-                            <input type="search" class="form-control rounded" placeholder="Search for Username"
-                                aria-label="Search" aria-describedby="search-addon" id="search-input" />
-                            <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init id="search-button">Search</button>
-                        </form>
+            echo '<div class="container">
+                    <div class="row align-items-center"> 
+                        <div class="col-auto">
+                            <p class="mb-0">Find Users:</p>
+                        </div>
+                        <div class="col">
+                            <form class="input-group" id="search-users">
+                                <input type="search" class="form-control rounded" placeholder="Search for Username"
+                                    aria-label="Search" aria-describedby="search-addon" id="search-input" />
+                                <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init id="search-button">Search</button>
+                            </form>
+                        </div>
+                        <ul class="users" id="user-list"></ul>
                     </div>
-        
-                    <!-- User List with Delete Button -->
-                    <ul class="users" id="user-list">
+                    <div class="row">
+                        <div class="col-auto">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="reportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                View Reports
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                                <li><a class="dropdown-item" href="#">Daily</a></li>
+                                <li><a class="dropdown-item" href="#">Weekly</a></li>
+                                <li><a class="dropdown-item" href="#">Monthly</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="generate-report" class="mt-3">
                         
-                    </ul>
-                </div>
-            </div>';
+                    </div>
+                  </div>';
         } else {
             echo '<h1>Welcome to Strings</h1>';
         }

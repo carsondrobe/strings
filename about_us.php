@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand" href="home.html">strings</a>
+            <a class="navbar-brand" href="home.php">strings</a>
             <!-- Create a Post Button -->
             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal"
                 data-bs-target="#createPostModal">Create Post ✏️ </a>
@@ -31,7 +31,7 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="about_us.html">About Us</a>
+                        <a class="nav-link" href="about_us.php">About Us</a>
                     </li>
                     <!-- Trending Tab -->
                     <li class="nav-item dropdown">
@@ -114,7 +114,7 @@
                 <!-- Login Button -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
                 </ul>
 
