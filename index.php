@@ -30,10 +30,8 @@
             echo '<div class="container">
                     <hr>
                     <div class="col align-items-center"> 
-                        <div class="col-auto">
+                        <div class="row-auto">
                             <p class="mb-0">Find Users:</p>
-                        </div>
-                        <div class="col">
                             <form class="input-group" id="search-users">
                                 <input type="search" class="form-control rounded" placeholder="Search for Username"
                                     aria-label="Search" aria-describedby="search-addon" id="search-input" />
