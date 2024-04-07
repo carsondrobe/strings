@@ -29,15 +29,18 @@
             echo '<h1>Welcome to Strings for Admin</h1>';
             echo '<div class="container">
                     <hr>
-                    <div class="col align-items-center"> 
-                        <div class="row">
-                        <p>Find Users:</p>
+                    <div class="row align-items-center">
+                        <div class="col-auto"> 
+                            <p class="mb-0">Find Users:</p>
+                        </div>
+                        <div class="col">
                             <form class="input-group" id="search-users">
                                 <input type="search" class="form-control rounded" placeholder="Search for Username"
                                     aria-label="Search" aria-describedby="search-addon" id="search-input" />
-                                <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init id="search-button">Search</button>
+                                <button type="submit" class="btn btn-outline-primary" id="search-button">Search</button>
                             </form>
                         </div>
+                    </div>
                         <ul class="users" id="user-list"></ul>
                     </div>
                     <hr>
