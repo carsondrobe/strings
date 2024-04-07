@@ -73,6 +73,7 @@
 
     <!-- Script for usage chart generation and closing -->
     <script>
+    let myChart = null;
     async function fetchCategoryData(timeRange) {
         const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
         const data = await response.json();
@@ -80,7 +81,10 @@
     }
     function createChart(data) {
         const ctx = document.getElementById('categoryChart').getContext('2d');
-        const chart = new Chart(ctx, {
+        if (myChart) {
+            myChart.destroy();
+        }   
+        myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: data.map(row => row.category),
