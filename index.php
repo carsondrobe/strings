@@ -190,8 +190,8 @@
 
                 echo '<!-- Filter Button -->
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-5"> 
+                <div class="row">
+                    <div class="col-md-5"> 
                             <div class="dropdown" id="filter-dropdown">
                                 <button class="btn btn-outline-black rounded-pill dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
                                     Filter<i class="bi bi-filter"></i>
