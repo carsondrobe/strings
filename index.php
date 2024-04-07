@@ -48,7 +48,7 @@
                 </div>
             </div>';
         } else {
-            echo '<h1>Welcome to Strings</h1>';
+            echo '<h1>Welcome to Strings 1</h1>';
         }
     }
     ?>
