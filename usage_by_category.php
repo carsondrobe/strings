@@ -3,7 +3,6 @@ session_start();
 include 'config.php';
 
 // Check if the user is logged in, if not then redirect to login page
-echo $_SESSION['username'];
 if (!isset($_SESSION['username']) || substr($_SESSION['username'], -6) !== ".Admin") {
     header("Location: index.php");
     exit;
