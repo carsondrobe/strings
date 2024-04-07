@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="chartContainer">
+                    <div id="chartContainer" style="display: none;">
                         <canvas id="categoryChart"></canvas>
                     </div>
                     <hr>
