@@ -62,7 +62,7 @@
                     </div>
                     <div id="chartContainer" style="display: none;">
                         <canvas id="categoryChart"></canvas>
-                        <button type="button" class="btn-close" aria-label="Close" onclick="hideChart()"></button>                    </div>
+                        <button type="button" class="btn-close" aria-label="Close" onclick="hideChart()" style="float: right;"></button>                    </div>
                     <hr>
                 </div>';
         } else {
