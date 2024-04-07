@@ -74,6 +74,7 @@
     <!-- Script for usage chart generation -->
     <script>
     async function fetchCategoryData() {
+        document.getElementById("chartContainer").style.display = "block";
         const response = await fetch('usage_by_category.php');
         const data = await response.json();
         return data;
