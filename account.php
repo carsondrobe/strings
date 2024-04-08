@@ -147,7 +147,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\">                        
+                            <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\" style=\"text-decoration: none;\">                        
                                 <h4 class=\"card-title\">$title</h4>
                             </a>
                             <form method=\"post\" action=\"delete_discussion.php\">
@@ -165,7 +165,6 @@ $comments_result = mysqli_query($conn, $comments_query);
         </div>
     </div>
 
-    
     <div class="container">
         <div class="row justify-content-start">
             <h3>My comments:</h3>
@@ -176,7 +175,6 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $content = htmlspecialchars($comment['content']);
                         $comment_id = htmlspecialchars($comment['commentID']);
                         $content_post_id = htmlspecialchars($comment['discussionID']);
-                        // Make sure to adjust the onclick function to properly handle the post_id
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
                             <p>
@@ -185,7 +183,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                             <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id\">                        
                                 <h4>Go to post</h4>
                             </a>
-                            <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
+                            <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right; text-decoration: none;\">
                                 <input type=\"hidden\" name=\"commentID\" value=$comment_id>
                                 <button type=\"submit\" class=\"btn btn-danger btn-sm\" style=\"text-align: right; display: inline;\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                             </form>
