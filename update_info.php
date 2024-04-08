@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $dob = $_POST['DOB'];
-    if (substr($username, -6) !== ".Admin") {
+    if (substr($username, -6) === ".Admin") {
         $password = $password;
         $new_password = $_POST['new_password'];
     } else {
