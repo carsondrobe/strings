@@ -10,6 +10,8 @@
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
+    <!--Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>

@@ -1,6 +1,3 @@
-// < !--Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 let myChart = null;
 async function fetchCategoryData(timeRange) {
     const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
