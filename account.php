@@ -176,18 +176,26 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $comment_id = htmlspecialchars($comment['commentID']);
                         $content_post_id = htmlspecialchars($comment['discussionID']);
                         echo "
-                        <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <p>
-                                $content
-                            </p>
-                            <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id\" style=\"text-decoration: none;\">                        
-                                <h4>Go to post</h4>
-                            </a>
-                            <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
-                                <input type=\"hidden\" name=\"commentID\" value=$comment_id>
-                                <button type=\"submit\" class=\"btn btn-danger btn-sm\" style=\"text-align: right; display: inline;\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
-                            </form>
-                        </li>
+                        <div class='list-group-item d-flex flex-column'>
+                            <div class=\"row\">
+                                <p class=\"col-12\" style=\"overflow: auto;\">
+                                    $content
+                                </p>
+                            </div>
+                            <div class=\"row align-items-center mt-2\">
+                                <div class=\"col-6 d-flex justify-content-start\">
+                                    <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id class=\"post-link\">
+                                        <h4 class=\"card-title\">Go to post</h4>
+                                    </a>
+                                </div>
+                                <div class=\"col-6 d-flex justify-content-end\">
+                                    <form method=\"post\" action=\"delete_comment.php\" style=\"text-align: right;\">
+                                        <input type=\"hidden\" name=\"commentID\" value=\"$comment_id\">
+                                        <button type=\"submit\" class=\"btn btn-danger btn-sm\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         ";
                     }
                 } else {
