@@ -144,6 +144,11 @@ $posts_result = mysqli_query($conn, $posts_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         // Make sure to adjust the onclick function to properly handle the post_id
                         echo "<li class='list-group-item d-flex justify-content-between align-items-center' onclick='window.location.href=\"view_post.php?discussionID=$post_id\";' style='cursor: pointer;'>$title<button type='button' class='btn btn-danger' onclick='event.stopPropagation(); deletePost($post_id);'>Delete</button></li>";
+                        echo "
+                            <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\">                        
+                            <h4 class=\"card-title\">$title</h4>
+                            </a>
+                        ";
                     }
                 } else {
                     echo "Error fetching posts: " . mysqli_error($conn);
