@@ -145,7 +145,6 @@ $comments_result = mysqli_query($conn, $posts_query);
                     while ($post = mysqli_fetch_assoc($posts_result)) {
                         $title = htmlspecialchars($post['title']);
                         $post_id = htmlspecialchars($post['discussionID']);
-                        // Make sure to adjust the onclick function to properly handle the post_id
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
                             <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\">                        
@@ -183,11 +182,8 @@ $comments_result = mysqli_query($conn, $posts_query);
                             <p>
                                 $content
                             </p>
-                            <a href=\"view_post.php?discussionID=$content_post_id\" class=\"post-link\">                        
-                                <h4 class=\"card-title\">Go to post</h4>
-                            </a>
                             <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
-                                <input type=\"hidden\" name=\"commentID\" value=$comment_id>
+                                <input type=\"hidden\" name=\"commentID\" value=\"$comment_id\">
                                 <button type=\"submit\" class=\"btn btn-danger btn-sm\" style=\"text-align: right; display: inline;\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                             </form>
                         </li>
