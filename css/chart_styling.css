@@ -1,0 +1,10 @@
+#chartContainer {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+}
+
+#categoryChart {
+    width: 100%;
+    height: auto;
+}

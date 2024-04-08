@@ -10,7 +10,7 @@
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-    <!-- Chart.js -->
+    <!--Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
@@ -62,6 +62,7 @@
                     </div>
                     <div id="chartContainer" style="display: none;">
                         <canvas id="categoryChart"></canvas>
+                        <canvas id="popularityChart"></canvas>
                         <button type="button" class="btn-close" aria-label="Close" onclick="hideChart()" style="float: right;"></button>                    </div>
                     <hr>
                 </div>';
@@ -72,60 +73,8 @@
     ?>
 
     <!-- Script for usage chart generation and closing -->
-    <script>
-        let myChart = null;
-        async function fetchCategoryData(timeRange) {
-            const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
-            const data = await response.json();
-            return data;
-        }
-        function createChart(data) {
-            const ctx = document.getElementById('categoryChart').getContext('2d');
-            if (myChart) {
-                myChart.destroy();
-            }   
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.map(row => row.category),
-                    datasets: [{
-                        label: 'Number of Posts',
-                        data: data.map(row => row.post_count),
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-        function generateChart(timeRange) {
-            document.getElementById("chartContainer").style.display = "block";
-            fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
-        }
-        function hideChart() {
-            document.getElementById("chartContainer").style.display = "none";
-        }
-    </script>
-    <style>
-        #chartContainer {
-            width: 60%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        #categoryChart {
-            width: 100%;
-            height: auto;
-        }
-    </style>
+    <script src="js/usage_charts.js"></script>
+    <link href="css/chart_styling.css" rel="stylesheet">
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
