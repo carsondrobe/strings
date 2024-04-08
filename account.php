@@ -21,7 +21,6 @@ if (!$result) {
 }
 
 $row = mysqli_fetch_assoc($result);
-var_dump($row);
 if (!$row) {
     echo "Error: User not found";
     exit();
