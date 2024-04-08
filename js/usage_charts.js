@@ -8,6 +8,7 @@ async function createPopularityChart(timeRange) {
     try {
         const response = await fetch(`upvotes_by_category.php?timeRange=${timeRange}`);
         const data = await response.json();
+        console.log(data);
 
         const ctx = document.getElementById('popularityChart').getContext('2d');
         const popularityChart = new Chart(ctx, {
