@@ -147,7 +147,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <div class=\"row\" style=\"overflow: auto;\">
+                            <div class=\"row\" style=\"overflow: scroll;\">
                                 <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\" style=\"text-decoration: none;\">                        
                                     <h4 class=\"card-title\">$title</h4>
                                 </a>
