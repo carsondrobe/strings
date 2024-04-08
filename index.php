@@ -72,7 +72,7 @@
     ?>
 
     <!-- Script for usage chart generation and closing -->
-    <script src="usage_charts.js"></script>
+    <script src="js/usage_charts.js"></script>
     <link href="css/chart_styling.css" rel="stylesheet">
 
     <!-- BOOTSTRAP -->
