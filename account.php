@@ -41,6 +41,9 @@ $pfp = mysqli_real_escape_string($conn, $row['profile_picture']);
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
 
+$comments_query = "SELECT * FROM Comments WHERE username = '$username' ORDER BY time_posted DESC";
+$comments_result = mysqli_query($conn, $posts_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -146,11 +149,46 @@ $posts_result = mysqli_query($conn, $posts_query);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
                             <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\">                        
-                            <h4 class=\"card-title\">$title</h4>
+                                <h4 class=\"card-title\">$title</h4>
                             </a>
                             <form method=\"post\" action=\"delete_discussion.php\">
                                 <input type=\"hidden\" name=\"discussionID\" value=$post_id>
-                                <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
+                                <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block; margin-top: auto;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
+                            </form>
+                        </li>
+                        ";
+                    }
+                } else {
+                    echo "Error fetching posts: " . mysqli_error($conn);
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="row justify-content-start">
+            <h3>My comments:</h3>
+            <ul class="list-group">
+                <?php
+                if ($comments_result) {
+                    while ($comment = mysqli_fetch_assoc($comments_result)) {
+                        $content = htmlspecialchars($comment['content']);
+                        $comment_id = htmlspecialchars($comment['commentID']);
+                        $content_post_id = htmlspecialchars($comment['discussionID']);
+                        // Make sure to adjust the onclick function to properly handle the post_id
+                        echo "
+                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                            <p>
+                                $content
+                            </p>
+                            <a href=\"view_post.php?discussionID=$content_post_id\" class=\"post-link\">                        
+                                <h4 class=\"card-title\">Go to post</h4>
+                            </a>
+                            <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
+                                <input type=\"hidden\" name=\"commentID\" value=$comment_id>
+                                <button type=\"submit\" class=\"btn btn-danger btn-sm\" style=\"text-align: right; display: inline;\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                             </form>
                         </li>
                         ";
