@@ -29,6 +29,7 @@ if (!$row) {
 $username = mysqli_real_escape_string($conn, $row['username']);
 $email = mysqli_real_escape_string($conn, $row['email']);
 $dob = mysqli_real_escape_string($conn, $row['dob']);
+$pfp = mysqli_real_escape_string($conn, $row['profile_picture']);
 
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
@@ -60,7 +61,7 @@ $posts_result = mysqli_query($conn, $posts_query);
                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadProfilePicModal" style="background: none; border: none; padding: 0;">
                     <?php
 
-                    $profilePicPath = $row['profile_picture'];
+                    $profilePicPath = $pfp;
                     if (empty($profilePicPath)) {
                         $profilePicPath = "img/defaultprofile.jpeg";
                     } else {
