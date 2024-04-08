@@ -31,7 +31,17 @@ async function createPopularityChart(timeRange) {
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            // Force step size to be 1
+                            stepSize: 1,
+                            // Ensure that every tick is an integer
+                            callback: function (value) {
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            }
+                        }
                     }
                 },
                 plugins: {
