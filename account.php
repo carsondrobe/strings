@@ -28,7 +28,6 @@ $username = mysqli_real_escape_string($conn, $row['username']);
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
 
-mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
