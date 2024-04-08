@@ -15,10 +15,10 @@ $username = mysqli_real_escape_string($conn, $row['username']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (substr($username, -6) === ".Admin") {
-        $password = $_POST['password'];
+        $password = $_POST['current_password'];
         $new_password = $_POST['new_password'];
     } else {
-        $password = md5($_POST['password']);
+        $password = md5($_POST['current_password']);
         $new_password = md5($_POST['new_password']);
     }
     var_dump($password);
