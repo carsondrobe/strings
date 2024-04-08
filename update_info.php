@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $dob = $_POST['DOB'];
-    $password = $_POST['password'];
-    $new_password = $_POST['new_password'];
+    $password = md5($_POST['password']);
+    $new_password = md5($_POST['new_password']);
 
     $update_query = "UPDATE User SET username = '$username', email = '$email', dob = '$dob'";
     
