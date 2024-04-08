@@ -12,7 +12,6 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
 }
 
 $user_id = $_SESSION['user_id'];
-var_dump($user_id);
 $user_query = "SELECT * FROM User WHERE userID = '$user_id'";
 $result = mysqli_query($conn, $user_query);
 
@@ -23,6 +22,10 @@ if (!$result) {
 
 $row = mysqli_fetch_assoc($result);
 var_dump($row);
+if (!$row) {
+    echo "Error: User not found";
+    exit();
+}
 
 $username = mysqli_real_escape_string($conn, $row['username']);
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
