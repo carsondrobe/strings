@@ -95,7 +95,7 @@ $posts_result = mysqli_query($conn, $posts_query);
                 <h2>My Account</h2>
                 <div class="mb-3">
                     <label class="form-label">Username</label>
-                    <div class="form-text"><?php echo htmlspecialchars($row['username']); ?></div>
+                    <div class="form-text"><?php echo htmlspecialchars($username); ?></div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
