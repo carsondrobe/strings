@@ -150,7 +150,7 @@ $posts_result = mysqli_query($conn, $posts_query);
                             </a>
                             <form method=\"post\" action=\"delete_discussion.php\">
                                 <input type=\"hidden\" name=\"discussionID\" value=$post_id>
-                                <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block;\" id=\"delete-post-btn\" onclick=\"return confirm(\'Are you sure you want to delete this post?\');\">Delete Post</button>
+                                <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
                             </form>
                         </li>
                         ";
