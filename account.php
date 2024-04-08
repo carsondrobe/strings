@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'navbar.php';
 include 'config.php';
 // debug
@@ -16,7 +15,6 @@ $user_id = $_SESSION['user_id'];
 var_dump($user_id);
 $user_query = "SELECT * FROM User WHERE userID = '$user_id'";
 $result = mysqli_query($conn, $user_query);
-var_dump($result);
 
 if (!$result) {
     echo "Error: " . mysqli_error($conn);
