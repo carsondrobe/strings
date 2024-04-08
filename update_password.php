@@ -17,10 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = md5($_POST['password']);
         $new_password = md5($_POST['new_password']);
     }
+    var_dump($password);
+    var_dump($new_password);
 
     $check_password_query = "SELECT * FROM User WHERE userID = '$user_id' AND password = '$password'";
     $check_password_result = mysqli_query($conn, $check_password_query);
 
+    var_dump($check_password_result);
     if (mysqli_num_rows($check_password_result) > 0) {
         if (!empty($new_password)) {
             $update_query = "UPDATE User SET password = '$new_password' WHERE userID = '$user_id'";
