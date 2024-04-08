@@ -27,8 +27,15 @@ if (!$row) {
 }
 
 $username = mysqli_real_escape_string($conn, $row['username']);
+
 $email = mysqli_real_escape_string($conn, $row['email']);
+if (empty($email)) {
+    $email = "No email provided";
+}
 $dob = mysqli_real_escape_string($conn, $row['dob']);
+if (empty($dob)) {
+    $dob = "No date of birth provided";
+}
 $pfp = mysqli_real_escape_string($conn, $row['profile_picture']);
 
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
