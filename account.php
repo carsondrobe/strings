@@ -27,6 +27,9 @@ if (!$row) {
 }
 
 $username = mysqli_real_escape_string($conn, $row['username']);
+$email = mysqli_real_escape_string($conn, $row['email']);
+$dob = mysqli_real_escape_string($conn, $row['dob']);
+
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
 
@@ -99,11 +102,11 @@ $posts_result = mysqli_query($conn, $posts_query);
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
-                    <div class="form-text"><?php echo htmlspecialchars($row['email']); ?></div>
+                    <div class="form-text"><?php echo htmlspecialchars($email); ?></div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Date of Birth</label>
-                    <div class="form-text"><?php echo htmlspecialchars($row['dob']); ?></div>
+                    <div class="form-text"><?php echo htmlspecialchars($dob); ?></div>
                 </div>
 
                 <!-- Password Change Form -->
