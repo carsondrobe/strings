@@ -83,28 +83,24 @@ mysqli_close($conn);
                 </div>
             </div>
 
-            <!-- Account Information Form Column -->
+            <!-- Account Information Display -->
             <div class="col-md-8">
                 <h2>My Account</h2>
-                <form id="updateForm" method="POST" action="update_info.php">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="form-text">
-                            <?php echo htmlspecialchars($row['username']); ?>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <div class="form-text">
-                            <?php echo htmlspecialchars($row['email']); ?>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="DOB" class="form-label">Date of Birth</label>
-                        <div class="form-text">
-                            <?php echo htmlspecialchars($row['dob']); ?>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <div class="form-text"><?php echo htmlspecialchars($row['username']); ?></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <div class="form-text"><?php echo htmlspecialchars($row['email']); ?></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Date of Birth</label>
+                    <div class="form-text"><?php echo htmlspecialchars($row['dob']); ?></div>
+                </div>
+
+                <!-- Password Change Form -->
+                <form id="passwordChangeForm" method="POST" action="update_password.php">
                     <div class="mb-3">
                         <label for="new_password" class="form-label">New Password (leave blank to keep the same)</label>
                         <input type="password" class="form-control" id="new_password" name="new_password">
