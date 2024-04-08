@@ -89,9 +89,9 @@ mysqli_close($conn);
                 <form id="updateForm" method="POST" action="update_info.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <p id="username" class="form-control">
+                        <div id="usernameDisplay" class="form-text">
                             <?php echo htmlspecialchars($row['username']); ?>
-                        </p>
+                        </div>
 
                     </div>
                     <div class="mb-3">
