@@ -8,6 +8,10 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
 }
 
 $user_id = $_SESSION['user_id'];
+$user_query = "SELECT * FROM User WHERE userID = '$user_id'";
+$result = mysqli_query($conn, $user_query);
+$row = mysqli_fetch_assoc($result);
+$username = mysqli_real_escape_string($conn, $row['username']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (substr($username, -6) === ".Admin") {
