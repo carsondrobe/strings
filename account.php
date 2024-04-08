@@ -147,17 +147,15 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <div class=\"row\" style=\"overflow: auto;\">
-                                <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\" style=\"text-decoration: none;\">                        
-                                    <h4 class=\"card-title\">$title</h4>
-                                </a>
-                            </div>
-                            <div class=\"col-6 d-flex justify-content-end\" style=\"text-align: right;\">
-                                <form method=\"post\" action=\"delete_discussion.php\">
-                                    <input type=\"hidden\" name=\"discussionID\" value=$post_id>
-                                    <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block; margin-top: auto;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
-                                </form>
-                            </div>
+                        <div class=\"d-flex justify-content-between\" style=\"overflow: auto;\">
+                            <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link flex-grow-1\" style=\"text-decoration: none; margin-right: 10px;\">                        
+                                <h4 class=\"card-title mb-0\">$title</h4>
+                            </a>
+                            <form method=\"post\" action=\"delete_discussion.php\" class=\"d-flex\">
+                                <input type=\"hidden\" name=\"discussionID\" value=\"$post_id\">
+                                <button type=\"submit\" class=\"btn btn-danger\" id=\"delete-post-btn\" onclick=\"return confirm(Are you sure you want to delete this post?);\">Delete Post</button>
+                            </form>
+                        </div>                    
                         </li>
                         ";
                     }
