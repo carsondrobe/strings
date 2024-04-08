@@ -16,10 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dob = $_POST['DOB'];
     if (substr($username, -6) !== ".Admin") {
         $password = $password;
+        $new_password = $_POST['new_password'];
     } else {
         $password = md5($_POST['password']);
+        $new_password = md5($_POST['new_password']);
     }
-    $new_password = md5($_POST['new_password']);
 
     $update_query = "UPDATE User SET username = '$username', email = '$email', dob = '$dob'";
     
