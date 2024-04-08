@@ -147,13 +147,17 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\" style=\"text-decoration: none;\">                        
-                                <h4 class=\"card-title\">$title</h4>
-                            </a>
-                            <form method=\"post\" action=\"delete_discussion.php\">
-                                <input type=\"hidden\" name=\"discussionID\" value=$post_id>
-                                <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block; margin-top: auto;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
-                            </form>
+                            <div class=\"row\" style=\"overflow: auto;\">
+                                <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link\" style=\"text-decoration: none;\">                        
+                                    <h4 class=\"card-title\">$title</h4>
+                                </a>
+                            </div>
+                            <div class=\"col-6 d-flex justify-content-end\" style=\"text-align: right;\">
+                                <form method=\"post\" action=\"delete_discussion.php\">
+                                    <input type=\"hidden\" name=\"discussionID\" value=$post_id>
+                                    <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block; margin-top: auto;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
+                                </form>
+                            </div>
                         </li>
                         ";
                     }
@@ -182,7 +186,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                                     $content
                                 </p>
                             </div>
-                            <div class=\"row align-items-center mt-2\">
+                            <div class=\"row align-items-center mt-0\">
                                 <div class=\"col-6 d-flex justify-content-start\">
                                     <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id class=\"post-link\">
                                         <h4 class=\"card-title\">Go to post</h4>
