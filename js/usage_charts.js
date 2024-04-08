@@ -28,6 +28,13 @@ async function createPopularityChart(timeRange) {
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Number of Upvotes by Category'
+
+                    }
                 }
             }
         });
