@@ -75,7 +75,7 @@
     <script>
         let myChart = null;
         async function fetchCategoryData(timeRange) {
-            const response = await fetch(`/scripts/usage_by_category.php?timeRange=${timeRange}`);
+            const response = await fetch(`scripts/usage_by_category.php?timeRange=${timeRange}`);
             const data = await response.json();
             return data;
         }
