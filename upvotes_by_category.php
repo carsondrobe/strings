@@ -9,11 +9,31 @@ if (!isset($_SESSION['username']) || substr($_SESSION['username'], -6) !== ".Adm
     header("Location: index.php");
     exit;
 }
+// Create sql statement depending on which filter range was clicked
+$timeRange = isset($_GET['timeRange']) ? $_GET['timeRange'] : 'allTime';
 
-$sql = "SELECT category, SUM(upvotes) as upvotes 
-        FROM Discussions 
-        GROUP BY category
-        ORDER BY SUM(upvotes) DESC";
+$sql = "SELECT category, SUM(upvotes) as upvotes FROM Discussions ";
+
+
+switch ($timeRange) {
+    case 'today':
+        $sqlCondition = "WHERE DATE(time_posted) = CURDATE() ";
+        break;
+    case 'thisWeek':
+        $sqlCondition = "WHERE YEARWEEK(time_posted, 1) = YEARWEEK(CURDATE(), 1) ";
+        break;
+    case 'thisMonth':
+        $sqlCondition = "WHERE MONTH(time_posted) = MONTH(CURDATE()) AND YEAR(time_posted) = YEAR(CURDATE()) ";
+        break;
+    case 'thisYear':
+        $sqlCondition = "WHERE YEAR(time_posted) = YEAR(CURDATE()) ";
+        break;
+    default:
+        $sqlCondition = "";
+        break;
+}
+
+$sql .= $sqlCondition . "GROUP BY category ORDER BY SUM(upvotes) DESC";
 
 $result = $conn->query($sql);
 

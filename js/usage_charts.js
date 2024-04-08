@@ -1,8 +1,41 @@
+// < !--Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 let myChart = null;
 async function fetchCategoryData(timeRange) {
     const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
     const data = await response.json();
     return data;
+}
+async function createPopularityChart(timeRange) {
+    try {
+        const response = await fetch(`upvotes_by_category.php?timeRange=${timeRange}`);
+        const data = await response.json();
+
+        const ctx = document.getElementById('popularityChart').getContext('2d');
+        const popularityChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(item => item.category),
+                datasets: [{
+                    label: 'Total Upvotes',
+                    data: data.map(item => item.total_upvotes),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching or parsing data:', error);
+    }
 }
 
 function createChart(data) {
@@ -53,6 +86,7 @@ function createChart(data) {
 function generateChart(timeRange) {
     document.getElementById("chartContainer").style.display = "block";
     fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
+    createPopularityChart(timeRange);
 }
 
 function hideChart() {

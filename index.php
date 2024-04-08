@@ -10,8 +10,6 @@
     <!-- BOOTSTRAP -->
     <link href="css/home_style.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
@@ -62,6 +60,7 @@
                     </div>
                     <div id="chartContainer" style="display: none;">
                         <canvas id="categoryChart"></canvas>
+                        <canvas id="popularityChart"></canvas>
                         <button type="button" class="btn-close" aria-label="Close" onclick="hideChart()" style="float: right;"></button>                    </div>
                     <hr>
                 </div>';
