@@ -89,7 +89,10 @@ mysqli_close($conn);
                 <form id="updateForm" method="POST" action="update_info.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?php echo $row['username']; ?>">
+                        <p id="username" class="form-control">
+                            <?php echo htmlspecialchars($row['username']); ?>
+                        </p>
+
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
