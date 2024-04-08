@@ -89,28 +89,27 @@ mysqli_close($conn);
                 <form id="updateForm" method="POST" action="update_info.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <div id="usernameDisplay" class="form-text">
-                            <?php echo $row['username']; ?>
+                        <div class="form-text">
+                            <?php echo htmlspecialchars($row['username']); ?>
                         </div>
-
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>">
+                        <div class="form-text">
+                            <?php echo htmlspecialchars($row['email']); ?>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="DOB" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="DOB" name="DOB" value="<?php echo $row['dob']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" value="<?php echo $row['password']; ?>">
+                        <div class="form-text">
+                            <?php echo htmlspecialchars($row['dob']); ?>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="new_password" class="form-label">New Password (leave blank to keep the same)</label>
                         <input type="password" class="form-control" id="new_password" name="new_password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Information</button>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
                 </form>
             </div>
         </div>
