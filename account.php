@@ -174,7 +174,7 @@ $comments_result = mysqli_query($conn, $posts_query);
                 if ($comments_result) {
                     while ($comment = mysqli_fetch_assoc($comments_result)) {
                         $content = htmlspecialchars($comment['content']);
-                        $comment_id = htmlspecialchars($comment['commentID']);
+                        $comment_id = $comment['commentID'];
                         $content_post_id = htmlspecialchars($comment['discussionID']);
                         // Make sure to adjust the onclick function to properly handle the post_id
                         echo "
