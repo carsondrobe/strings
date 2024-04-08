@@ -17,7 +17,7 @@ async function createPopularityChart(timeRange) {
                 labels: data.map(item => item.category),
                 datasets: [{
                     label: 'Total Upvotes',
-                    data: data.map(item => item.total_upvotes),
+                    data: data.map(item => item.upvotes),
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
