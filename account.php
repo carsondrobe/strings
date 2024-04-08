@@ -41,8 +41,15 @@ $pfp = mysqli_real_escape_string($conn, $row['profile_picture']);
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
 
-$comments_query = "SELECT * FROM Comments WHERE username = '$username' ORDER BY time_posted DESC";
-$comments_result = mysqli_query($conn, $comments_query);
+$comments_query = "SELECT * FROM Comments WHERE username = ? ORDER BY time_posted DESC";
+$comments_stmt = mysqli_prepare($conn, $comments_query);
+if (!$comments_stmt) {
+    echo "Error preparing statement: " . mysqli_error($conn);
+    exit();
+}
+mysqli_stmt_bind_param($comments_stmt, 's', $username);
+mysqli_stmt_execute($comments_stmt);
+$comments_result = mysqli_stmt_get_result($comments_stmt);
 
 ?>
 
