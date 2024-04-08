@@ -156,7 +156,7 @@ $posts_result = mysqli_query($conn, $posts_query);
                             </form>
                         ";
                     }
-                    echo "</li>'"
+                    echo "</li>";
                 } else {
                     echo "Error fetching posts: " . mysqli_error($conn);
                 }
