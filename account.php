@@ -143,7 +143,7 @@ $posts_result = mysqli_query($conn, $posts_query);
                         $title = htmlspecialchars($post['title']);
                         $post_id = htmlspecialchars($post['discussionID']);
                         // Make sure to adjust the onclick function to properly handle the post_id
-                        echo "<li class='list-group-item d-flex justify-content-between align-items-center' onclick='window.location.href=\"view_post.php?post_id=$post_id\";' style='cursor: pointer;'>$title<button type='button' class='btn btn-danger' onclick='event.stopPropagation(); deletePost($post_id);'>Delete</button></li>";
+                        echo "<li class='list-group-item d-flex justify-content-between align-items-center' onclick='window.location.href=\"view_post.php?discussionID=$post_id\";' style='cursor: pointer;'>$title<button type='button' class='btn btn-danger' onclick='event.stopPropagation(); deletePost($post_id);'>Delete</button></li>";
                     }
                 } else {
                     echo "Error fetching posts: " . mysqli_error($conn);
