@@ -40,6 +40,7 @@ $pfp = mysqli_real_escape_string($conn, $row['profile_picture']);
 
 $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY time_posted DESC";
 $posts_result = mysqli_query($conn, $posts_query);
+mysqli_free_result($posts_result); 
 
 $comments_query = "SELECT * FROM Comments WHERE username = ? ORDER BY time_posted DESC";
 $comments_stmt = mysqli_prepare($conn, $comments_query);
