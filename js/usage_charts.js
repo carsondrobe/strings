@@ -1,4 +1,5 @@
 let myChart = null;
+let popularityChart = null;
 async function fetchCategoryData(timeRange) {
     const response = await fetch(`usage_by_category.php?timeRange=${timeRange}`);
     const data = await response.json();
@@ -11,7 +12,11 @@ async function createPopularityChart(timeRange) {
         console.log(data);
 
         const ctx = document.getElementById('popularityChart').getContext('2d');
-        const popularityChart = new Chart(ctx, {
+
+        if (popularityChart) {
+            popularityChart.destroy();
+        }
+        popularityChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: data.map(item => item.category),
