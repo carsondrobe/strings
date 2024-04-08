@@ -182,8 +182,8 @@ $comments_result = mysqli_query($conn, $comments_query);
                             <p>
                                 $content
                             </p>
-                            <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id\" class=\"post-link\">                        
-                                <h4 class=\"card-title\">Go to post</h4>
+                            <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id\">                        
+                                <h4>Go to post</h4>
                             </a>
                             <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
                                 <input type=\"hidden\" name=\"commentID\" value=$comment_id>
