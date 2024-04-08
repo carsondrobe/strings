@@ -79,11 +79,12 @@
             const data = await response.json();
             return data;
         }
+
         function createChart(data) {
             const ctx = document.getElementById('categoryChart').getContext('2d');
             if (myChart) {
                 myChart.destroy();
-            }   
+            }
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -102,14 +103,23 @@
                         y: {
                             beginAtZero: true
                         }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Number of Posts by Category'
+
+                        }
                     }
                 }
             });
         }
+
         function generateChart(timeRange) {
             document.getElementById("chartContainer").style.display = "block";
             fetchCategoryData(timeRange).then(createChart).catch(error => console.error('Error:', error));
         }
+
         function hideChart() {
             document.getElementById("chartContainer").style.display = "none";
         }
