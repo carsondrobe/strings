@@ -151,7 +151,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                             <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link flex-grow-1\" style=\"text-decoration: none; margin-right: 10px;\">                        
                                 <h4 class=\"card-title mb-0\">$title</h4>
                             </a>
-                            <form method=\"post\" action=\"delete_discussion.php\" class=\"d-flex\">
+                            <form method=\"post\" action=\"delete_discussion.php\" class=\"d-flex\" style=\"float: right;\">
                                 <input type=\"hidden\" name=\"discussionID\" value=\"$post_id\">
                                 <button type=\"submit\" class=\"btn btn-danger\" id=\"delete-post-btn\" onclick=\"return confirm(Are you sure you want to delete this post?);\">Delete Post</button>
                             </form>
