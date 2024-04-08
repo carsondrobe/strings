@@ -151,13 +151,13 @@ $comments_result = mysqli_query($conn, $comments_query);
                             <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link flex-grow-1\" style=\"text-decoration: none; margin-right: 10px;\">                        
                                 <h4 class=\"card-title mb-0\">$title</h4>
                             </a>
+                        </div>                    
                             <div class=\"col-6 d-flex justify-content-end\" style=\"text-align: right;\">
                                 <form method=\"post\" action=\"delete_discussion.php\">
                                     <input type=\"hidden\" name=\"discussionID\" value=$post_id>
                                     <button type=\"submit\" class=\"btn btn-danger\" style=\"float: right; display: block; margin-top: auto;\" id=\"delete-post-btn\" onclick=\"return confirm('Are you sure you want to delete this post?');\">Delete Post</button>
                                 </form>
                             </div>
-                        </div>                    
                         </li>
                         ";
                     }
