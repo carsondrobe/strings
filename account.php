@@ -42,7 +42,7 @@ $posts_query = "SELECT * FROM Discussions WHERE username = '$username' ORDER BY 
 $posts_result = mysqli_query($conn, $posts_query);
 
 $comments_query = "SELECT * FROM Comments WHERE username = '$username' ORDER BY time_posted DESC";
-$comments_result = mysqli_query($conn, $posts_query);
+$comments_result = mysqli_query($conn, $comments_query);
 
 ?>
 
@@ -174,7 +174,7 @@ $comments_result = mysqli_query($conn, $posts_query);
                 if ($comments_result) {
                     while ($comment = mysqli_fetch_assoc($comments_result)) {
                         $content = htmlspecialchars($comment['content']);
-                        $comment_id = $comment['commentID'];
+                        $comment_id = htmlspecialchars($comment['commentID']);
                         $content_post_id = htmlspecialchars($comment['discussionID']);
                         // Make sure to adjust the onclick function to properly handle the post_id
                         echo "
@@ -182,8 +182,11 @@ $comments_result = mysqli_query($conn, $posts_query);
                             <p>
                                 $content
                             </p>
+                            <a href=\"view_post.php?discussionID=$content_post_id\" class=\"post-link\">                        
+                                <h4 class=\"card-title\">Go to post</h4>
+                            </a>
                             <form method=\"post\"  action=\"delete_comment.php\" style=\"text-align: right;\">
-                                <input type=\"hidden\" name=\"commentID\" value=\"$comment_id\">
+                                <input type=\"hidden\" name=\"commentID\" value=$comment_id>
                                 <button type=\"submit\" class=\"btn btn-danger btn-sm\" style=\"text-align: right; display: inline;\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                             </form>
                         </li>
