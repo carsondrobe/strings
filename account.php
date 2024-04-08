@@ -90,7 +90,7 @@ mysqli_close($conn);
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <div id="usernameDisplay" class="form-text">
-                            <?php echo htmlspecialchars($row['username']); ?>
+                            <?php echo $row['username']; ?>
                         </div>
 
                     </div>
