@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     } else {
-        echo "<h2>Current password is incorrect. Redirecting in 10 seconds.";
+        echo "<h2>Current password is incorrect. Redirecting in 5 seconds.";
         header( "refresh:5; url=account.php" );
     }
 
