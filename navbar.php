@@ -18,7 +18,7 @@ require 'config.php'; // Include your database connection configuration file
 <link href="css/navbar.css" rel="stylesheet">
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-md bg-body-tertiary fixed-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <!-- Logo -->
         <?php
