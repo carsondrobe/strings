@@ -278,6 +278,7 @@
                 }
             };
             xhr.send();
+            xhr.delete();
         });
 
         function deleteUser(userID, element) {
