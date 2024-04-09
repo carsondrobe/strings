@@ -189,7 +189,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                             <div class=\"row align-items-center mt-0\">
                                 <div class=\"col-6 d-flex justify-content-start\">
                                     <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id class=\"post-link\">
-                                        <h4 class=\"card-title\">Go to post</h4>
+                                        <h4 class=\"card-title post-link\">Go to post</h4>
                                     </a>
                                 </div>
                                 <div class=\"col-6 d-flex justify-content-end\">
