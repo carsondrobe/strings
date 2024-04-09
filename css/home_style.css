@@ -60,3 +60,9 @@ body {
     /* font-style: italic;  */
     float: left;
 }
+
+@media (max-width: 576x) {
+    #btn-back-to-top {
+        display: none;
+    }
+}
