@@ -36,6 +36,7 @@
                         </div>
                         <div class="col">
                             <form class="input-group" id="search-users">
+                                <label for=""search-input"></label>
                                 <input type="search" class="form-control rounded" placeholder="Search for Username"
                                     aria-label="Search" aria-describedby="search-addon" id="search-input" />
                                 <button type="submit" class="btn btn-outline-primary" id="search-button">Search</button>
@@ -277,6 +278,7 @@
                 }
             };
             xhr.send();
+            $_GET['query'] = null;
         });
 
         function deleteUser(userID, element) {

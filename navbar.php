@@ -7,7 +7,7 @@ if (!function_exists('buildQueryStringTopic')) {
     {
         $queryParams = array(
             'topic' => $topic,
-            'query' => $_GET['query']
+            'query' => null
 
         );
         return http_build_query($queryParams);
