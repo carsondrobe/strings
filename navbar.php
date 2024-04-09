@@ -29,6 +29,9 @@ require 'config.php'; // Include your database connection configuration file
         }
         ?>
         <a class="navbar-brand" href="index.php"><?php echo $logo ?></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <!-- Check if user logged in with PHP -->
         <?php
         if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
@@ -43,9 +46,7 @@ require 'config.php'; // Include your database connection configuration file
 
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
                 <li class="nav-item">
                     <a class="nav-link" href="about_us.php">About Us</a>
                 </li>
