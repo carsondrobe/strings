@@ -66,3 +66,16 @@ body {
         display: none;
     }
 }
+
+/* Custom class for showing the button */
+.show-button {
+    display: none;
+    /* Hide by default */
+}
+
+/* Show the button on medium and larger screens when .show-button is applied */
+@media (min-width: 768px) {
+    .show-button {
+        display: block;
+    }
+}
