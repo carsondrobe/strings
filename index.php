@@ -122,36 +122,38 @@
     </div>
 
     <!-- Back to top button -->
-    <button type="button" class="btn btn-outline-black d-none d-md-block" id="btn-back-to-top">
+    <button type="button" class="btn btn-outline-black d-none" id="btn-back-to-top">
         Back to Top
     </button>
 
     <!-- Back to Top Logic -->
     <script>
-        // Get the button
+        //Get the button
         let mybutton = document.getElementById("btn-back-to-top");
 
-        // Function to toggle button visibility on scroll
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
         function scrollFunction() {
-            if (window.innerWidth >= 768) { // Check if the screen is medium or larger
-                if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                    mybutton.style.display = "block";
-                } else {
-                    mybutton.style.display = "none";
-                }
+            if (
+                document.body.scrollTop > 500 ||
+                document.documentElement.scrollTop > 500
+            ) {
+                $("#btn-back-to-top").addClass("d-md-block");
             } else {
-                mybutton.style.display = "none"; // Ensure button is hidden on smaller screens
+                $("#btn-back-to-top").removeClass("d-md-block");
+                mybutton.style.display = "none";
             }
         }
-
-        // Attach the scrollFunction to window's onscroll event
-        window.onscroll = scrollFunction;
-
         // When the user clicks on the button, scroll to the top of the document
-        mybutton.addEventListener("click", function() {
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
-        });
+        }
     </script>
 
 
