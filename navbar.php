@@ -6,14 +6,15 @@ if (!function_exists('buildQueryStringTopic')) {
     function buildQueryStringTopic($topic)
     {
         $queryParams = array(
-            'query' => $_GET['query'],
-            'topic' => $topic
+            'topic' => $topic,
+            'query' => null
+
         );
         return http_build_query($queryParams);
     }
 }
 
-require 'config.php'; // Include your database connection configuration file
+require 'config.php';
 ?>
 <link href="css/navbar.css" rel="stylesheet">
 
@@ -29,22 +30,24 @@ require 'config.php'; // Include your database connection configuration file
         }
         ?>
         <a class="navbar-brand" href="index.php"><?php echo $logo ?></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <!-- Check if user logged in with PHP -->
         <?php
         if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
             // Display create a post button
             echo '
             <a class="nav-link active" type="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#createPostModal">Create Post ✏️ </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+           
             ';
         }
         ?>
 
 
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+
                 <li class="nav-item">
                     <a class="nav-link" href="about_us.php">About Us</a>
                 </li>

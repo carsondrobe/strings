@@ -123,7 +123,7 @@
     </div>
 
     <!-- Back to top button -->
-    <button type="button" class="btn btn-outline-black" id="btn-back-to-top">
+    <button type="button" class="btn btn-outline-black d-none d-md-block" id="btn-back-to-top">
         Back to Top
     </button>
 
@@ -224,7 +224,7 @@
                 $contentPeek .= '...';
                 echo '
             <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-sm-10 col-md-6 col-lg-6">
                 <div class="card post-card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
@@ -278,6 +278,7 @@
                 }
             };
             xhr.send();
+            $_GET['query'] = null;
         });
 
         function deleteUser(userID, element) {
