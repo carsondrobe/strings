@@ -33,7 +33,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <form class="input-group" id="search-users">
-                                <label for=""search-input">Find Users: </label>
+                                <label for=""search-input">Find Userss: </label>
                                 <input type="search" class="form-control rounded" placeholder="Search for Username"
                                     aria-label="Search" aria-describedby="search-addon" id="search-input" />
                                 <button type="submit" class="btn btn-outline-primary" id="search-button">Search</button>
