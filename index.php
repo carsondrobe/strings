@@ -223,7 +223,7 @@
                 $contentPeek .= '...';
                 echo '
             <div class="row justify-content-center">
-            <div class="col-sm-10 col-md-6 col-lg-4">
+            <div class="col-sm-10 col-md-6 col-lg-6">
                 <div class="card post-card">
                         <div class="card-body">
                             <p class="card-text"><strong>Posted by:✏️</strong> ' . ($row['username']) . ' | <strong>Published on:</strong> ' . ($row['time_posted']) . '</p>
