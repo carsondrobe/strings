@@ -37,11 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: account.php");
                 exit();
             } else {
-                echo "Error updating password: " . mysqli_error($conn);
+                // echo "Error updating password: " . mysqli_error($conn);
             }
         }
     } else {
-        echo "Current password is incorrect.";
+        echo "<h2>Current password is incorrect. Redirecting in 10 seconds.";
+        header( "refresh:10; Location: account.php" );
     }
 
     mysqli_close($conn);
