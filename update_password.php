@@ -21,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = md5($_POST['current_password']);
         $new_password = md5($_POST['new_password']);
     }
-    var_dump($password);
-    var_dump($new_password);
+    // var_dump($password);
+    // var_dump($new_password);
 
     $check_password_query = "SELECT * FROM User WHERE userID = '$user_id' AND password = '$password'";
     $check_password_result = mysqli_query($conn, $check_password_query);
 
-    var_dump($check_password_result);
+    // var_dump($check_password_result);
     if (mysqli_num_rows($check_password_result) > 0) {
         if (!empty($new_password)) {
             $update_query = "UPDATE User SET password = '$new_password' WHERE userID = '$user_id'";
@@ -37,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: account.php");
                 exit();
             } else {
-                // echo "Error updating password: " . mysqli_error($conn);
+                echo "Error updating password: " . mysqli_error($conn);
             }
         }
     } else {
         echo "<h2>Current password is incorrect. Redirecting in 10 seconds.";
-        header( "refresh:10; Location: account.php" );
+        header( "refresh:5; url=account.php" );
     }
 
     mysqli_close($conn);
