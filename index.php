@@ -20,12 +20,10 @@
     <?php include 'navbar.php'; ?>
 
     <?php
-
-    if ($_GET['topic'] != null) {
+    if ($_GET['query'] != null) {
+        echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
+    } else if ($_GET['topic'] != null) {
         echo '<h1>Trending in ' . ucwords($_GET['topic']) . '</h1>';
-        if ($_GET['query'] != null) {
-            echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
-        }
     } else {
         // Check for Admin
         if (substr($_SESSION['username'], -6) === ".Admin") {
