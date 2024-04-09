@@ -144,7 +144,7 @@
                 $("#btn-back-to-top").addClass("d-md-block");
             } else {
                 $("#btn-back-to-top").removeClass("d-md-block");
-                mybutton.style.display = "none";
+
             }
         }
         // When the user clicks on the button, scroll to the top of the document
