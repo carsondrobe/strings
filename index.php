@@ -122,7 +122,7 @@
     </div>
 
     <!-- Back to top button -->
-    <button type="button" class="btn btn-outline-black" id="btn-back-to-top">
+    <button type="button" class="btn btn-outline-black d-none d-sm-block" id="btn-back-to-top">
         Back to Top
     </button>
 
