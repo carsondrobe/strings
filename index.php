@@ -22,6 +22,7 @@
     <?php
     if ($_GET['query'] != null) {
         echo '<h1>Search results for: ' . $_GET['query'] . '</h1>';
+        $_GET['query'] = null;
     } else if ($_GET['topic'] != null) {
         echo '<h1>Trending in ' . ucwords($_GET['topic']) . '</h1>';
     } else {
@@ -278,7 +279,6 @@
                 }
             };
             xhr.send();
-            xhr.delete();
         });
 
         function deleteUser(userID, element) {
