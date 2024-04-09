@@ -6,14 +6,15 @@ if (!function_exists('buildQueryStringTopic')) {
     function buildQueryStringTopic($topic)
     {
         $queryParams = array(
-            'query' => $_GET['query'],
-            'topic' => $topic
+            'topic' => $topic,
+            'query' => $_GET['query']
+
         );
         return http_build_query($queryParams);
     }
 }
 
-require 'config.php'; // Include your database connection configuration file
+require 'config.php';
 ?>
 <link href="css/navbar.css" rel="stylesheet">
 
