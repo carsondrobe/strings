@@ -193,7 +193,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                                     </a>
                                 </div>
                                 <div class=\"col-6 d-flex justify-content-end\">
-                                    <form method=\"post\" action=\"delete_comment.php\" style=\"text-align: right;\">
+                                    <form method=\"post\" action=\"delete_comment.php\" style=\"text-align: right; text-decoration: none;\">
                                         <input type=\"hidden\" name=\"commentID\" value=\"$comment_id\">
                                         <button type=\"submit\" class=\"btn btn-danger btn-sm\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                                     </form>
