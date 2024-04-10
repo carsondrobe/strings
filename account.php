@@ -169,7 +169,7 @@ $comments_result = mysqli_query($conn, $comments_query);
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: 1em;">
         <div class="row justify-content-start">
             <h3>My comments:</h3>
             <ul class="list-group">
