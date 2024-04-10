@@ -136,7 +136,7 @@ $comments_result = mysqli_query($conn, $comments_query);
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: 2em;">
         <div class="row justify-content-start">
             <h3>My posts:</h3>
             <ul class="list-group">
@@ -147,7 +147,7 @@ $comments_result = mysqli_query($conn, $comments_query);
                         $post_id = htmlspecialchars($post['discussionID']);
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                        <div class=\"d-flex justify-content-between\" style=\"overflow: auto;\">
+                        <div class=\"d-flex justify-content-between\">
                             <a href=\"view_post.php?discussionID=$post_id\" class=\"post-link flex-grow-1\" style=\"text-decoration: none; margin-right: 10px;\">                        
                                 <h4 class=\"card-title mb-0\">$title</h4>
                             </a>
@@ -169,7 +169,7 @@ $comments_result = mysqli_query($conn, $comments_query);
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: 2em;">
         <div class="row justify-content-start">
             <h3>My comments:</h3>
             <ul class="list-group">
@@ -188,12 +188,12 @@ $comments_result = mysqli_query($conn, $comments_query);
                             </div>
                             <div class=\"row align-items-center mt-0\">
                                 <div class=\"col-6 d-flex justify-content-start\">
-                                    <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id class=\"post-link\">
-                                        <h4 class=\"card-title post-link\">Go to post</h4>
+                                    <a href=\"view_post.php?discussionID=$content_post_id#comment-$comment_id\" style=\"text-decoration: none; color: black;\">
+                                        <h5>Go to post</h5>
                                     </a>
                                 </div>
                                 <div class=\"col-6 d-flex justify-content-end\">
-                                    <form method=\"post\" action=\"delete_comment.php\" style=\"text-align: right;\">
+                                    <form method=\"post\" action=\"delete_comment.php\" style=\"text-align: right; text-decoration: none;\">
                                         <input type=\"hidden\" name=\"commentID\" value=\"$comment_id\">
                                         <button type=\"submit\" class=\"btn btn-danger btn-sm\" id=\"delete-comment-btn-$comment_id\" onclick=\"return confirm('Are you sure you want to delete this comment?');\">Delete Comment</button>
                                     </form>
