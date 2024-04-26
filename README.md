@@ -1,4 +1,3 @@
-# Strings
 ![Screenshot 2024-04-25 at 9 43 12 PM](https://github.com/carsondrobe/strings/assets/91719000/b74a8e81-67fe-4039-9842-d44dcd2987fa)
 
 ## Overview
